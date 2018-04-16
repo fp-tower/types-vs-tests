@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Types vs Tests</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif', 'Helvetica'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz', 'Gill Sans';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono', 'Consolas', 'Courier New'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# Types
+`@JulienTruffaut`
+
+---
+# Type
+
+// TODO diagram type is a set of a values e.g. Boolean, String
+
+---
+# Function
+
+// TODO diagram function with input / output type
+
+---
+# Functional programming subset
+
+* no side effect
+* no mutation
+* no null
+* no exceptions
+* no reflection
+
+---
+# Untyped language (Javascript)
+
+```javascript
+function increment(x){
+  return x + 1;
+}
+```
+
+--
+
+```javascript
+increment(2)
+3
+```
+
+--
+
+```javascript
+increment(1.1)
+2.1
+```
+
+--
+
+```javascript
+increment("hello")
+"hello1"
+```
+
+--
+
+```javascript
+increment('c')
+"c1"
+```
+
+---
+# Typed language (Scala)
+
+```tut:silent
+def increment(x: Int): Int = x + 1
+```
+
+--
+
+```tut
+increment(2)
+```
+
+--
+
+```tut:fail
+increment(1.1)
+increment("hello")
+```
+
+---
+# Typed language (Scala)
+
+```tut:silent
+def increment(x: Int): Int = x + 1
+def increment(x: Double): Double = x + 1
+```
+
+```tut:invisible
+object Increment {
+  def increment(x: Int): Int = x + 1
+  def increment(x: Double): Double = x + 1
+}
+import Increment._
+```
+
+```tut
+increment(1)
+increment(1.1)
+```
+
+???
+Types:
+* documentation
+* avoid certain kind of error => less tests (how much?)
+
+---
+# Types
+
+// TODO diagram A is a set of values, e.g. Boolean, String
+
+---
+# Functions
+
+// TODO diagram function A => B
+
+---
+# Functions have types!
+
+// TODO diagram type of A => B
+
+---
+# Unit Tests
+
+// TODO diagram function f(x) = x + 1 with a few dots for point tested
+
+---
+# Unit Tests
+
+// TODO diagram function
+// x <= 0, f(x) = 0
+// x >  0, f(x) = x + 1
+
+---
+# Property Tests
+
+// TODO diagram f(x) > x
+
+
+
+---
+# Functions have types!
+
+Let `|A|` be the number of values of type `A`
+
+How to calculate `|A => B|` ? e.g. `|Int => Int|`
+
+---
+class: center, middle
+
+# Thanks!
+Code and slides at `julien-truffaut/types-vs-tests` on GitHub
+
+## Questions?
+
+
+ </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
