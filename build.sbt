@@ -1,5 +1,5 @@
 lazy val baseSettings: Seq[Setting[_]] = Seq(
-  scalaVersion       := "2.12.4",
+  scalaVersion       := "2.12.6",
   scalacOptions     ++= Seq(
     "-deprecation",
     "-encoding", "UTF-8",
@@ -30,6 +30,7 @@ lazy val slides = project
   .settings(moduleName := "types-vs-tests-slides")
   .settings(baseSettings: _*)
   .settings(
+    libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.14.0",
     tutSourceDirectory := baseDirectory.value / "tut",
     tutTargetDirectory := baseDirectory.value / "../docs",
     watchSources ++= (tutSourceDirectory.value ** "*.html").get

@@ -13,6 +13,14 @@
         font-family: 'Yanone Kaffeesatz', 'Gill Sans';
         font-weight: normal;
       }
+      .pull-left {
+      float: left;
+      width: 47%;
+      }
+      .pull-right {
+      float: right;
+      width: 47%;
+      }
       .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono', 'Consolas', 'Courier New'; }
     </style>
   </head>
@@ -21,16 +29,21 @@
 
 class: center, middle
 
-# Types
+# Types vs Tests
 `@JulienTruffaut`
 
 ---
-# Type
+class: center, middle
+
+# Types
+
+---
+# Types
 
 // TODO diagram type is a set of a values e.g. Boolean, String
 
 ---
-# Function
+# Functions
 
 // TODO diagram function with input / output type
 
@@ -127,6 +140,49 @@ Types:
 * avoid certain kind of error => less tests (how much?)
 
 ---
+class: center, middle
+
+# Tests
+
+---
+# Unit Tests
+
+```tut:silent
+increment(0) == 1
+increment(1) == 2
+increment(5) == 6
+```
+
+// TODO diagram function f(x) = x + 1 with a few dots for point tested
+
+---
+# Unit Tests
+
+```tut:silent
+increment(0) == 1
+increment(1) == 2
+increment(5) == 6
+```
+
+// TODO diagram function
+// x < 0, f(x) = 0
+// x >= 0, f(x) = x + 1
+
+---
+# Property Tests
+
+```tut:silent
+import org.scalacheck.Prop.forAll
+
+forAll { (x: Int) => increment(x) > x }
+```
+
+---
+class: center, middle
+
+# Types and Tests?
+
+---
 # Types
 
 // TODO diagram A is a set of values, e.g. Boolean, String
@@ -142,23 +198,81 @@ Types:
 // TODO diagram type of A => B
 
 ---
-# Unit Tests
+# Fully tested function
 
-// TODO diagram function f(x) = x + 1 with a few dots for point tested
+.pull-left[
+```scala
+increment(-2147483648) == -2147483647
+increment(-2147483647) == -2147483646
+// ...
+increment(0) == 1
+increment(1) == 2
+increment(2) == 3
+// ...
+increment(2147483646) ==  2147483647
+increment(2147483647) == -2147483648
+```
+]
+
+--
+
+.pull-right[
+// TODO diagram A => B with a single dot remaining
+]
 
 ---
-# Unit Tests
+# Compromise
 
-// TODO diagram function
-// x <= 0, f(x) = 0
-// x >  0, f(x) = x + 1
+```scala
+increment(-10) == 9
+increment(0) == 1
+increment(1) == 2
+increment(2147483647) == -2147483648
+```
 
 ---
-# Property Tests
+# Fully tested function
 
-// TODO diagram f(x) > x
+```tut:silent
+def negate(b: Boolean): Boolean =
+  if(b) false else true
+```
 
+--
 
+```tut
+negate(true)  == false
+negate(false) == true
+```
+
+---
+# Fully tested function
+
+```tut:silent
+sealed trait DayOfTheWeek
+object DayOfTheWeek {
+  case object Monday    extends DayOfTheWeek
+  case object Tuesday   extends DayOfTheWeek
+  case object Wednesday extends DayOfTheWeek
+  case object Thursday  extends DayOfTheWeek
+  case object Friday    extends DayOfTheWeek
+  case object Saturday  extends DayOfTheWeek
+  case object Sunday    extends DayOfTheWeek
+}
+
+def nextDay(b: DayOfTheWeek): DayOfTheWeek = ???
+```
+
+--
+
+```scala
+import DayOfTheWeek._
+
+nextDay(Monday)  == Tuesday
+nextDay(Tuesday) == Wednesday
+// ...
+nextDay(Sunday)  == Monday
+```
 
 ---
 # Functions have types!
