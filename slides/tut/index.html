@@ -38,23 +38,130 @@ class: center, middle
 # Types
 
 ---
+background-image: url(../img/types-1.jpg)
+
 # Types
 
-// TODO diagram type is a set of a values e.g. Boolean, String
+---
+background-image: url(../img/types-2.jpg)
+
+# Types
 
 ---
-# Functions
+# Types
 
-// TODO diagram function with input / output type
+
+```tut:silent
+val x: Int = 5
+
+val foo: String = "Hello World"
+```
+
+--
+
+```tut:fail
+val x: Int = "Hello World"
+```
+
+---
+background-image: url(../img/function.jpg)
+
+# Functions
 
 ---
 # Functional programming subset
 
+* not nondeterministic (deterministic)
+* not partial (total)
 * no side effect
 * no mutation
+* no exception
 * no null
-* no exceptions
 * no reflection
+
+---
+# Statically typed function
+
+```tut:silent
+def increment(x: Int): Int = x + 1
+```
+
+--
+
+```tut
+increment(2)
+```
+
+--
+
+```tut:fail
+increment(1.1)
+increment("hello")
+```
+
+---
+class: center, middle
+
+# Tests
+
+---
+class: center, middle
+
+# Unit Test
+
+---
+# Unit Test
+
+```tut:silent
+increment( 0) ==  1
+increment( 1) ==  2
+increment(-3) == -2
+```
+
+---
+background-image: url(../img/increment-math-unit-test-1.jpg)
+
+# Unit Test
+
+---
+background-image: url(../img/increment-math-unit-test-fail.jpg)
+
+# Unit Test
+
+---
+background-image: url(../img/increment-math-unit-test-2.jpg)
+
+# Unit Test
+
+---
+class: center, middle
+
+# Property Test
+
+---
+# Property Test
+
+```tut:silent
+import org.scalacheck.Prop.forAll
+
+forAll { (x: Int) => increment(x) > x }
+```
+
+---
+background-image: url(../img/increment-math-property-test-1.jpg)
+# Property Test
+
+---
+background-image: url(../img/increment-math-property-test-2.jpg)
+# Property Test
+
+---
+background-image: url(../img/increment-math-property-test-fail.jpg)
+# Property Test
+
+---
+background-image: url(../img/increment-math-property-test-3.jpg)
+# Property Test
 
 ---
 # Untyped language (Javascript)
@@ -98,26 +205,6 @@ increment('c')
 
 ```tut:silent
 def increment(x: Int): Int = x + 1
-```
-
---
-
-```tut
-increment(2)
-```
-
---
-
-```tut:fail
-increment(1.1)
-increment("hello")
-```
-
----
-# Typed language (Scala)
-
-```tut:silent
-def increment(x: Int): Int = x + 1
 def increment(x: Double): Double = x + 1
 ```
 
@@ -142,44 +229,6 @@ Types:
 ---
 class: center, middle
 
-# Tests
-
----
-# Unit Tests
-
-```tut:silent
-increment(0) == 1
-increment(1) == 2
-increment(5) == 6
-```
-
-// TODO diagram function f(x) = x + 1 with a few dots for point tested
-
----
-# Unit Tests
-
-```tut:silent
-increment(0) == 1
-increment(1) == 2
-increment(5) == 6
-```
-
-// TODO diagram function
-// x < 0, f(x) = 0
-// x >= 0, f(x) = x + 1
-
----
-# Property Tests
-
-```tut:silent
-import org.scalacheck.Prop.forAll
-
-forAll { (x: Int) => increment(x) > x }
-```
-
----
-class: center, middle
-
 # Types and Tests?
 
 ---
@@ -190,7 +239,7 @@ class: center, middle
 ---
 # Functions
 
-// TODO diagram function A => B
+// TODO diagram funtion A => B
 
 ---
 # Functions have types!
@@ -294,7 +343,9 @@ Code and slides at `julien-truffaut/types-vs-tests` on GitHub
     <script src="https://remarkjs.com/downloads/remark-latest.min.js">
     </script>
     <script>
-      var slideshow = remark.create();
+        var slideshow = remark.create({
+            ratio: "16:9"
+        });
     </script>
   </body>
 </html>
