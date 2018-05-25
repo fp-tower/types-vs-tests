@@ -51,7 +51,7 @@ background-image: url(../img/types-2.jpg)
 # Types
 
 
-```tut:silent
+```scala
 val x: Int = 5
 
 val foo: String = "Hello World"
@@ -59,8 +59,13 @@ val foo: String = "Hello World"
 
 --
 
-```tut:fail
-val x: Int = "Hello World"
+```scala
+scala> val x: Int = "Hello World"
+<console>:12: error: type mismatch;
+ found   : String("Hello World")
+ required: Int
+       val x: Int = "Hello World"
+                    ^
 ```
 
 ---
@@ -82,21 +87,33 @@ background-image: url(../img/function.jpg)
 ---
 # Statically typed function
 
-```tut:silent
+```scala
 def increment(x: Int): Int = x + 1
 ```
 
 --
 
-```tut
-increment(2)
+```scala
+scala> increment(2)
+res0: Int = 3
 ```
 
 --
 
-```tut:fail
-increment(1.1)
-increment("hello")
+```scala
+scala> increment(1.1)
+<console>:14: error: type mismatch;
+ found   : Double(1.1)
+ required: Int
+       increment(1.1)
+                 ^
+
+scala> increment("hello")
+<console>:14: error: type mismatch;
+ found   : String("hello")
+ required: Int
+       increment("hello")
+                 ^
 ```
 
 ---
@@ -112,7 +129,7 @@ class: center, middle
 ---
 # Unit Test
 
-```tut:silent
+```scala
 increment( 0) ==  1
 increment( 1) ==  2
 increment(-3) == -2
@@ -141,7 +158,7 @@ class: center, middle
 ---
 # Property Test
 
-```tut:silent
+```scala
 import org.scalacheck.Prop.forAll
 
 forAll { (x: Int) => increment(x) > x }
@@ -235,15 +252,26 @@ increment("hello")
 ---
 # Typed language (Scala)
 
-```tut:silent
+```scala
 def increment(x: Int): Int = x + 1
 ```
 
 --
 
-```tut:fail
-increment(1.1)
-increment("hello")
+```scala
+scala> increment(1.1)
+<console>:15: error: type mismatch;
+ found   : Double(1.1)
+ required: Int
+       increment(1.1)
+                 ^
+
+scala> increment("hello")
+<console>:15: error: type mismatch;
+ found   : String("hello")
+ required: Int
+       increment("hello")
+                 ^
 ```
 
 ???
@@ -307,22 +335,25 @@ increment(2147483647) == -2147483648
 ---
 # Fully tested function
 
-```tut:silent
+```scala
 def negate(b: Boolean): Boolean =
   if(b) false else true
 ```
 
 --
 
-```tut
-negate(true)  == false
-negate(false) == true
+```scala
+scala> negate(true)  == false
+res9: Boolean = true
+
+scala> negate(false) == true
+res10: Boolean = true
 ```
 
 ---
 # Fully tested function
 
-```tut:silent
+```scala
 sealed trait DayOfTheWeek
 object DayOfTheWeek {
   case object Monday    extends DayOfTheWeek
