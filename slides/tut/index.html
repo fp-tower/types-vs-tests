@@ -206,33 +206,6 @@ increment('c')
 ```
 
 ---
-# Untyped language (Javascript)
-
-```javascript
-function increment(x){
-  if(isNaN(x)) return 0;
-  else return x + 1;
-}
-```
-
---
-
-```javascript
-increment(2)
-3
-```
-
-```javascript
-increment(1.1)
-2.1
-```
-
-```javascript
-increment("hello")
-0
-```
-
----
 # Typed language (Scala)
 
 ```tut:silent
@@ -246,63 +219,52 @@ increment(1.1)
 increment("hello")
 ```
 
-???
-Types:
-* documentation
-* avoid certain kind of error => less tests (how much?)
+---
+class: center, middle
+
+# Types constrain the implementation such as we have less tests to write
 
 ---
 class: center, middle
 
-# Types and Tests?
+# How much?
 
 ---
+class: center, middle
+
+# Are all types equals?
+
+
+---
+background-image: url(img/types-1.jpg)
+
 # Types
 
-// TODO diagram A is a set of values, e.g. Boolean, String
+---
+class: center, middle
+
+# A => B
 
 ---
-# Functions
+background-image: url(img/int-to-int-type.jpg)
 
-// TODO diagram funtion A => B
-
----
 # Functions have types!
 
-// TODO diagram type of A => B
+---
+background-image: url(img/int-to-int-type-test-1.jpg)
+
+# Unit test
 
 ---
+background-image: url(img/int-to-int-type-test-2.jpg)
+
+# Unit test
+
+---
+background-image: url(img/int-to-int-type-test-3.jpg)
+
 # Fully tested function
 
-.pull-left[
-```scala
-increment(-2147483648) == -2147483647
-increment(-2147483647) == -2147483646
-// ...
-increment(0) == 1
-increment(1) == 2
-increment(2) == 3
-// ...
-increment(2147483646) ==  2147483647
-increment(2147483647) == -2147483648
-```
-]
-
---
-
-.pull-right[
-// TODO diagram A => B with a single dot remaining
-]
-
----
-# Compromise
-
-```scala
-increment(-10) == 9
-increment(0) == 1
-increment(1) == 2
-increment(2147483647) == -2147483648
-```
 
 ---
 # Fully tested function
@@ -347,6 +309,14 @@ nextDay(Tuesday) == Wednesday
 // ...
 nextDay(Sunday)  == Monday
 ```
+
+---
+background-image: url(img/foo-to-bar-1.jpg)
+
+# Compromise
+
+---
+background-image: url(img/foo-to-bar-2.jpg)
 
 ---
 # Functions have types!
