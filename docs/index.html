@@ -274,7 +274,12 @@ class: center, middle
 # A => B
 
 ---
-background-image: url(img/int-to-int-type.jpg)
+background-image: url(img/int-to-int-type-1.jpg)
+
+# Functions have types!
+
+---
+background-image: url(img/int-to-int-type-2.jpg)
 
 # Functions have types!
 
@@ -286,75 +291,216 @@ background-image: url(img/int-to-int-type-test-1.jpg)
 ---
 background-image: url(img/int-to-int-type-test-2.jpg)
 
-# Unit test
+# Fully tested function
 
 ---
 background-image: url(img/int-to-int-type-test-3.jpg)
 
-# Fully tested function
-
-
----
-# Fully tested function
-
-```scala
-def negate(b: Boolean): Boolean =
-  if(b) false else true
-```
-
---
-
-```scala
-scala> negate(true)  == false
-res9: Boolean = true
-
-scala> negate(false) == true
-res10: Boolean = true
-```
-
----
-# Fully tested function
-
-```scala
-sealed trait DayOfTheWeek
-object DayOfTheWeek {
-  case object Monday    extends DayOfTheWeek
-  case object Tuesday   extends DayOfTheWeek
-  case object Wednesday extends DayOfTheWeek
-  case object Thursday  extends DayOfTheWeek
-  case object Friday    extends DayOfTheWeek
-  case object Saturday  extends DayOfTheWeek
-  case object Sunday    extends DayOfTheWeek
-}
-
-def nextDay(b: DayOfTheWeek): DayOfTheWeek = ???
-```
-
---
-
-```scala
-import DayOfTheWeek._
-
-nextDay(Monday)  == Tuesday
-nextDay(Tuesday) == Wednesday
-// ...
-nextDay(Sunday)  == Monday
-```
-
----
-background-image: url(img/foo-to-bar-1.jpg)
-
 # Compromise
 
 ---
-background-image: url(img/foo-to-bar-2.jpg)
+background-image: url(img/function.jpg)
+
+# Function is a mapping
 
 ---
-# Functions have types!
+background-image: url(img/function-mapping-1.jpg)
 
-Let `|A|` be the number of values of type `A`
+# Function is a mapping
 
-How to calculate `|A => B|` ? e.g. `|Int => Int|`
+---
+background-image: url(img/count-A-to-B-1.jpg)
+
+# |A => B|
+
+---
+background-image: url(img/count-A-to-B-2.jpg)
+
+# |A => B|
+
+---
+background-image: url(img/count-A-to-B-3.jpg)
+
+# |A => B|
+
+---
+background-image: url(img/count-A-to-B-4.jpg)
+
+# |A => B|
+
+---
+class: center, middle
+
+# |A|
+
+
+---
+# |Boolean|
+
+--
+
+```haskel
+data Boolean = True | False
+```
+
+--
+
+```scala
+|Boolean| = 2
+```
+
+---
+# |Unit|
+
+--
+
+```scala
+case object Unit
+```
+
+```scala
+scala> Unit
+res9: Unit.type = object scala.Unit
+```
+
+--
+
+```scala
+scala> ()
+```
+
+--
+
+```scala
+|Unit| = 1
+```
+
+---
+# |Char|
+
+--
+
+```scala
+scala> 'a'
+res11: Char = a
+
+scala> '8'
+res12: Char = 8
+
+scala> ';'
+res13: Char = ;
+```
+
+--
+
+
+`Char` encodes characters with 8 bits, so
+
+```scala
+|Char| = 2^8 - 1 == 255
+```
+
+---
+# |Option[Unit]|
+
+```scala
+Option[Unit] = None | Some(())
+```
+
+--
+
+```scala
+|Option[Unit]| = 2
+```
+
+
+---
+# |Option[Boolean]|
+
+```scala
+Option[Boolean] = None | Some(true) | Some(false)
+```
+
+--
+
+```scala
+|Option[Boolean]| = 3
+```
+
+---
+# BooleanOrChar
+
+```scala
+sealed trait BooleanOrChar
+object BooleanOrChar {
+  case class B(x: Boolean) extends BooleanOrChar
+  case class C(x: Char) extends BooleanOrChar
+}
+```
+
+--
+
+```scala
+BooleanOrChar = Boolean | Char
+```
+
+--
+
+```scala
+|BooleanOrChar| = |Boolean| + |Char|
+                = 2 + 255
+                = 257
+```
+
+---
+# |(Boolean, Unit)|
+
+```scala
+(Boolean, Unit) = (true, ()) | (false, ())
+```
+
+--
+
+```scala
+|(Boolean, Unit)| = 2
+```
+
+---
+# |(Boolean, Char)|
+
+--
+
+```scala
+(Boolean, Char) = (true, x: Char) | (false, x: Char)
+```
+
+--
+
+```scala
+|(Boolean, Char)| = 2 * |Char|
+                  = 2 * 255
+                  = 510
+```
+
+---
+# Id
+
+```scala
+case class Id[A](id: Char, value: A)
+```
+
+--
+
+```scala
+Id[A] = (c: Char, a: A)
+```
+
+--
+
+```scala
+|Id[A]| = |Char| * |A|
+        = 255    * |A|
+```
 
 ---
 class: center, middle
