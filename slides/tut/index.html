@@ -234,12 +234,6 @@ class: center, middle
 
 # Are all types equals?
 
-
----
-background-image: url(img/types-1.jpg)
-
-# Types
-
 ---
 class: center, middle
 
@@ -269,6 +263,21 @@ background-image: url(img/int-to-int-type-test-2.jpg)
 background-image: url(img/int-to-int-type-test-3.jpg)
 
 # Compromise
+
+---
+background-image: url(img/function-one-value.jpg)
+
+# Single value set
+
+---
+class: center, middle
+
+# `Boolean => Unit`
+
+---
+class: center, middle
+
+# |A => B| ?
 
 ---
 background-image: url(img/function.jpg)
@@ -303,170 +312,192 @@ background-image: url(img/count-A-to-B-4.jpg)
 ---
 class: center, middle
 
-# |A|
-
-
----
-# |Boolean|
-
---
-
-```haskel
-data Boolean = True | False
-```
-
---
-
 ```scala
-|Boolean| = 2
+|Int => Int| = |Int| ^ |Int|
+             = (2^32) ^ (2^32)
 ```
 
 ---
-# |Unit|
+class: center, middle
 
---
-
-```scala
-case object Unit
-```
-
-```tut
-Unit
-```
-
---
-
-```tut
-()
-```
-
---
-
-```scala
-|Unit| = 1
-```
+# |A| ?
 
 ---
-# |Char|
+# Or
+
+## `Boolean` is `true` **OR** `false`
 
 --
 
-```tut
-'a'
-'8'
-';'
-```
+## `Char` is `'a'` **OR** `'b'` **OR** ... **OR** `'!'` **OR** ...
 
 --
 
-
-`Char` encodes characters with 8 bits, so
-
-```scala
-|Char| = 2^8 - 1 == 255
-```
-
----
-# |Option[Unit]|
-
-```scala
-Option[Unit] = None | Some(())
-```
+## `DayOfTheWeek` is `Monday` **OR** `Tuesday` **OR** ...
 
 --
 
-```scala
-|Option[Unit]| = 2
-```
+## `Option[A]` is `None` **OR** a `Some[A]`
+
+--
+
+## `Either[E, A]` is a `Left[E]` **OR** a `Right[A]`
 
 
 ---
-# |Option[Boolean]|
+# Coproduct / Sum type
 
 ```scala
-Option[Boolean] = None | Some(true) | Some(false)
+Foo is a Bar OR a Fizz
+
+|Foo| = |Bar| + |Fizz|
 ```
 
 --
 
 ```scala
-|Option[Boolean]| = 3
+|Boolean| = |true| + |false|
+          = 1 + 1
+          = 2
+```
+
+--
+
+```scala
+|Option[A]| = |None| + |Some[A]|
+            = 1 + |A|
 ```
 
 ---
-# BooleanOrChar
+# And
+
+## `LocalDate` is an `Int` (year) **AND** a `Short` (month) **AND** a `Short` (day)
+
+--
+
+## `Person` is a `String` (name) **AND** an `Int` (age)
+
+--
+
+## `(Int, String)` is an `Int` **AND** a `String`
+
+---
+# Product type
+
+```scala
+Foo is a Bar AND a Fizz
+
+|Foo| = |Bar| * |Fizz|
+```
+
+--
+
+```scala
+|(Boolean, Char)| = |Boolean| * |Char|
+                  = 2 * 256
+                  = 512
+```
+
+--
+
+```scala
+|Person| = |String| * |Int|
+```
+
+---
+class: center, middle
+
+# Algebraic data type
+
+
+---
+# Example
 
 ```tut:silent
-sealed trait BooleanOrChar
-object BooleanOrChar {
-  case class B(x: Boolean) extends BooleanOrChar
-  case class C(x: Char) extends BooleanOrChar
+def isAdult(age: Int): Boolean = age >= 18
+```
+
+```tut
+isAdult(25)
+isAdult(18)
+isAdult(5)
+```
+
+--
+
+```tut
+isAdult(-10)
+```
+
+---
+# Example
+
+```tut:silent
+def isAdult(age: Int): Option[Boolean] = {
+  if(age < 0) None
+  else Some(age >= 18)
 }
 ```
 
---
-
-```scala
-BooleanOrChar = Boolean | Char
-```
-
---
-
-```scala
-|BooleanOrChar| = |Boolean| + |Char|
-                = 2 + 255
-                = 257
+```tut
+isAdult(25)
+isAdult(18)
+isAdult(5)
+isAdult(-10)
 ```
 
 ---
-# |(Boolean, Unit)|
+background-image: url(img/isAdult-1.jpg)
+
+# isAdult
+
+---
+background-image: url(img/isAdult-2.jpg)
+
+# isAdult
+
+---
+# |isAdult|
 
 ```scala
-(Boolean, Unit) = (true, ()) | (false, ())
+|Int => Option[Boolean]| = |Option[Boolean]| ^ |Int|
+                         = (1 + |Boolean|) ^ (2^32)
+                         = 3 ^ (2^32)
 ```
 
---
-
 ```scala
-|(Boolean, Unit)| = 2
+|PosInt => Boolean| = |Boolean| ^ |Int / 2|
+                    = 2 ^ (2^31)
 ```
 
 ---
-# |(Boolean, Char)|
-
---
-
-```scala
-(Boolean, Char) = (true, x: Char) | (false, x: Char)
-```
-
---
-
-```scala
-|(Boolean, Char)| = 2 * |Char|
-                  = 2 * 255
-                  = 510
-```
-
----
-# Id
+# Refinement types
 
 ```tut:silent
-case class Id[A](id: Char, value: A)
+import eu.timepit.refined._
+import eu.timepit.refined.api.Refined
+import eu.timepit.refined.auto._
+import eu.timepit.refined.numeric._
+
+type PosInt = Int Refined Positive
+
+def isAdult(i: PosInt): Boolean = i.value >= 18
 ```
 
 --
 
-```scala
-Id[A] = (c: Char, a: A)
+```tut
+isAdult(5)
+isAdult(22)
 ```
 
 --
 
-```scala
-|Id[A]| = |Char| * |A|
-        = 255    * |A|
+
+```tut:fail
+isAdult(-2)
 ```
+
 
 ---
 class: center, middle

@@ -12,6 +12,7 @@ lazy val baseSettings: Seq[Setting[_]] = Seq(
     "-Ywarn-value-discard",
     "-Xfuture"
   ),
+  libraryDependencies += "eu.timepit" %% "refined" % "0.9.0",
   resolvers += Resolver.sonatypeRepo("releases")
 )
 
