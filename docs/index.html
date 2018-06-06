@@ -48,36 +48,40 @@ background-image: url(img/types-2.jpg)
 # Types
 
 ---
+background-image: url(img/types-3.jpg)
+
 # Types
 
+---
+# Values
 
 ```scala
 val x: Int = 5
 
-val foo: String = "Hello World"
+val foo: Boolean = true
 ```
 
 --
 
 ```scala
-scala> val x: Int = "Hello World"
+scala> val y: Int = false
 <console>:12: error: type mismatch;
- found   : String("Hello World")
+ found   : Boolean(false)
  required: Int
-       val x: Int = "Hello World"
+       val y: Int = false
                     ^
 ```
 
 ---
 background-image: url(img/function.jpg)
 
-# Functions
+# Function
 
 ---
 # Functional programming subset
 
-* not nondeterministic (deterministic)
-* not partial (total)
+* deterministic
+* total
 * no side effect
 * no mutation
 * no exception
@@ -85,7 +89,7 @@ background-image: url(img/function.jpg)
 * no reflection
 
 ---
-# Statically typed function
+# Function
 
 ```scala
 def increment(x: Int): Int = x + 1
@@ -96,18 +100,14 @@ def increment(x: Int): Int = x + 1
 ```scala
 scala> increment(2)
 res0: Int = 3
+
+scala> increment(-5)
+res1: Int = -4
 ```
 
 --
 
 ```scala
-scala> increment(1.1)
-<console>:14: error: type mismatch;
- found   : Double(1.1)
- required: Int
-       increment(1.1)
-                 ^
-
 scala> increment("hello")
 <console>:14: error: type mismatch;
  found   : String("hello")
@@ -124,10 +124,10 @@ class: center, middle
 ---
 class: center, middle
 
-# Unit Test
+# Unit Tests
 
 ---
-# Unit Test
+# Unit Tests
 
 ```scala
 increment( 0) ==  1
@@ -159,9 +159,14 @@ class: center, middle
 # Property Test
 
 ```scala
-import org.scalacheck.Prop.forAll
+import org.scalatest.FreeSpec
+import org.scalatest.prop.Checkers
 
-forAll { (x: Int) => increment(x) > x }
+class IncrementTest extends FreeSpec with Checkers {
+
+  "f(x) > x" in check((x: Int) => increment(x) > x)
+
+}
 ```
 
 ---
@@ -181,76 +186,90 @@ background-image: url(img/increment-math-property-test-3.jpg)
 # Property Test
 
 ---
-class: center, middle
+# Property Test
 
-# Types and Tests?
+```scala
+import org.scalatest.FreeSpec
+import org.scalatest.prop.Checkers
 
----
-# Untyped language (Javascript)
+class IncrementTest extends FreeSpec with Checkers {
 
-```javascript
-function increment(x){
-  return x + 1;
+  "f(x) > x" in check((x: Int) => increment(x) > x)
+
 }
 ```
 
---
+---
+class: middle
 
-```javascript
-increment(2)
-3
-```
-
---
-
-```javascript
-increment(1.1)
-2.1
-```
-
---
-
-```javascript
-increment("hello")
-"hello1"
-```
-
---
-
-```javascript
-increment('c')
-"c1"
+```scala
+GeneratorDrivenPropertyCheckFailedException was thrown during property evaluation.
+ (IncrementTest.scala:10)
+  Falsified after 4 successful property evaluations.
+  Location: (IncrementTest.scala:10)
+  Occurred when passed generated values (
+    arg0 = 2147483647
+  )
 ```
 
 ---
-# Typed language (Scala)
+# Property Test
 
 ```scala
-def increment(x: Int): Int = x + 1
+import eu.timepit.refined.numeric.Less
+import org.scalatest.FreeSpec
+import org.scalatest.prop.Checkers
+import eu.timepit.refined.W
+import eu.timepit.refined.api.Refined
+import eu.timepit.refined.scalacheck.numeric._
+
+class IncrementTest extends FreeSpec with Checkers {
+
+  final val maxInt = Int.MaxValue
+
+  "f(x) > x" in check((x: Int Refined Less[W.`maxInt`.T]) =>
+    increment(x.value) > x.value
+  )
+
+}
 ```
 
---
+---
+class: center, middle
+
+# Types and Tests
+
+---
+
+.pull-left[
+# Types
 
 ```scala
-scala> increment(1.1)
-<console>:15: error: type mismatch;
- found   : Double(1.1)
- required: Int
-       increment(1.1)
-                 ^
-
 scala> increment("hello")
-<console>:15: error: type mismatch;
+<console>:28: error: type mismatch;
  found   : String("hello")
  required: Int
        increment("hello")
                  ^
 ```
+]
+
+.pull-right[
+# Tests
+
+```scala
+import org.scalacheck.Prop.forAll
+
+increment(0) == 1
+
+forAll((x: Int) => increment(x) > x)
+```
+]
 
 ---
 class: center, middle
 
-# Types constrain the implementation such as we have less tests to write
+# Both types and tests constrain the implementation of a function
 
 ---
 class: center, middle
@@ -260,37 +279,68 @@ class: center, middle
 ---
 class: center, middle
 
-# Are all types equals?
-
----
-class: center, middle
-
 # A => B
 
 ---
-background-image: url(img/int-to-int-type-1.jpg)
+class: middle
 
-# Functions have types!
+```scala
+val isEven: Int => Boolean =
+  x => x % 2 == 0
+
+val increment: Int => Int =
+  x => x + 1
+```
+
+---
+background-image: url(img/A-to-B-set.jpg)
+
+# Functions are sets!
 
 ---
 background-image: url(img/int-to-int-type-2.jpg)
 
-# Functions have types!
+# Functions are sets!
 
 ---
 background-image: url(img/int-to-int-type-test-1.jpg)
 
-# Unit test
-
----
-background-image: url(img/int-to-int-type-test-2.jpg)
-
-# Fully tested function
+# Unit tests
 
 ---
 background-image: url(img/int-to-int-type-test-3.jpg)
 
-# Compromise
+# Unit + Property tests
+
+---
+class: center, middle
+
+# Both types and tests constrain the implementation of a function
+
+---
+background-image: url(img/A-to-B-constrain.jpg)
+
+# Constrain
+
+---
+background-image: url(img/int-to-int-type-fully-tested-1.jpg)
+
+# Fully tested function
+
+---
+background-image: url(img/int-to-int-type-fully-tested-2.jpg)
+
+# Fully tested function
+
+---
+class: center, middle
+
+# A function A => B requires `|A|` unit tests to be fully covered
+
+---
+background-image: url(img/A-to-B-constrain.jpg)
+
+# Constrain
 
 ---
 background-image: url(img/function-one-value.jpg)
@@ -298,9 +348,17 @@ background-image: url(img/function-one-value.jpg)
 # Single value set
 
 ---
-class: center, middle
+class: middle
 
-# `Boolean => Unit`
+```scala
+def boolToUnit(x: Boolean): Unit = ()
+```
+
+--
+
+```scala
+def toUnit[A](x: A): Unit = ()
+```
 
 ---
 class: center, middle
@@ -342,8 +400,347 @@ class: center, middle
 
 ```scala
 |Int => Int| = |Int| ^ |Int|
-             = (2^32) ^ (2^32)
+               = (2^32) ^ (2^32)
 ```
+
+--
+
+```scala
+|DayOfWeek => Boolean| = |Boolean| ^ |DayOfWeek|
+     = 2 ^ 7
+   = 128
+```
+
+---
+class: middle
+
+## 1. Functions are set
+
+## 2. Function are constrained by more tests or smaller types
+
+## 3. `|A => B| = |B| ^ |A|`
+
+
+---
+# Example: dialCode
+
+```scala
+def getDialCode(country: String): Int = ???
+```
+
+such as
+
+```scala
+getDialCode("United Kinkdom") == 44
+getDialCode("France")         == 33
+```
+
+---
+# Example: dialCode
+
+```scala
+def getDialCode(country: String): Int = country match {
+  case "United Kinkdom" => 44
+  case "France"         => 33
+  case _                => ???
+}
+```
+
+--
+
+```scala
+scala> getDialCode("United Kinkdom")
+res9: Int = 44
+
+scala> getDialCode("France")
+res10: Int = 33
+```
+
+--
+
+```scala
+scala> getDialCode("Italy")
+scala.NotImplementedError: an implementation is missing
+  at scala.Predef$.$qmark$qmark$qmark(Predef.scala:284)
+  at .getDialCode(<console>:30)
+  ... 43 elided
+```
+
+---
+# Example: dialCode
+
+```scala
+def getDialCode(country: String): Option[Int] = country match {
+  case "United Kinkdom" => Some(44)
+  case "France"         => Some(33)
+  case _                => None
+}
+```
+
+--
+
+```scala
+scala> getDialCode("United Kinkdom")
+res12: Option[Int] = Some(44)
+
+scala> getDialCode("France")
+res13: Option[Int] = Some(33)
+
+scala> getDialCode("Italy")
+res14: Option[Int] = None
+```
+
+--
+
+```scala
+scala> getDialCode("UK")
+res15: Option[Int] = None
+
+scala> getDialCode("Royaume Uni")
+res16: Option[Int] = None
+```
+
+---
+# Example: dialCode
+
+```scala
+sealed trait Country
+
+case object UnitedKingdom extends Country
+case object France extends Country
+```
+
+--
+
+```scala
+def getDialCode(country: Country): Int = country match {
+  case UnitedKingdom => 44
+  case France        => 33
+}
+```
+
+--
+
+```scala
+scala> getDialCode(UnitedKingdom)
+res17: Int = 44
+```
+
+```scala
+scala> getDialCode(Italy)
+<console>:29: error: not found: value Italy
+       getDialCode(Italy)
+                   ^
+```
+
+---
+# Example: dialCode
+
+```scala
+sealed trait Country
+
+case object UnitedKingdom extends Country
+case object France extends Country
+case object Italy extends Country
+```
+
+```scala
+def getDialCode(country: Country): Int = country match {
+  case UnitedKingdom => 44
+  case France        => 33
+}
+```
+
+--
+
+```scala
+Warning:(11, 44) match may not be exhaustive.
+It would fail on the following input: Italy
+  def getDialCode(country: Country): Int = country match {
+```
+
+---
+# Example: dialCode
+
+```scala
+def parseCountry(x: String): Option[Country] = ???
+```
+
+such as
+
+```scala
+parseCountry("United Kingdom") == Some(UnitedKingdom)
+parseCountry("UK")             == Some(UnitedKingdom)
+```
+
+---
+# Example: dialCode
+
+```scala
+|String => Option[Int]| = |Option[Int]| ^ |String|
+                        = (|Int| + 1) ^ |String|
+```
+
+--
+
+```scala
+|Country => Int| = |Int| ^ |Country|
+                 = |Int| ^ 2
+```
+
+--
+
+```scala
+|Country => DialCode| = |DialCode| ^ |Country|
+                      = 2 ^ 2
+                      = 4
+```
+
+---
+# Example: dialCode
+
+```scala
+sealed trait DialCode
+
+object _33 extends DialCode
+object _44 extends DialCode
+```
+
+--
+
+```scala
+def getDialCode(country: Country): DialCode = country match {
+  case UnitedKingdom => _44
+  case France        => _33
+}
+```
+
+--
+
+```scala
+def getCountry(dialCode: DialCode): Country = dialCode match {
+  case _33 => France
+  case _44 => France
+}
+```
+
+---
+# Example: dialCode
+
+```scala
+getDialCode(UnitedKingdom) == _44
+getCountry(_44)            == UnitedKingdom
+```
+
+--
+
+
+
+
+```scala
+class DialCodeTest extends FreeSpec with Checkers {
+
+  "round trip" in check((x: Country) =>
+    getCountry(getDialCode(x)) == x
+  )
+
+}
+```
+
+--
+
+```scala
+GeneratorDrivenPropertyCheckFailedException was thrown during property evaluation.
+ (DialCodeTest.scala:10)
+  Falsified after 2 successful property evaluations.
+  Location: (DialCodeTest.scala:10)
+  Occurred when passed generated values (
+    arg0 = UnitedKingdom
+  )
+```
+
+---
+# Example: isAdult
+
+```scala
+case class Person(name: String, age: Int)
+
+def isAdult(p: Person): Boolean =
+  p.age >= 18
+```
+
+```scala
+scala> isAdult(Person("John", 25))
+res21: Boolean = true
+
+scala> isAdult(Person("Alice", 18))
+res22: Boolean = true
+
+scala> isAdult(Person("Bob", 5))
+res23: Boolean = false
+```
+
+--
+
+```scala
+scala> isAdult(Person("George", -2))
+res24: Boolean = false
+```
+
+---
+# Refinement types
+
+```scala
+import eu.timepit.refined._
+import eu.timepit.refined.api.Refined
+import eu.timepit.refined.auto._
+import eu.timepit.refined.numeric._
+
+type PosInt = Int Refined Positive
+
+def isAdult(i: PosInt): Boolean =
+  i.value >= 18
+```
+
+--
+
+```scala
+scala> isAdult(5)
+res25: Boolean = false
+
+scala> isAdult(22)
+res26: Boolean = true
+```
+
+--
+
+```scala
+scala> isAdult(-2)
+<console>:41: error: Predicate failed: (-2 > 0).
+       isAdult(-2)
+               ^
+```
+
+---
+# |isAdult|
+
+```scala
+|Person => Boolean| = |Boolean| ^ |Person|
+                    = 2 ^ (|String| * |Int|)
+```
+
+```scala
+|PosInt => Boolean| = |Boolean| ^ |PosInt|
+                    = 2 ^ (|Int| / 2)
+```
+
+---
+class: center, middle
+
+# Thanks!
+Code and slides at `julien-truffaut/types-vs-tests` on GitHub
+
+## Questions?
 
 ---
 class: center, middle
@@ -437,122 +834,6 @@ class: center, middle
 
 # Algebraic data type
 
-
----
-# Example
-
-```scala
-def isAdult(age: Int): Boolean = age >= 18
-```
-
-```scala
-scala> isAdult(25)
-res9: Boolean = true
-
-scala> isAdult(18)
-res10: Boolean = true
-
-scala> isAdult(5)
-res11: Boolean = false
-```
-
---
-
-```scala
-scala> isAdult(-10)
-res12: Boolean = false
-```
-
----
-# Example
-
-```scala
-def isAdult(age: Int): Option[Boolean] = {
-  if(age < 0) None
-  else Some(age >= 18)
-}
-```
-
-```scala
-scala> isAdult(25)
-res13: Option[Boolean] = Some(true)
-
-scala> isAdult(18)
-res14: Option[Boolean] = Some(true)
-
-scala> isAdult(5)
-res15: Option[Boolean] = Some(false)
-
-scala> isAdult(-10)
-res16: Option[Boolean] = None
-```
-
----
-background-image: url(img/isAdult-1.jpg)
-
-# isAdult
-
----
-background-image: url(img/isAdult-2.jpg)
-
-# isAdult
-
----
-# |isAdult|
-
-```scala
-|Int => Option[Boolean]| = |Option[Boolean]| ^ |Int|
-                         = (1 + |Boolean|) ^ (2^32)
-                         = 3 ^ (2^32)
-```
-
-```scala
-|PosInt => Boolean| = |Boolean| ^ |Int / 2|
-                    = 2 ^ (2^31)
-```
-
----
-# Refinement types
-
-```scala
-import eu.timepit.refined._
-import eu.timepit.refined.api.Refined
-import eu.timepit.refined.auto._
-import eu.timepit.refined.numeric._
-
-type PosInt = Int Refined Positive
-
-def isAdult(i: PosInt): Boolean = i.value >= 18
-```
-
---
-
-```scala
-scala> isAdult(5)
-res17: Boolean = false
-
-scala> isAdult(22)
-res18: Boolean = true
-```
-
---
-
-
-```scala
-scala> isAdult(-2)
-<console>:25: error: Predicate failed: (-2 > 0).
-       isAdult(-2)
-               ^
-```
-
-
----
-class: center, middle
-
-# Thanks!
-Code and slides at `julien-truffaut/types-vs-tests` on GitHub
-
-## Questions?
 
 
  </textarea>

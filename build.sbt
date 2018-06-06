@@ -12,7 +12,12 @@ lazy val baseSettings: Seq[Setting[_]] = Seq(
     "-Ywarn-value-discard",
     "-Xfuture"
   ),
-  libraryDependencies += "eu.timepit" %% "refined" % "0.9.0",
+  libraryDependencies ++= Seq(
+    "eu.timepit"     %% "refined"    % "0.9.0",
+    "eu.timepit"     %% "refined-scalacheck" % "0.9.0",
+    "org.scalacheck" %% "scalacheck" % "1.14.0",
+    "org.scalatest"  %% "scalatest"  % "3.0.5"
+  ),
   resolvers += Resolver.sonatypeRepo("releases")
 )
 
@@ -31,7 +36,6 @@ lazy val slides = project
   .settings(moduleName := "types-vs-tests-slides")
   .settings(baseSettings: _*)
   .settings(
-    libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.14.0",
     tutSourceDirectory := baseDirectory.value / "tut",
     tutTargetDirectory := baseDirectory.value / "../docs",
     watchSources ++= (tutSourceDirectory.value ** "*.html").get
