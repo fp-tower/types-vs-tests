@@ -124,10 +124,10 @@ class: center, middle
 ---
 class: center, middle
 
-# Unit Tests
+# Unit Test
 
 ---
-# Unit Tests
+# Unit Test
 
 ```scala
 increment( 0) ==  1
@@ -186,7 +186,7 @@ background-image: url(img/increment-math-property-test-3.jpg)
 # Property Test
 
 ---
-# Property Test
+# Property Test: edge cases
 
 ```scala
 import org.scalatest.FreeSpec
@@ -199,8 +199,7 @@ class IncrementTest extends FreeSpec with Checkers {
 }
 ```
 
----
-class: middle
+--
 
 ```scala
 GeneratorDrivenPropertyCheckFailedException was thrown during property evaluation.
@@ -212,8 +211,32 @@ GeneratorDrivenPropertyCheckFailedException was thrown during property evaluatio
   )
 ```
 
+```scala
+scala> increment(2147483647)
+res6: Int = -2147483648
+```
+
 ---
-# Property Test
+# Property Test: edge cases
+
+
+```scala
+def increment(x: Int): Int = {
+  if(x < Int.MaxValue) x + 1
+  else x
+}
+```
+
+```scala
+scala> increment(5)
+res7: Int = 6
+
+scala> increment(2147483647)
+res8: Int = 2147483647
+```
+
+---
+# Property Test: refinement types
 
 ```scala
 import eu.timepit.refined.numeric.Less
@@ -293,12 +316,18 @@ val increment: Int => Int =
 ```
 
 ---
-background-image: url(img/A-to-B-set.jpg)
+background-image: url(img/A-to-B-set-1.jpg)
 
 # Functions are sets!
 
 ---
-background-image: url(img/int-to-int-type-2.jpg)
+background-image: url(img/A-to-B-set-2.jpg)
+
+# Functions are sets!
+
+
+---
+background-image: url(img/int-to-int-type-1.jpg)
 
 # Functions are sets!
 
@@ -308,39 +337,25 @@ background-image: url(img/int-to-int-type-test-1.jpg)
 # Unit tests
 
 ---
-background-image: url(img/int-to-int-type-test-3.jpg)
+background-image: url(img/int-to-int-type-test-2.jpg)
 
 # Unit + Property tests
 
 ---
 class: center, middle
 
-# Both types and tests constrain the implementation of a function
+# How to reduce the number of incorrect implementations?
 
 ---
 background-image: url(img/A-to-B-constrain.jpg)
 
 # Constrain
-
----
-background-image: url(img/int-to-int-type-fully-tested-1.jpg)
-
-# Fully tested function
-
----
-background-image: url(img/int-to-int-type-fully-tested-2.jpg)
-
-# Fully tested function
 
 ---
 class: center, middle
 
-# A function A => B requires `|A|` unit tests to be fully covered
+# Smaller sets
 
----
-background-image: url(img/A-to-B-constrain.jpg)
-
-# Constrain
 
 ---
 background-image: url(img/function-one-value.jpg)
@@ -351,7 +366,10 @@ background-image: url(img/function-one-value.jpg)
 class: middle
 
 ```scala
-def boolToUnit(x: Boolean): Unit = ()
+def boolToUnit(x: Boolean): Unit = x match {
+  case true  => ()
+  case false => ()
+}
 ```
 
 --
@@ -412,14 +430,80 @@ class: center, middle
 ```
 
 ---
+class: center, middle
+
+# More tests
+
+---
+background-image: url(img/day-week-to-boolean-1.jpg)
+
+---
+class: center, middle
+
+# How many implementations a single unit test renders invalid?
+
+---
+background-image: url(img/day-week-to-boolean-2.jpg)
+
+---
+# Unit test
+
+```scala
+val f: DayOfWeek => Boolean = ???
+```
+
+such as
+
+```scala
+isWeekend(Tuesday) == false
+```
+
+---
+background-image: url(img/count-day-week-to-boolean-1.jpg)
+
+# Unit Test
+
+---
+background-image: url(img/count-day-week-to-boolean-2.jpg)
+
+# Unit Test
+
+---
+background-image: url(img/count-day-week-to-boolean-3.jpg)
+
+# Unit Test
+
+---
+background-image: url(img/count-day-week-to-boolean-4.jpg)
+
+# Unit Test
+
+---
+class: center, middle
+
+# A unit test divides the size of |A => B| by |B|
+
+---
+class: center, middle
+
+# A function A => B requires `|A|` unit tests to be fully covered
+
+---
 class: middle
 
 ## 1. Functions are set
 
-## 2. Function are constrained by more tests or smaller types
+## 2. Functions are constrained by using smaller types or more tests
 
 ## 3. `|A => B| = |B| ^ |A|`
 
+## 4. Each unit test divides `|A => B|` by `|B|`
+
+
+---
+class: center, middle
+
+# Examples
 
 ---
 # Example: dialCode
@@ -450,10 +534,10 @@ def getDialCode(country: String): Int = country match {
 
 ```scala
 scala> getDialCode("United Kinkdom")
-res9: Int = 44
+res12: Int = 44
 
 scala> getDialCode("France")
-res10: Int = 33
+res13: Int = 33
 ```
 
 --
@@ -481,23 +565,23 @@ def getDialCode(country: String): Option[Int] = country match {
 
 ```scala
 scala> getDialCode("United Kinkdom")
-res12: Option[Int] = Some(44)
+res15: Option[Int] = Some(44)
 
 scala> getDialCode("France")
-res13: Option[Int] = Some(33)
+res16: Option[Int] = Some(33)
 
 scala> getDialCode("Italy")
-res14: Option[Int] = None
+res17: Option[Int] = None
 ```
 
 --
 
 ```scala
 scala> getDialCode("UK")
-res15: Option[Int] = None
+res18: Option[Int] = None
 
 scala> getDialCode("Royaume Uni")
-res16: Option[Int] = None
+res19: Option[Int] = None
 ```
 
 ---
@@ -523,7 +607,7 @@ def getDialCode(country: Country): Int = country match {
 
 ```scala
 scala> getDialCode(UnitedKingdom)
-res17: Int = 44
+res20: Int = 44
 ```
 
 ```scala
@@ -671,20 +755,20 @@ def isAdult(p: Person): Boolean =
 
 ```scala
 scala> isAdult(Person("John", 25))
-res21: Boolean = true
+res24: Boolean = true
 
 scala> isAdult(Person("Alice", 18))
-res22: Boolean = true
+res25: Boolean = true
 
 scala> isAdult(Person("Bob", 5))
-res23: Boolean = false
+res26: Boolean = false
 ```
 
 --
 
 ```scala
 scala> isAdult(Person("George", -2))
-res24: Boolean = false
+res27: Boolean = false
 ```
 
 ---
@@ -706,10 +790,10 @@ def isAdult(i: PosInt): Boolean =
 
 ```scala
 scala> isAdult(5)
-res25: Boolean = false
+res28: Boolean = false
 
 scala> isAdult(22)
-res26: Boolean = true
+res29: Boolean = true
 ```
 
 --
