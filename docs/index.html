@@ -344,23 +344,28 @@ background-image: url(img/int-to-int-type-test-2.jpg)
 ---
 class: center, middle
 
-# How to reduce the number of incorrect implementations?
+# How to constrain a function?
 
 ---
 background-image: url(img/A-to-B-constrain.jpg)
 
-# Constrain
+# Constraints
 
 ---
 class: center, middle
 
-# Smaller sets
+# Smaller types
 
 
 ---
 background-image: url(img/function-one-value.jpg)
 
-# Single value set
+# Single value function type
+
+---
+class: center, middle
+
+# |A => B| == 1
 
 ---
 class: middle
@@ -372,7 +377,8 @@ def boolToUnit(x: Boolean): Unit = x match {
 }
 ```
 
---
+---
+class: middle
 
 ```scala
 def toUnit[A](x: A): Unit = ()
@@ -491,7 +497,7 @@ class: center, middle
 ---
 class: middle
 
-## 1. Functions are set
+## 1. Functions are sets
 
 ## 2. Functions are constrained by using smaller types or more tests
 
@@ -712,8 +718,11 @@ def getCountry(dialCode: DialCode): Country = dialCode match {
 # Example: dialCode
 
 ```scala
-getDialCode(UnitedKingdom) == _44
-getCountry(_44)            == UnitedKingdom
+scala> getDialCode(France)
+res22: DialCode = _33$@2c6e750b
+
+scala> getCountry(_33)
+res23: Country = France
 ```
 
 --
@@ -744,35 +753,60 @@ GeneratorDrivenPropertyCheckFailedException was thrown during property evaluatio
 ```
 
 ---
-# Example: isAdult
+# Example: Person
 
 ```scala
-case class Person(name: String, age: Int)
-
-def isAdult(p: Person): Boolean =
-  p.age >= 18
-```
-
-```scala
-scala> isAdult(Person("John", 25))
-res24: Boolean = true
-
-scala> isAdult(Person("Alice", 18))
-res25: Boolean = true
-
-scala> isAdult(Person("Bob", 5))
-res26: Boolean = false
+case class Person(name: String, age: Int) {
+  require(age >= 0, "age must be positive")
+}
 ```
 
 --
 
 ```scala
-scala> isAdult(Person("George", -2))
-res27: Boolean = false
+scala> Person("John", 25)
+res24: Person = Person(John,25)
+
+scala> Person("Alice", 12)
+res25: Person = Person(Alice,12)
+```
+
+--
+
+```scala
+scala> Person("George", -2)
+java.lang.IllegalArgumentException: requirement failed: age must be positive
+  at scala.Predef$.require(Predef.scala:277)
+  ... 44 elided
 ```
 
 ---
-# Refinement types
+# Example: Person with smart constructor
+
+```scala
+case class Person(name: String, age: Int)
+
+def mkPerson(name: String, age: Int): Option[Person] = {
+  if(age < 0) None
+  else Some(Person(name, age))
+}
+```
+
+--
+
+```scala
+scala> mkPerson("John", 25)
+res27: Option[Person] = Some(Person(John,25))
+
+scala> mkPerson("Alice", 12)
+res28: Option[Person] = Some(Person(Alice,12))
+
+scala> mkPerson("George", -2)
+res29: Option[Person] = None
+```
+
+---
+# Example: Person with refinement types
 
 ```scala
 import eu.timepit.refined._
@@ -782,40 +816,42 @@ import eu.timepit.refined.numeric._
 
 type PosInt = Int Refined Positive
 
-def isAdult(i: PosInt): Boolean =
-  i.value >= 18
+case class Person(name: String, age: PosInt)
 ```
 
 --
 
 ```scala
-scala> isAdult(5)
-res28: Boolean = false
+scala> Person("John", 25)
+res30: Person = Person(John,25)
 
-scala> isAdult(22)
-res29: Boolean = true
+scala> Person("Alice", 12)
+res31: Person = Person(Alice,12)
 ```
 
 --
 
 ```scala
-scala> isAdult(-2)
-<console>:41: error: Predicate failed: (-2 > 0).
-       isAdult(-2)
-               ^
+scala> Person("George", -2)
+<console>:42: error: Predicate failed: (-2 > 0).
+       Person("George", -2)
+                        ^
 ```
 
 ---
-# |isAdult|
+# Review
+
+## 1. Use smallest type as possible
+
+## 2. Use tests (unit + property) to cover the remain cases
+
+---
+# Next step
 
 ```scala
-|Person => Boolean| = |Boolean| ^ |Person|
-                    = 2 ^ (|String| * |Int|)
-```
+def mapInt(fa: Option[Int])(f: Int => Int): Option[Int] = ???
 
-```scala
-|PosInt => Boolean| = |Boolean| ^ |PosInt|
-                    = 2 ^ (|Int| / 2)
+def map[A, B](fa: Option[A])(f: A => B): Option[B] = ???
 ```
 
 ---
@@ -825,100 +861,6 @@ class: center, middle
 Code and slides at `julien-truffaut/types-vs-tests` on GitHub
 
 ## Questions?
-
----
-class: center, middle
-
-# |A| ?
-
----
-# Or
-
-## `Boolean` is `true` **OR** `false`
-
---
-
-## `Char` is `'a'` **OR** `'b'` **OR** ... **OR** `'!'` **OR** ...
-
---
-
-## `DayOfTheWeek` is `Monday` **OR** `Tuesday` **OR** ...
-
---
-
-## `Option[A]` is `None` **OR** a `Some[A]`
-
---
-
-## `Either[E, A]` is a `Left[E]` **OR** a `Right[A]`
-
-
----
-# Coproduct / Sum type
-
-```scala
-Foo is a Bar OR a Fizz
-
-|Foo| = |Bar| + |Fizz|
-```
-
---
-
-```scala
-|Boolean| = |true| + |false|
-          = 1 + 1
-          = 2
-```
-
---
-
-```scala
-|Option[A]| = |None| + |Some[A]|
-            = 1 + |A|
-```
-
----
-# And
-
-## `LocalDate` is an `Int` (year) **AND** a `Short` (month) **AND** a `Short` (day)
-
---
-
-## `Person` is a `String` (name) **AND** an `Int` (age)
-
---
-
-## `(Int, String)` is an `Int` **AND** a `String`
-
----
-# Product type
-
-```scala
-Foo is a Bar AND a Fizz
-
-|Foo| = |Bar| * |Fizz|
-```
-
---
-
-```scala
-|(Boolean, Char)| = |Boolean| * |Char|
-                  = 2 * 256
-                  = 512
-```
-
---
-
-```scala
-|Person| = |String| * |Int|
-```
-
----
-class: center, middle
-
-# Algebraic data type
-
-
 
  </textarea>
     <script src="https://remarkjs.com/downloads/remark-latest.min.js">

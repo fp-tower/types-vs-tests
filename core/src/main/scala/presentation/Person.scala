@@ -4,7 +4,9 @@ import eu.timepit.refined.api.Refined
 import eu.timepit.refined.numeric.{Greater, Positive}
 import shapeless.Nat._18
 
-case class Person(name: String, age: Int)
+case class Person(name: String, age: Int) {
+  require(age >= 0, "age must be positive")
+}
 
 case class Person_v2(name: String, age: Int Refined Positive)
 
