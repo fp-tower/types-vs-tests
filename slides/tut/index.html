@@ -21,6 +21,14 @@
       float: right;
       width: 47%;
       }
+      table {
+      border-collapse: collapse;
+      }
+      th, td {
+      padding: 10px;
+      border: 1px solid black;
+      }
+      tr:nth-child(even) {background-color: #f2f2f2;}
       .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono', 'Consolas', 'Courier New'; }
     </style>
   </head>
@@ -310,14 +318,9 @@ background-image: url(img/int-to-int-type-1.jpg)
 # Functions are sets!
 
 ---
-background-image: url(img/int-to-int-type-test-1.jpg)
+background-image: url(img/int-to-int-type-test.jpg)
 
-# Unit tests
-
----
-background-image: url(img/int-to-int-type-test-2.jpg)
-
-# Unit + Property tests
+# Tests
 
 ---
 class: center, middle
@@ -338,12 +341,7 @@ class: center, middle
 ---
 background-image: url(img/function-one-value.jpg)
 
-# Single value function type
-
----
-class: center, middle
-
-# |A => B| == 1
+# Function with one implementation
 
 ---
 class: middle
@@ -463,6 +461,21 @@ background-image: url(img/count-day-week-to-boolean-4.jpg)
 # Unit Test
 
 ---
+# Unit Test
+
+| Unit test     | Valid implementations |
+| :-----------: |:---------------------:|
+| 0             | 128                   |
+| 1             | 64                    |
+| 2             | 32                    |
+| 3             | 16                    |
+| 4             |  8                    |
+| 5             |  4                    |
+| 6             |  2                    |
+| 7             |  1                    |
+
+
+---
 class: center, middle
 
 # A unit test divides the size of |A => B| by |B|
@@ -473,6 +486,11 @@ class: center, middle
 # A function A => B requires `|A|` unit tests to be fully covered
 
 ---
+background-image: url(img/function-composition-1.jpg)
+
+# Function Composition
+
+---
 class: middle
 
 ## 1. Functions are sets
@@ -481,13 +499,9 @@ class: middle
 
 ## 3. `|A => B| = |B| ^ |A|`
 
-## 4. Each unit test divides `|A => B|` by `|B|`
+## 4. Each unit test divides by `|B|` the number of valid implementations
 
-
----
-class: center, middle
-
-# Examples
+## 5. A function requires `|A|` unit tests to be fully tested
 
 ---
 # Example: dialCode
@@ -754,6 +768,15 @@ mkPerson("George", -2)
 ```
 
 ---
+# Example: Person with smart constructor
+
+```tut:silent
+case class Person(name: String, age: Int)
+
+def isAdult(p: Person): Boolean = ???
+```
+
+---
 # Example: Person with refinement types
 
 ```tut:silent
@@ -781,14 +804,18 @@ Person("George", -2)
 ```
 
 ---
-# Review
+# Workflow
 
-## 1. Use smallest type as possible
+## 1. Use smallest input type
 
-## 2. Use tests (unit + property) to cover the remain cases
+## 2. Use unit tests to reduce valid implementations
+
+## 3. Use smallest output type
+
+## 4. Try to implement property tests
 
 ---
-# Next step
+# Next level: Parametricty
 
 ```tut:silent
 def mapInt(fa: Option[Int])(f: Int => Int): Option[Int] = ???
