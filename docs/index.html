@@ -508,11 +508,6 @@ class: center, middle
 # A function A => B requires `|A|` unit tests to be fully covered
 
 ---
-background-image: url(img/function-composition-1.jpg)
-
-# Function Composition
-
----
 class: middle
 
 ## 1. Functions are sets
@@ -733,7 +728,7 @@ def getCountry(dialCode: DialCode): Country = dialCode match {
 
 ```scala
 scala> getDialCode(France)
-res22: DialCode = _33$@fdef797
+res22: DialCode = _33$@2cc1321f
 
 scala> getCountry(_33)
 res23: Country = France
@@ -767,12 +762,38 @@ GeneratorDrivenPropertyCheckFailedException was thrown during property evaluatio
 ```
 
 ---
+# Example: Compare
+
+```scala
+def compare(x: Int, y: Int): Int = {
+  if(x < y)        -1
+  else if (x == y)  0
+  else              1
+}
+```
+
+---
+# Example: Compare
+
+```scala
+sealed trait Comparison
+
+case object LowerThan   extends Comparison
+case object EqualTo     extends Comparison
+case object GreaterThan extends Comparison
+
+def compare(x: Int, y: Int): Comparison = {
+  if(x < y)        LowerThan
+  else if (x == y) EqualTo
+  else             GreaterThan
+}
+```
+
+---
 # Example: Person
 
 ```scala
-case class Person(name: String, age: Int) {
-  require(age >= 0, "age must be positive")
-}
+case class Person(name: String, age: Int)
 ```
 
 --
@@ -783,49 +804,9 @@ res24: Person = Person(John,25)
 
 scala> Person("Alice", 12)
 res25: Person = Person(Alice,12)
-```
 
---
-
-```scala
 scala> Person("George", -2)
-java.lang.IllegalArgumentException: requirement failed: age must be positive
-  at scala.Predef$.require(Predef.scala:277)
-  ... 44 elided
-```
-
----
-# Example: Person with smart constructor
-
-```scala
-case class Person(name: String, age: Int)
-
-def mkPerson(name: String, age: Int): Option[Person] = {
-  if(age < 0) None
-  else Some(Person(name, age))
-}
-```
-
---
-
-```scala
-scala> mkPerson("John", 25)
-res27: Option[Person] = Some(Person(John,25))
-
-scala> mkPerson("Alice", 12)
-res28: Option[Person] = Some(Person(Alice,12))
-
-scala> mkPerson("George", -2)
-res29: Option[Person] = None
-```
-
----
-# Example: Person with smart constructor
-
-```scala
-case class Person(name: String, age: Int)
-
-def isAdult(p: Person): Boolean = ???
+res26: Person = Person(George,-2)
 ```
 
 ---
@@ -846,13 +827,11 @@ case class Person(name: String, age: PosInt)
 
 ```scala
 scala> Person("John", 25)
-res30: Person = Person(John,25)
+res27: Person = Person(John,25)
 
 scala> Person("Alice", 12)
-res31: Person = Person(Alice,12)
+res28: Person = Person(Alice,12)
 ```
-
---
 
 ```scala
 scala> Person("George", -2)
@@ -862,18 +841,16 @@ scala> Person("George", -2)
 ```
 
 ---
-# Workflow
+# Conclusion
 
-## 1. Use smallest input type
+## Both tests and types give us more correct program
 
-## 2. Use unit tests to reduce valid implementations
+## Smaller are the types, less tests are required
 
-## 3. Use smallest output type
-
-## 4. Try to implement property tests
+## Unit / Property based tests cover the rest
 
 ---
-# Next level: Parametricty
+# Next level: Parametricity
 
 ```scala
 def mapInt(fa: Option[Int])(f: Int => Int): Option[Int] = ???

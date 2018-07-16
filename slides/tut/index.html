@@ -486,11 +486,6 @@ class: center, middle
 # A function A => B requires `|A|` unit tests to be fully covered
 
 ---
-background-image: url(img/function-composition-1.jpg)
-
-# Function Composition
-
----
 class: middle
 
 ## 1. Functions are sets
@@ -726,12 +721,38 @@ GeneratorDrivenPropertyCheckFailedException was thrown during property evaluatio
 ```
 
 ---
+# Example: Compare
+
+```tut:silent
+def compare(x: Int, y: Int): Int = {
+  if(x < y)        -1
+  else if (x == y)  0
+  else              1
+}
+```
+
+---
+# Example: Compare
+
+```tut:silent
+sealed trait Comparison
+
+case object LowerThan   extends Comparison
+case object EqualTo     extends Comparison
+case object GreaterThan extends Comparison
+
+def compare(x: Int, y: Int): Comparison = {
+  if(x < y)        LowerThan
+  else if (x == y) EqualTo
+  else             GreaterThan
+}
+```
+
+---
 # Example: Person
 
 ```tut:silent
-case class Person(name: String, age: Int) {
-  require(age >= 0, "age must be positive")
-}
+case class Person(name: String, age: Int)
 ```
 
 --
@@ -739,41 +760,7 @@ case class Person(name: String, age: Int) {
 ```tut
 Person("John", 25)
 Person("Alice", 12)
-```
-
---
-
-```tut:fail
 Person("George", -2)
-```
-
----
-# Example: Person with smart constructor
-
-```tut:silent
-case class Person(name: String, age: Int)
-
-def mkPerson(name: String, age: Int): Option[Person] = {
-  if(age < 0) None
-  else Some(Person(name, age))
-}
-```
-
---
-
-```tut
-mkPerson("John", 25)
-mkPerson("Alice", 12)
-mkPerson("George", -2)
-```
-
----
-# Example: Person with smart constructor
-
-```tut:silent
-case class Person(name: String, age: Int)
-
-def isAdult(p: Person): Boolean = ???
 ```
 
 ---
@@ -797,25 +784,21 @@ Person("John", 25)
 Person("Alice", 12)
 ```
 
---
-
 ```tut:fail
 Person("George", -2)
 ```
 
 ---
-# Workflow
+# Conclusion
 
-## 1. Use smallest input type
+## Both tests and types give us more correct program
 
-## 2. Use unit tests to reduce valid implementations
+## Smaller are the types, less tests are required
 
-## 3. Use smallest output type
-
-## 4. Try to implement property tests
+## Unit / Property based tests cover the rest
 
 ---
-# Next level: Parametricty
+# Next level: Parametricity
 
 ```tut:silent
 def mapInt(fa: Option[Int])(f: Int => Int): Option[Int] = ???
