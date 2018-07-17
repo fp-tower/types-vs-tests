@@ -508,7 +508,7 @@ def getDialCode(country: String): Int = ???
 such as
 
 ```scala
-getDialCode("United Kinkdom") == 44
+getDialCode("United Kingdom") == 44
 getDialCode("France")         == 33
 ```
 
@@ -517,7 +517,7 @@ getDialCode("France")         == 33
 
 ```tut:silent
 def getDialCode(country: String): Int = country match {
-  case "United Kinkdom" => 44
+  case "United Kingdom" => 44
   case "France"         => 33
   case _                => ???
 }
@@ -526,7 +526,7 @@ def getDialCode(country: String): Int = country match {
 --
 
 ```tut
-getDialCode("United Kinkdom")
+getDialCode("United Kingdom")
 getDialCode("France")
 ```
 
@@ -541,7 +541,7 @@ getDialCode("Italy")
 
 ```tut:silent
 def getDialCode(country: String): Option[Int] = country match {
-  case "United Kinkdom" => Some(44)
+  case "United Kingdom" => Some(44)
   case "France"         => Some(33)
   case _                => None
 }
@@ -550,7 +550,7 @@ def getDialCode(country: String): Option[Int] = country match {
 --
 
 ```tut
-getDialCode("United Kinkdom")
+getDialCode("United Kingdom")
 getDialCode("France")
 getDialCode("Italy")
 ```
