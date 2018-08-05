@@ -13,8 +13,9 @@ lazy val baseSettings: Seq[Setting[_]] = Seq(
     "-Xfuture"
   ),
   libraryDependencies ++= Seq(
-    "eu.timepit"     %% "refined"    % "0.9.0",
-    "eu.timepit"     %% "refined-scalacheck" % "0.9.0",
+    "org.typelevel"  %% "cats-core"  % "1.2.0",
+    "eu.timepit"     %% "refined"    % "0.9.2",
+    "eu.timepit"     %% "refined-scalacheck" % "0.9.2",
     "org.scalacheck" %% "scalacheck" % "1.14.0",
     "org.scalatest"  %% "scalatest"  % "3.0.5"
   ),

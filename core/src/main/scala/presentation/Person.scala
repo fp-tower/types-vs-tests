@@ -10,7 +10,7 @@ case class Person(name: String, age: Int) {
 
 case class Person_v2(name: String, age: Int Refined Positive)
 
-case class Person_v3[I](name: String, age: Int Refined I)
+case class Person_v3[I](name: String, age: I)
 
 object Person_v3 {
   type DbPerson = Person_v3[Int]

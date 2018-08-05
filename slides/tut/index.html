@@ -23,12 +23,15 @@
       }
       table {
       border-collapse: collapse;
+      display: inline-block;
       }
       th, td {
       padding: 10px;
       border: 1px solid black;
       }
       tr:nth-child(even) {background-color: #f2f2f2;}
+      .large { font-size: 36px; }
+
       .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono', 'Consolas', 'Courier New'; }
     </style>
   </head>
@@ -61,28 +64,42 @@ background-image: url(img/types-3.jpg)
 # Types
 
 ---
-# Values
+# Types
 
+
+.pull-left[
 ```tut:silent
 val x: Int = 5
-
-val foo: Boolean = true
 ```
 
---
 
 ```tut:fail
 val y: Int = false
 ```
+]
 
----
-background-image: url(img/function.jpg)
+--
 
-# Function
+.pull-right[
+```tut:silent
+def increment(x: Int): Int = x + 1
+```
+
+```tut
+increment(2)
+increment(-5)
+```
+
+
+```tut:fail
+increment("hello")
+```
+]
 
 ---
 # Functional programming subset
 
+.large[
 * deterministic
 * total
 * no side effect
@@ -90,26 +107,7 @@ background-image: url(img/function.jpg)
 * no exception
 * no null
 * no reflection
-
----
-# Function
-
-```tut:silent
-def increment(x: Int): Int = x + 1
-```
-
---
-
-```tut
-increment(2)
-increment(-5)
-```
-
---
-
-```tut:fail
-increment("hello")
-```
+]
 
 ---
 class: center, middle
@@ -119,134 +117,33 @@ class: center, middle
 ---
 class: center, middle
 
-# Unit Test
+# Unit Tests
 
 ---
-# Unit Test
+# Unit Tests
 
+.center[
 ```tut:silent
-increment( 0) ==  1
-increment( 1) ==  2
-increment(-3) == -2
+assert(increment( 0) ==  1)
+assert(increment( 1) ==  2)
+assert(increment(-3) == -2)
 ```
+]
 
 ---
 background-image: url(img/increment-math-unit-test-1.jpg)
 
-# Unit Test
+# Unit Tests
 
 ---
 background-image: url(img/increment-math-unit-test-fail.jpg)
 
-# Unit Test
+# Unit Tests
 
 ---
 background-image: url(img/increment-math-unit-test-2.jpg)
 
-# Unit Test
-
----
-class: center, middle
-
-# Property Test
-
----
-# Property Test
-
-```tut:silent
-import org.scalatest.FreeSpec
-import org.scalatest.prop.Checkers
-
-class IncrementTest extends FreeSpec with Checkers {
-
-  "f(x) > x" in check((x: Int) => increment(x) > x)
-
-}
-```
-
----
-background-image: url(img/increment-math-property-test-1.jpg)
-# Property Test
-
----
-background-image: url(img/increment-math-property-test-2.jpg)
-# Property Test
-
----
-background-image: url(img/increment-math-property-test-fail.jpg)
-# Property Test
-
----
-background-image: url(img/increment-math-property-test-3.jpg)
-# Property Test
-
----
-# Property Test: edge cases
-
-```tut:silent
-import org.scalatest.FreeSpec
-import org.scalatest.prop.Checkers
-
-class IncrementTest extends FreeSpec with Checkers {
-
-  "f(x) > x" in check((x: Int) => increment(x) > x)
-
-}
-```
-
---
-
-```scala
-GeneratorDrivenPropertyCheckFailedException was thrown during property evaluation.
- (IncrementTest.scala:10)
-  Falsified after 4 successful property evaluations.
-  Location: (IncrementTest.scala:10)
-  Occurred when passed generated values (
-    arg0 = 2147483647
-  )
-```
-
-```tut
-increment(2147483647)
-```
-
----
-# Property Test: edge cases
-
-
-```tut:silent
-def increment(x: Int): Int = {
-  if(x < Int.MaxValue) x + 1
-  else x
-}
-```
-
-```tut
-increment(5)
-increment(2147483647)
-```
-
----
-# Property Test: refinement types
-
-```tut:silent
-import eu.timepit.refined.numeric.Less
-import org.scalatest.FreeSpec
-import org.scalatest.prop.Checkers
-import eu.timepit.refined.W
-import eu.timepit.refined.api.Refined
-import eu.timepit.refined.scalacheck.numeric._
-
-class IncrementTest extends FreeSpec with Checkers {
-
-  final val maxInt = Int.MaxValue
-
-  "f(x) > x" in check((x: Int Refined Less[W.`maxInt`.T]) =>
-    increment(x.value) > x.value
-  )
-
-}
-```
+# Unit Tests
 
 ---
 class: center, middle
@@ -258,6 +155,10 @@ class: center, middle
 .pull-left[
 # Types
 
+```tut
+increment(0)
+```
+
 ```tut:fail
 increment("hello")
 ```
@@ -266,12 +167,18 @@ increment("hello")
 .pull-right[
 # Tests
 
-```tut:silent
-import org.scalacheck.Prop.forAll
+```scala
+assert(increment(0) == 1)
+```
 
-increment(0) == 1
 
-forAll((x: Int) => increment(x) > x)
+```scala
+assert(increment(0) == 2)
+
+1 did not equal 2
+ScalaTestFailureLocation: presentation.IncrementTest at (IncrementTest.scala:23)
+Expected :2
+Actual   :1
 ```
 ]
 
@@ -291,7 +198,7 @@ class: center, middle
 # A => B
 
 ---
-class: middle
+class: center, middle
 
 ```tut:silent
 val isEven: Int => Boolean =
@@ -300,6 +207,17 @@ val isEven: Int => Boolean =
 val increment: Int => Int =
   x => x + 1
 ```
+
+---
+class: center, middle
+
+# Types are sets
+
+--
+
+# &&
+
+# Functions have types
 
 ---
 background-image: url(img/A-to-B-set-1.jpg)
@@ -320,50 +238,44 @@ background-image: url(img/int-to-int-type-1.jpg)
 ---
 background-image: url(img/int-to-int-type-test.jpg)
 
-# Tests
+# Unit Tests
 
 ---
 class: center, middle
 
-# How to constrain a function?
-
----
-background-image: url(img/A-to-B-constrain.jpg)
-
-# Constraints
+# Valid Implementation Count (VIC)
 
 ---
 class: center, middle
 
-# Smaller types
-
-
----
-background-image: url(img/function-one-value.jpg)
-
-# Function with one implementation
+# VIC(f) = number of impl of f - impl made invalid by tests
 
 ---
-class: middle
-
-```tut:silent
-def boolToUnit(x: Boolean): Unit = x match {
-  case true  => ()
-  case false => ()
-}
-```
-
----
-class: middle
-
-```tut:silent
-def toUnit[A](x: A): Unit = ()
-```
+background-image: url(img/VIC-increment.jpg)
 
 ---
 class: center, middle
 
-# |A => B| ?
+# Valid Implementation Count (VIC)
+
+# =
+
+# How many incorrect impl pass my typechecker and tests?
+
+---
+class: center, middle
+
+# VIC(f) = <span style="color:blue">**number of impl of f**</span> - impl made invalid by tests
+
+---
+class: center, middle
+
+# |f: A => B|
+
+---
+class: center, middle
+
+# |A => B|
 
 ---
 background-image: url(img/function.jpg)
@@ -399,22 +311,50 @@ background-image: url(img/count-A-to-B-4.jpg)
 class: center, middle
 
 ```scala
+|increment: Int => Int| = ?
+```
+
+---
+class: center, middle
+
+```scala
 |Int => Int| = |Int| ^ |Int|
                = (2^32) ^ (2^32)
+```
+
+---
+class: center, middle
+
+```scala
+|Int => Int| = |Int| ^ |Int|
+               = (2^32) ^ (2^32)
+                             =~ 41 billion digit long number
+```
+
+---
+# Smaller Types
+
+```tut:silent
+sealed trait DayOfWeek
+
+case object Monday  extends DayOfWeek
+case object Tuesday extends DayOfWeek
+// ...
+case object Sunday  extends DayOfWeek
 ```
 
 --
 
 ```scala
 |DayOfWeek => Boolean| = |Boolean| ^ |DayOfWeek|
-     = 2 ^ 7
-   = 128
+                       = 2 ^ 7
+                       = 128
 ```
 
 ---
 class: center, middle
 
-# More tests
+# VIC(f) = number of impl of f - <span style="color:blue">**impl made invalid by tests**</span>
 
 ---
 background-image: url(img/day-week-to-boolean-1.jpg)
@@ -422,13 +362,13 @@ background-image: url(img/day-week-to-boolean-1.jpg)
 ---
 class: center, middle
 
-# How many implementations a single unit test renders invalid?
+# How much a single unit test impact VIC?
 
 ---
 background-image: url(img/day-week-to-boolean-2.jpg)
 
 ---
-# Unit test
+# Unit Test
 
 ```scala
 val f: DayOfWeek => Boolean = ???
@@ -437,7 +377,7 @@ val f: DayOfWeek => Boolean = ???
 such as
 
 ```scala
-isWeekend(Tuesday) == false
+assert(isWeekend(Tuesday) == false)
 ```
 
 ---
@@ -463,272 +403,244 @@ background-image: url(img/count-day-week-to-boolean-4.jpg)
 ---
 # Unit Test
 
-| Unit test     | Valid implementations |
-| :-----------: |:---------------------:|
-| 0             | 128                   |
-| 1             | 64                    |
-| 2             | 32                    |
-| 3             | 16                    |
-| 4             |  8                    |
-| 5             |  4                    |
-| 6             |  2                    |
-| 7             |  1                    |
-
-
----
-class: center, middle
-
-# A unit test divides the size of |A => B| by |B|
+.center[
+| Unit tests | VIC  |
+| :--------: |:----:|
+| 0          | 128  |
+| 1          | 64   |
+| 2          | 32   |
+| 3          | 16   |
+| 4          |  8   |
+| 5          |  4   |
+| 6          |  2   |
+| 7          |  1   |
+]
 
 ---
 class: center, middle
 
-# A function A => B requires `|A|` unit tests to be fully covered
+# `|A|` unit tests are required to have `VIC(f) = 1`
+
+---
+class: center, middle
+
+# Every unit test divide VIC by |B|
+
+---
+# One Unit Test
+
+.center[
+```scala
+VIC(f: A => B) = |B| ^ |A| / |B|
+```
+]
+
+--
+
+# Two Unit Tests
+
+.center[
+```scala
+VIC(f: A => B) = |B| ^ |A| / |B| / |B|
+                 = (|B| ^ |A|) / (|B| ^ 2)
+         = |B| ^ (|A| - 2)
+```
+]
+
+---
+class: center, middle
+
+# `VIC(f: A => B) = |B| ^ (|A| - n)`
+
+### where `n` is the number of unit test
+
+---
+background-image: url(img/A-to-B-VIC.jpg)
+
+# How to reduce VIC?
+
+---
+class: center, middle
+
+# Logarithmic Valid Implementation Count (LVIC)
+
+---
+class: center, middle
+
+# `LVIC(f) = Log_2 VIC(f)`
+
+---
+class: center, middle
+
+```scala
+LVIC(f: A => B) = Log_2 (|B| ^ (|A| - n))
+              = (|A| - n) * Log_2 |B|
+                        = |A| * Log_2 |B| - n * Log_2 |B|
+```
+
+---
+class: center, middle
+
+```scala
+LVIC(increment) = |A| * Log_2 |B| - n * Log_2 |B|
+= 2 ^ 37 - 32 * n
+       =~ 137 billions - 32 * n
+```
 
 ---
 class: middle
 
 ## 1. Functions are sets
 
-## 2. Functions are constrained by using smaller types or more tests
+## 2. VIC measure how constrained is a function
 
-## 3. `|A => B| = |B| ^ |A|`
+## 2. VIC is reduced by smaller types or more tests
 
-## 4. Each unit test divides by `|B|` the number of valid implementations
+## 3. `VIC(f: A => B) = |B| ^ (|A| - n)`
 
-## 5. A function requires `|A|` unit tests to be fully tested
+## 4. `LVIC(f: A => B) = (|A| - n) * Log_2 |B|`
 
 ---
 # Example: dialCode
 
 ```tut:silent
-def getDialCode(country: String): Int = ???
+def getDialCode(country: String): Option[Int] = ???
 ```
 
 such as
 
 ```scala
-getDialCode("United Kingdom") == 44
-getDialCode("France")         == 33
-```
-
----
-# Example: dialCode
-
-```tut:silent
-def getDialCode(country: String): Int = country match {
-  case "United Kingdom" => 44
-  case "France"         => 33
-  case _                => ???
-}
-```
-
---
-
-```tut
-getDialCode("United Kingdom")
-getDialCode("France")
-```
-
---
-
-```tut:fail
-getDialCode("Italy")
-```
-
----
-# Example: dialCode
-
-```tut:silent
-def getDialCode(country: String): Option[Int] = country match {
-  case "United Kingdom" => Some(44)
-  case "France"         => Some(33)
-  case _                => None
-}
-```
-
---
-
-```tut
-getDialCode("United Kingdom")
-getDialCode("France")
-getDialCode("Italy")
-```
-
---
-
-```tut
-getDialCode("UK")
-getDialCode("Royaume Uni")
-```
-
----
-# Example: dialCode
-
-```tut:silent
-sealed trait Country
-
-case object UnitedKingdom extends Country
-case object France extends Country
-```
-
---
-
-```tut:silent
-def getDialCode(country: Country): Int = country match {
-  case UnitedKingdom => 44
-  case France        => 33
-}
-```
-
---
-
-```tut
-getDialCode(UnitedKingdom)
-```
-
-```tut:fail
-getDialCode(Italy)
-```
-
----
-# Example: dialCode
-
-```tut:silent
-sealed trait Country
-
-case object UnitedKingdom extends Country
-case object France extends Country
-case object Italy extends Country
-```
-
-```tut:silent
-def getDialCode(country: Country): Int = country match {
-  case UnitedKingdom => 44
-  case France        => 33
-}
+assert(getDialCode("United Kingdom") == Some(44))
+assert(getDialCode("France")         == Some(33))
+assert(getDialCode("foo")            == None)
 ```
 
 --
 
 ```scala
-Warning:(11, 44) match may not be exhaustive.
-It would fail on the following input: Italy
-  def getDialCode(country: Country): Int = country match {
+VIC(getDialCode) =  |B| ^ (|A| - n)
 ```
 
 ---
 # Example: dialCode
 
 ```tut:silent
+def getDialCode(country: String): Option[Int] = ???
+```
+
+such as
+
+```scala
+assert(getDialCode("United Kingdom") == Some(44))
+assert(getDialCode("France")         == Some(33))
+assert(getDialCode("foo")            == None)
+```
+
+```scala
+VIC(getDialCode) =  |B| ^ (|A| - n)
+                 =  |Option[Int]| ^ (|String| - 3)
+                 =  |Int + 1| ^ (|String| - 3)
+                 =~ |Int| ^ |String|
+```
+
+---
+class: center, middle
+
+# Reduce VIC => Reduce Types
+
+---
+# Reduce VIC => Reduce Types
+
+```tut:silent
+sealed trait Country
+
+case object UnitedKingdom extends Country
+case object France extends Country
+```
+
+--
+
+```tut:silent
+def getDialCode(country: Country): Int = ???
+
 def parseCountry(x: String): Option[Country] = ???
 ```
 
-such as
-
 ```scala
-parseCountry("United Kingdom") == Some(UnitedKingdom)
-parseCountry("UK")             == Some(UnitedKingdom)
+assert(getDialCode(UnitedKingdom) == 44)
+assert(getDialCode(France)        == 33)
 ```
 
 ---
-# Example: dialCode
+# Reduce VIC => Reduce Types
 
-```scala
-|String => Option[Int]| = |Option[Int]| ^ |String|
-                        = (|Int| + 1) ^ |String|
+```tut:silent
+def getDialCode(country: Country): Int = ???
+
+def parseCountry(x: String): Option[Country] = ???
 ```
 
---
-
 ```scala
-|Country => Int| = |Int| ^ |Country|
-                 = |Int| ^ 2
-```
-
---
-
-```scala
-|Country => DialCode| = |DialCode| ^ |Country|
-                      = 2 ^ 2
-                      = 4
+VIC(getDialCode) = |Int| ^ (|Country| - 2)
 ```
 
 ---
-# Example: dialCode
+# Reduce VIC => Reduce Types
 
 ```tut:silent
-sealed trait DialCode
+def getDialCode(country: Country): Int = ???
 
-object _33 extends DialCode
-object _44 extends DialCode
+def parseCountry(x: String): Option[Country] = ???
 ```
 
---
-
-```tut:silent
-def getDialCode(country: Country): DialCode = country match {
-  case UnitedKingdom => _44
-  case France        => _33
-}
-```
-
---
-
-```tut:silent
-def getCountry(dialCode: DialCode): Country = dialCode match {
-  case _33 => France
-  case _44 => France
-}
-```
-
----
-# Example: dialCode
-
-```tut
-getDialCode(France)
-getCountry(_33)
-```
-
---
-
-```tut:invisible
-import org.scalacheck.{Arbitrary, Gen}
-
-implicit val arbCountry: Arbitrary[Country] = Arbitrary(Gen.oneOf(UnitedKingdom, France))
-```
-
-```tut:silent
-class DialCodeTest extends FreeSpec with Checkers {
-
-  "round trip" in check((x: Country) =>
-    getCountry(getDialCode(x)) == x
-  )
-
-}
+```scala
+VIC(getDialCode) = |Int| ^ (|Country| - 2)
+                 = |Int| ^ (2 - 2)
+                 = 1
 ```
 
 --
 
 ```scala
-GeneratorDrivenPropertyCheckFailedException was thrown during property evaluation.
- (DialCodeTest.scala:10)
-  Falsified after 2 successful property evaluations.
-  Location: (DialCodeTest.scala:10)
-  Occurred when passed generated values (
-    arg0 = UnitedKingdom
-  )
+VIC(parseCountry) =  |Option[Country]| ^ (|String| - n)
+                  =  (|Country| + 1) ^ (|String| - n)
+                  =  3 ^ (|String| - n)
+                  =~ 3 ^ |String|
 ```
 
 ---
 # Example: Compare
 
 ```tut:silent
-def compare(x: Int, y: Int): Int = {
+def compare(x: Char, y: Char): Int = {
   if(x < y)        -1
   else if (x == y)  0
   else              1
 }
+```
+
+--
+
+```scala
+LVIC(compare) =  (|A| - n) * log_2 |(Char, Char)|
+```
+
+---
+# Example: Compare
+
+```tut:silent
+def compare(x: Char, y: Char): Int = {
+  if(x < y)        -1
+  else if (x == y)  0
+  else              1
+}
+```
+
+```scala
+LVIC(compare) =  (|A| - n) * log_2 |(Char, Char)|
+              =  (|Int| - n) * log_2 |(Char, Char)|
+              =  (2 ^ 32 - n) * log_2 2 ^ 16
+              =~ 68 billions - 16 * n
 ```
 
 ---
@@ -741,69 +653,206 @@ case object LowerThan   extends Comparison
 case object EqualTo     extends Comparison
 case object GreaterThan extends Comparison
 
-def compare(x: Int, y: Int): Comparison = {
+def compare(x: Char, y: Char): Comparison = {
   if(x < y)        LowerThan
   else if (x == y) EqualTo
   else             GreaterThan
 }
 ```
 
----
-# Example: Person
+--
 
-```tut:silent
-case class Person(name: String, age: Int)
+```scala
+LVIC(compare) =  (|Int| - n) * log_2 |Comparison|
+              =  (2 ^ 32 - n) * log_2 3
+              =~ 6.8 billions - n * log_2 3
 ```
 
 --
 
-```tut
-Person("John", 25)
-Person("Alice", 12)
-Person("George", -2)
+### Comparison reduced VIC by a factor of 10! It is equivalent to 3 billion unit tests
+
+---
+class: center, middle
+
+# VIC and LVIC
+
+---
+# Cons
+
+.large[
+* Can easily reach extremely large number
+]
+
+--
+
+.large[
+* Doesn't take into account the complexity of the implementation
+]
+
+--
+
+.large[
+* Only support unit tests (no property based or integration tests)
+]
+
+--
+
+.large[
+* Only support basic types (no existential, typeclass or dependent types)
+]
+
+---
+# Cons
+
+.large[
+* Can easily reach extremely large number
+* Doesn't take into account the complexity of the implementation
+* Only support unit tests (no property based or integration tests)
+* Only support basic types (no existential, typeclass or dependent types)
+]
+
+---
+class: center, middle
+
+# Future Work
+
+---
+
+# Property Based Tests
+
+```tut:invisible
+def increment(x: Int): Int = x + 1
+```
+
+```tut:silent
+import org.scalatest.FreeSpec
+import org.scalatest.prop.Checkers
+
+class IncrementTest extends FreeSpec with Checkers {
+
+  "f(x) >= x" in check((x: Int) => increment(x) >= x)
+
+}
 ```
 
 ---
-# Example: Person with refinement types
+background-image: url(img/increment-math-property-test-1.jpg)
 
-```tut:silent
-import eu.timepit.refined._
-import eu.timepit.refined.api.Refined
-import eu.timepit.refined.auto._
-import eu.timepit.refined.numeric._
+# Property Based Tests
 
-type PosInt = Int Refined Positive
+---
+background-image: url(img/increment-math-property-test-2.jpg)
 
-case class Person(name: String, age: PosInt)
+# Property Based Tests
+
+---
+background-image: url(img/increment-math-property-test-3.jpg)
+
+# Property Based Tests
+
+---
+background-image: url(img/increment-math-property-test-fail.jpg)
+
+# Property Based Tests
+
+---
+# VIC for Property Based Tests
+
+```scala
+forall x. increment(x) >= x
+```
+
+```scala
+VIC(increment) = 2 ^ 32 * ...
+```
+
+---
+# VIC for Property Based Tests
+
+```scala
+forall x. increment(x) >= x
+```
+
+```scala
+VIC(increment) = 2 ^ 32 * (2 ^ 32 - 1) * ...
+```
+
+---
+# VIC for Property Based Tests
+
+```scala
+forall x. increment(x) >= x
+```
+
+```scala
+VIC(increment) = 2 ^ 32 * (2 ^ 32 - 1) * (2 ^ 32 - 2) * ... * 1
+               = 2 ^ 32!
 ```
 
 --
 
-```tut
-Person("John", 25)
-Person("Alice", 12)
+## VIC with unit tests
+
+```scala
+VIC(increment) = (2 ^ 32) ^ (2 ^ 32 - n)
 ```
 
-```tut:fail
-Person("George", -2)
-```
+--
+
+### `increment(x) >= x` is equivalent to 125 million unit tests
 
 ---
-# Conclusion
-
-## Both tests and types give us more correct program
-
-## Smaller are the types, less tests are required
-
-## Unit / Property based tests cover the rest
-
----
-# Next level: Parametricity
+# Parametricty
 
 ```tut:silent
-def mapInt(fa: Option[Int])(f: Int => Int): Option[Int] = ???
+def identity[A](value: A): A = ???
 
+def identityInt(value: Int): Int = ???
+```
+
+--
+
+```scala
+VIC(identity) = 1
+
+VIC(identityInt) = (2 ^ 32) ^ (2 ^ 32 - n)
+```
+
+---
+# Parametricty
+
+```tut:silent
 def map[A, B](fa: Option[A])(f: A => B): Option[B] = ???
+
+def mapInt(fa: Option[Int])(f: Int => Int): Option[Int] = ???
+```
+
+--
+
+```scala
+VIC(map) = 2
+
+VIC(mapInt) =~ 2^32 ^ ((2^32) ^ (2 ^ 32) - n)
+```
+
+---
+# Parametricty with Typeclass
+
+```tut:silent
+import cats.Functor
+
+def void[F[_]: Functor, A](fa: F[A]): F[Unit] = ???
+
+def voidList[A](fa: List[A]): List[Unit] = ???
+```
+
+--
+
+```scala
+VIC(void) = 1
+
+VIC(voidList) = ∞
 ```
 
 ---
