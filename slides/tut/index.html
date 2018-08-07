@@ -43,6 +43,8 @@ class: center, middle
 # Types vs Tests
 `@JulienTruffaut`
 
+Code and slides at `julien-truffaut/types-vs-tests` on GitHub
+
 ---
 class: center, middle
 
@@ -211,29 +213,23 @@ val increment: Int => Int =
 ---
 class: center, middle
 
-# Types are sets
+# Type is a set
 
 --
 
 # &&
 
-# Functions have types
+# Function has type
 
 ---
 background-image: url(img/A-to-B-set-1.jpg)
 
-# Functions are sets!
-
----
-background-image: url(img/A-to-B-set-2.jpg)
-
-# Functions are sets!
-
+# Function type is a set!
 
 ---
 background-image: url(img/int-to-int-type-1.jpg)
 
-# Functions are sets!
+# Function type is a set!
 
 ---
 background-image: url(img/int-to-int-type-test.jpg)
@@ -248,10 +244,15 @@ class: center, middle
 ---
 class: center, middle
 
-# VIC(f) = number of impl of f - impl made invalid by tests
+# VIC(f: A => B) = number of impl - impl invalid by tests
 
 ---
 background-image: url(img/VIC-increment.jpg)
+
+---
+background-image: url(img/VIC-1.jpg)
+
+# VIC(f) = 1
 
 ---
 class: center, middle
@@ -260,12 +261,21 @@ class: center, middle
 
 # =
 
-# How many incorrect impl pass my typechecker and tests?
+# How many impl pass typechecker and tests?
 
 ---
 class: center, middle
 
-# VIC(f) = <span style="color:blue">**number of impl of f**</span> - impl made invalid by tests
+# Valid Implementation Count (VIC)
+
+# =
+
+# How much constrained is my function?
+
+---
+class: center, middle
+
+# VIC(f: A => B) = <span style="color:blue">**number of impl**</span>  - impl invalid by tests
 
 ---
 class: center, middle
@@ -354,18 +364,17 @@ case object Sunday  extends DayOfWeek
 ---
 class: center, middle
 
-# VIC(f) = number of impl of f - <span style="color:blue">**impl made invalid by tests**</span>
+# VIC(f: A => B) = number of impl - <span style="color:blue">**impl invalid by tests**</span>
 
 ---
 background-image: url(img/day-week-to-boolean-1.jpg)
-
----
-class: center, middle
 
 # How much a single unit test impact VIC?
 
 ---
 background-image: url(img/day-week-to-boolean-2.jpg)
+
+# How much a single unit test impact VIC?
 
 ---
 # Unit Test
@@ -432,6 +441,7 @@ class: center, middle
 .center[
 ```scala
 VIC(f: A => B) = |B| ^ |A| / |B|
+         = |B| ^ (|A| - 1)
 ```
 ]
 
@@ -455,9 +465,12 @@ class: center, middle
 ### where `n` is the number of unit test
 
 ---
-background-image: url(img/A-to-B-VIC.jpg)
+class: center, middle
 
-# How to reduce VIC?
+```scala
+VIC(increment) = |B| ^ (|A| - n)
+                       = (2 ^ 32) ^ (2 ^ 32 - n)
+```
 
 ---
 class: center, middle
@@ -494,11 +507,11 @@ class: middle
 
 ## 2. VIC measure how constrained is a function
 
-## 2. VIC is reduced by smaller types or more tests
-
 ## 3. `VIC(f: A => B) = |B| ^ (|A| - n)`
 
 ## 4. `LVIC(f: A => B) = (|A| - n) * Log_2 |B|`
+
+## 5. VIC is reduced by using smaller types or more tests
 
 ---
 # Example: dialCode
@@ -539,14 +552,29 @@ assert(getDialCode("foo")            == None)
 ```scala
 VIC(getDialCode) =  |B| ^ (|A| - n)
                  =  |Option[Int]| ^ (|String| - 3)
-                 =  |Int + 1| ^ (|String| - 3)
-                 =~ |Int| ^ |String|
 ```
 
 ---
-class: center, middle
+# Example: dialCode
 
-# Reduce VIC => Reduce Types
+```tut:silent
+def getDialCode(country: String): Option[Int] = ???
+```
+
+such as
+
+```scala
+assert(getDialCode("United Kingdom") == Some(44))
+assert(getDialCode("France")         == Some(33))
+assert(getDialCode("foo")            == None)
+```
+
+```scala
+VIC(getDialCode) =  |B| ^ (|A| - n)
+                 =  |Option[Int]| ^ (|String| - 3)
+                 =  |Int + 1| ^ (|String| - 3)
+                 =~ |Int| ^ |String|
+```
 
 ---
 # Reduce VIC => Reduce Types
@@ -561,42 +589,42 @@ case object France extends Country
 --
 
 ```tut:silent
-def getDialCode(country: Country): Int = ???
+def getDialCode_v2(country: Country): Int = ???
 
 def parseCountry(x: String): Option[Country] = ???
 ```
 
 ```scala
-assert(getDialCode(UnitedKingdom) == 44)
-assert(getDialCode(France)        == 33)
+assert(getDialCode_v2(UnitedKingdom) == 44)
+assert(getDialCode_v2(France)        == 33)
 ```
 
 ---
 # Reduce VIC => Reduce Types
 
 ```tut:silent
-def getDialCode(country: Country): Int = ???
+def getDialCode_v2(country: Country): Int = ???
 
 def parseCountry(x: String): Option[Country] = ???
 ```
 
 ```scala
-VIC(getDialCode) = |Int| ^ (|Country| - 2)
+VIC(getDialCode_v2) = |Int| ^ (|Country| - 2)
 ```
 
 ---
 # Reduce VIC => Reduce Types
 
 ```tut:silent
-def getDialCode(country: Country): Int = ???
+def getDialCode_v2(country: Country): Int = ???
 
 def parseCountry(x: String): Option[Country] = ???
 ```
 
 ```scala
-VIC(getDialCode) = |Int| ^ (|Country| - 2)
-                 = |Int| ^ (2 - 2)
-                 = 1
+VIC(getDialCode_v2) = |Int| ^ (|Country| - 2)
+                    = |Int| ^ (2 - 2)
+                    = 1
 ```
 
 --
@@ -622,7 +650,7 @@ def compare(x: Char, y: Char): Int = {
 --
 
 ```scala
-LVIC(compare) =  (|A| - n) * log_2 |(Char, Char)|
+LVIC(compare) =  (|A| - n) * log_2 |B|
 ```
 
 ---
@@ -637,7 +665,7 @@ def compare(x: Char, y: Char): Int = {
 ```
 
 ```scala
-LVIC(compare) =  (|A| - n) * log_2 |(Char, Char)|
+LVIC(compare) =  (|A| - n) * log_2 |B|
               =  (|Int| - n) * log_2 |(Char, Char)|
               =  (2 ^ 32 - n) * log_2 2 ^ 16
               =~ 68 billions - 16 * n
@@ -653,7 +681,7 @@ case object LowerThan   extends Comparison
 case object EqualTo     extends Comparison
 case object GreaterThan extends Comparison
 
-def compare(x: Char, y: Char): Comparison = {
+def compare_v2(x: Char, y: Char): Comparison = {
   if(x < y)        LowerThan
   else if (x == y) EqualTo
   else             GreaterThan
@@ -663,9 +691,9 @@ def compare(x: Char, y: Char): Comparison = {
 --
 
 ```scala
-LVIC(compare) =  (|Int| - n) * log_2 |Comparison|
-              =  (2 ^ 32 - n) * log_2 3
-              =~ 6.8 billions - n * log_2 3
+LVIC(compare_v2) =  (|Int| - n) * log_2 |Comparison|
+                 =  (2 ^ 32 - n) * log_2 3
+                 =~ 6.8 billions - n * log_2 3
 ```
 
 --
@@ -675,7 +703,26 @@ LVIC(compare) =  (|Int| - n) * log_2 |Comparison|
 ---
 class: center, middle
 
-# VIC and LVIC
+# Conclusion
+
+---
+# Pros
+
+.large[
+* Reducing types, in particular input type, is really impactful
+]
+
+--
+
+.large[
+* Unit tests have a decreasing impact
+]
+
+--
+
+.large[
+* Unit tests are really useful with small input types
+]
 
 ---
 # Cons
@@ -703,14 +750,12 @@ class: center, middle
 ]
 
 ---
-# Cons
+class: center, middle
 
-.large[
-* Can easily reach extremely large number
-* Doesn't take into account the complexity of the implementation
-* Only support unit tests (no property based or integration tests)
-* Only support basic types (no existential, typeclass or dependent types)
-]
+# Thanks!
+Code and slides at `julien-truffaut/types-vs-tests` on GitHub
+
+## Questions?
 
 ---
 class: center, middle
