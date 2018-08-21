@@ -270,7 +270,7 @@ class: center, middle
 
 # =
 
-# How much constrained is my function?
+# How constrained is my function?
 
 ---
 class: center, middle
@@ -369,12 +369,12 @@ class: center, middle
 ---
 background-image: url(img/day-week-to-boolean-1.jpg)
 
-# How much a single unit test impact VIC?
+# How much a single unit test impacts VIC?
 
 ---
 background-image: url(img/day-week-to-boolean-2.jpg)
 
-# How much a single unit test impact VIC?
+# How much a single unit test impacts VIC?
 
 ---
 # Unit Test
@@ -505,7 +505,7 @@ class: middle
 
 ## 1. Functions are sets
 
-## 2. VIC measure how constrained is a function
+## 2. VIC measure how constrained a function is
 
 ## 3. `VIC(f: A => B) = |B| ^ (|A| - n)`
 
@@ -665,10 +665,11 @@ def compare(x: Char, y: Char): Int = {
 ```
 
 ```scala
-LVIC(compare) =  (|A| - n) * log_2 |B|
-              =  (|Int| - n) * log_2 |(Char, Char)|
-              =  (2 ^ 32 - n) * log_2 2 ^ 16
-              =~ 68 billions - 16 * n
+LVIC(compare) =  (|A| - n) * log2 |B|
+              =  (|(Char, Char)| - n) * log2 |Int|
+              =  (2^16 - n) * log2 2^32
+              =  2^21 - 32 * n
+              =~ 2 millions - 32 * n
 ```
 
 ---
@@ -691,14 +692,15 @@ def compare_v2(x: Char, y: Char): Comparison = {
 --
 
 ```scala
-LVIC(compare_v2) =  (|Int| - n) * log_2 |Comparison|
-                 =  (2 ^ 32 - n) * log_2 3
-                 =~ 6.8 billions - n * log_2 3
+LVIC(compare_v2) =  (|A| - n) * log2 |B|
+                 =  (|(Char, Char)| - n) * log2 |Comparison|
+                 =  (2^16 - n) * log2 3
+                 =~ 103 000 - 1.58 * n
 ```
 
 --
 
-### Comparison reduced VIC by a factor of 10! It is equivalent to 3 billion unit tests
+### Using Comparison had the same impact on VIC than 60 000 unit tests!
 
 ---
 class: center, middle
@@ -706,11 +708,18 @@ class: center, middle
 # Conclusion
 
 ---
-# Pros
+# Conclusion
 
 .large[
-* Reducing types, in particular input type, is really impactful
+* Combine both types and test in a single metric
 ]
+
+--
+
+.large[
+* Generally better to reduce types than write more unit tests
+]
+
 
 --
 
@@ -721,7 +730,7 @@ class: center, middle
 --
 
 .large[
-* Unit tests are really useful with small input types
+* Unit tests are really useful with small input type
 ]
 
 ---
@@ -820,7 +829,7 @@ forall x. increment(x) >= x
 ```
 
 ```scala
-VIC(increment) = 2 ^ 32 * (2 ^ 32 - 1) * ...
+VIC(increment) = (2 ^ 32) * (2 ^ 32 - 1) * ...
 ```
 
 ---
@@ -831,8 +840,8 @@ forall x. increment(x) >= x
 ```
 
 ```scala
-VIC(increment) = 2 ^ 32 * (2 ^ 32 - 1) * (2 ^ 32 - 2) * ... * 1
-               = 2 ^ 32!
+VIC(increment) = (2 ^ 32) * (2 ^ 32 - 1) * (2 ^ 32 - 2) * ... * 1
+               = (2 ^ 32)!
 ```
 
 --
