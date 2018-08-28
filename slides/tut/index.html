@@ -89,12 +89,15 @@ def increment(x: Int): Int = x + 1
 
 ```tut
 increment(2)
-increment(-5)
 ```
 
 
 ```tut:fail
 increment("hello")
+```
+
+```tut:fail
+def increment(x: Int): Int = x.toString
 ```
 ]
 
@@ -125,9 +128,21 @@ class: center, middle
 # Unit Tests
 
 .center[
+<br>
+
 ```tut:silent
-assert(increment( 0) ==  1)
-assert(increment( 1) ==  2)
+assert(increment(0)  ==  1)
+```
+
+<br>
+
+```tut:silent
+assert(increment(1)  ==  2)
+```
+
+<br>
+
+```tut:silent
 assert(increment(-3) == -2)
 ```
 ]
@@ -157,22 +172,17 @@ class: center, middle
 .pull-left[
 # Types
 
-```tut
-increment(0)
+```tut:fail
+increment("hello")
 ```
 
 ```tut:fail
-increment("hello")
+def increment(x: Int): Int = x.toString
 ```
 ]
 
 .pull-right[
 # Tests
-
-```scala
-assert(increment(0) == 1)
-```
-
 
 ```scala
 assert(increment(0) == 2)
@@ -244,7 +254,7 @@ class: center, middle
 ---
 class: center, middle
 
-# VIC(f: A => B) = number of impl - impl invalid by tests
+# VIC(f: A => B) = number of impl - impl invalid from tests
 
 ---
 background-image: url(img/VIC-increment.jpg)
@@ -252,7 +262,9 @@ background-image: url(img/VIC-increment.jpg)
 ---
 background-image: url(img/VIC-1.jpg)
 
+.center[
 # VIC(f) = 1
+]
 
 ---
 class: center, middle
@@ -261,7 +273,7 @@ class: center, middle
 
 # =
 
-# How many impl pass typechecker and tests?
+# How many impl pass the typechecker and my tests?
 
 ---
 class: center, middle
@@ -275,7 +287,7 @@ class: center, middle
 ---
 class: center, middle
 
-# VIC(f: A => B) = <span style="color:blue">**number of impl**</span>  - impl invalid by tests
+# VIC(f: A => B) = <span style="color:blue">**number of impl**</span>  - impl invalid from tests
 
 ---
 class: center, middle
@@ -364,7 +376,7 @@ case object Sunday  extends DayOfWeek
 ---
 class: center, middle
 
-# VIC(f: A => B) = number of impl - <span style="color:blue">**impl invalid by tests**</span>
+# VIC(f: A => B) = number of impl - <span style="color:blue">**impl invalid from tests**</span>
 
 ---
 background-image: url(img/day-week-to-boolean-1.jpg)
@@ -413,7 +425,7 @@ background-image: url(img/count-day-week-to-boolean-4.jpg)
 # Unit Test
 
 .center[
-| Unit tests | VIC  |
+| # Unit tests | VIC  |
 | :--------: |:----:|
 | 0          | 128  |
 | 1          | 64   |
@@ -441,7 +453,7 @@ class: center, middle
 .center[
 ```scala
 VIC(f: A => B) = |B| ^ |A| / |B|
-         = |B| ^ (|A| - 1)
+               = |B| ^ (|A| - 1)
 ```
 ]
 
@@ -462,7 +474,7 @@ class: center, middle
 
 # `VIC(f: A => B) = |B| ^ (|A| - n)`
 
-### where `n` is the number of unit test
+### where `n` is the number of unit tests
 
 ---
 class: center, middle
@@ -665,9 +677,9 @@ def compare(x: Char, y: Char): Int = {
 ```
 
 ```scala
-LVIC(compare) =  (|A| - n) * log2 |B|
-              =  (|(Char, Char)| - n) * log2 |Int|
-              =  (2^16 - n) * log2 2^32
+LVIC(compare) =  (|A| - n) * log_2 |B|
+              =  (|(Char, Char)| - n) * log_2 |Int|
+              =  (2^16 - n) * log_2 2^32
               =  2^21 - 32 * n
               =~ 2 millions - 32 * n
 ```
@@ -692,10 +704,10 @@ def compare_v2(x: Char, y: Char): Comparison = {
 --
 
 ```scala
-LVIC(compare_v2) =  (|A| - n) * log2 |B|
-                 =  (|(Char, Char)| - n) * log2 |Comparison|
-                 =  (2^16 - n) * log2 3
-                 =~ 103 000 - 1.58 * n
+LVIC(compare_v2) =  (|A| - n) * log_2 |B|
+                 =  (|(Char, Char)| - n) * log_2 |Comparison|
+                 =  (2^16 - n) * log_2 3
+                 =~ 100 000 - 1.58 * n
 ```
 
 --
@@ -766,156 +778,6 @@ Code and slides at `julien-truffaut/types-vs-tests` on GitHub
 
 ## Questions?
 
----
-class: center, middle
-
-# Future Work
-
----
-
-# Property Based Tests
-
-```tut:invisible
-def increment(x: Int): Int = x + 1
-```
-
-```tut:silent
-import org.scalatest.FreeSpec
-import org.scalatest.prop.Checkers
-
-class IncrementTest extends FreeSpec with Checkers {
-
-  "f(x) >= x" in check((x: Int) => increment(x) >= x)
-
-}
-```
-
----
-background-image: url(img/increment-math-property-test-1.jpg)
-
-# Property Based Tests
-
----
-background-image: url(img/increment-math-property-test-2.jpg)
-
-# Property Based Tests
-
----
-background-image: url(img/increment-math-property-test-3.jpg)
-
-# Property Based Tests
-
----
-background-image: url(img/increment-math-property-test-fail.jpg)
-
-# Property Based Tests
-
----
-# VIC for Property Based Tests
-
-```scala
-forall x. increment(x) >= x
-```
-
-```scala
-VIC(increment) = 2 ^ 32 * ...
-```
-
----
-# VIC for Property Based Tests
-
-```scala
-forall x. increment(x) >= x
-```
-
-```scala
-VIC(increment) = (2 ^ 32) * (2 ^ 32 - 1) * ...
-```
-
----
-# VIC for Property Based Tests
-
-```scala
-forall x. increment(x) >= x
-```
-
-```scala
-VIC(increment) = (2 ^ 32) * (2 ^ 32 - 1) * (2 ^ 32 - 2) * ... * 1
-               = (2 ^ 32)!
-```
-
---
-
-## VIC with unit tests
-
-```scala
-VIC(increment) = (2 ^ 32) ^ (2 ^ 32 - n)
-```
-
---
-
-### `increment(x) >= x` is equivalent to 125 million unit tests
-
----
-# Parametricty
-
-```tut:silent
-def identity[A](value: A): A = ???
-
-def identityInt(value: Int): Int = ???
-```
-
---
-
-```scala
-VIC(identity) = 1
-
-VIC(identityInt) = (2 ^ 32) ^ (2 ^ 32 - n)
-```
-
----
-# Parametricty
-
-```tut:silent
-def map[A, B](fa: Option[A])(f: A => B): Option[B] = ???
-
-def mapInt(fa: Option[Int])(f: Int => Int): Option[Int] = ???
-```
-
---
-
-```scala
-VIC(map) = 2
-
-VIC(mapInt) =~ 2^32 ^ ((2^32) ^ (2 ^ 32) - n)
-```
-
----
-# Parametricty with Typeclass
-
-```tut:silent
-import cats.Functor
-
-def void[F[_]: Functor, A](fa: F[A]): F[Unit] = ???
-
-def voidList[A](fa: List[A]): List[Unit] = ???
-```
-
---
-
-```scala
-VIC(void) = 1
-
-VIC(voidList) = ∞
-```
-
----
-class: center, middle
-
-# Thanks!
-Code and slides at `julien-truffaut/types-vs-tests` on GitHub
-
-## Questions?
 
  </textarea>
     <script src="https://remarkjs.com/downloads/remark-latest.min.js">

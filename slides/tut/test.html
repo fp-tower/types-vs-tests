@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Types vs Tests</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif', 'Helvetica'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz', 'Gill Sans';
+        font-weight: normal;
+      }
+      .pull-left {
+      float: left;
+      width: 47%;
+      }
+      .pull-right {
+      float: right;
+      width: 47%;
+      }
+      table {
+      border-collapse: collapse;
+      display: inline-block;
+      }
+      th, td {
+      padding: 10px;
+      border: 1px solid black;
+      }
+      tr:nth-child(even) {background-color: #f2f2f2;}
+      .large { font-size: 36px; }
+
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono', 'Consolas', 'Courier New'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+# One Unit Test
+
+.center[
+```scala
+VIC(f: A => B) = |B| ^ |A| / |B|
+               = |B| ^ (|A| - 1)
+```
+]
+
+--
+
+# Two Unit Tests
+
+.center[
+```scala
+VIC(f: A => B) = |B| ^ |A| / |B| / |B|
+                 = (|B| ^ |A|) / (|B| ^ 2)
+         = |B| ^ (|A| - 2)
+```
+]
+
+ </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+        var slideshow = remark.create({
+            ratio: "16:9"
+        });
+    </script>
+  </body>
+</html>

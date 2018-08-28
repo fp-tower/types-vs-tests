@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Types vs Tests</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif', 'Helvetica'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz', 'Gill Sans';
+        font-weight: normal;
+      }
+      .pull-left {
+      float: left;
+      width: 47%;
+      }
+      .pull-right {
+      float: right;
+      width: 47%;
+      }
+      table {
+      border-collapse: collapse;
+      display: inline-block;
+      }
+      th, td {
+      padding: 10px;
+      border: 1px solid black;
+      }
+      tr:nth-child(even) {background-color: #f2f2f2;}
+      .large { font-size: 36px; }
+
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono', 'Consolas', 'Courier New'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle
+
+# Future Work
+
+---
+
+# Property Based Tests
+
+
+
+
+```scala
+import org.scalatest.FreeSpec
+import org.scalatest.prop.Checkers
+
+class IncrementTest extends FreeSpec with Checkers {
+
+  "f(x) >= x" in check((x: Int) => increment(x) >= x)
+
+}
+```
+
+---
+background-image: url(img/increment-math-property-test-1.jpg)
+
+# Property Based Tests
+
+---
+background-image: url(img/increment-math-property-test-2.jpg)
+
+# Property Based Tests
+
+---
+background-image: url(img/increment-math-property-test-3.jpg)
+
+# Property Based Tests
+
+---
+background-image: url(img/increment-math-property-test-fail.jpg)
+
+# Property Based Tests
+
+---
+# VIC for Property Based Tests
+
+```scala
+forall x. increment(x) >= x
+```
+
+```scala
+VIC(increment) = 2 ^ 32 * ...
+```
+
+---
+# VIC for Property Based Tests
+
+```scala
+forall x. increment(x) >= x
+```
+
+```scala
+VIC(increment) = (2 ^ 32) * (2 ^ 32 - 1) * ...
+```
+
+---
+# VIC for Property Based Tests
+
+```scala
+forall x. increment(x) >= x
+```
+
+```scala
+VIC(increment) = (2 ^ 32) * (2 ^ 32 - 1) * (2 ^ 32 - 2) * ... * 1
+               = (2 ^ 32)!
+```
+
+--
+
+## VIC with unit tests
+
+```scala
+VIC(increment) = (2 ^ 32) ^ (2 ^ 32 - n)
+```
+
+--
+
+### `increment(x) >= x` is equivalent to 125 million unit tests
+
+---
+# Parametricty
+
+```scala
+def identity[A](value: A): A = ???
+
+def identityInt(value: Int): Int = ???
+```
+
+--
+
+```scala
+VIC(identity) = 1
+
+VIC(identityInt) = (2 ^ 32) ^ (2 ^ 32 - n)
+```
+
+---
+# Parametricty
+
+```scala
+def map[A, B](fa: Option[A])(f: A => B): Option[B] = ???
+
+def mapInt(fa: Option[Int])(f: Int => Int): Option[Int] = ???
+```
+
+--
+
+```scala
+VIC(map) = 2
+
+VIC(mapInt) =~ 2^32 ^ ((2^32) ^ (2 ^ 32) - n)
+```
+
+---
+# Parametricty with Typeclass
+
+```scala
+import cats.Functor
+
+def void[F[_]: Functor, A](fa: F[A]): F[Unit] = ???
+
+def voidList[A](fa: List[A]): List[Unit] = ???
+```
+
+--
+
+```scala
+VIC(void) = 1
+
+VIC(voidList) = ∞
+```
+
+---
+class: center, middle
+
+# Thanks!
+Code and slides at `julien-truffaut/types-vs-tests` on GitHub
+
+## Questions?
+
+ </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+        var slideshow = remark.create({
+            ratio: "16:9"
+        });
+    </script>
+  </body>
+</html>
