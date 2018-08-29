@@ -59,6 +59,20 @@ VIC(parseCountry) =  |Option[Country]| ^ (|String| - n)
                   =~ 3 ^ |String|
 ```
 
+
+`getDialCode` to `parseCountry` correspond to:
+
+```scala
+n = |A| - |A'| * log2 |B'| / log2 |B|
+  = |String| - |String| * log2 3 / log2 2^32
+  = |String| - |String| * log2 3 / 32
+  = (1 - log2 3 / 32) * |String|
+  =~ 0.95 * |String|
+  =~ 0.95 * (2^16)^(2^32)
+  =~ 0.95 * 2^37
+  =~ 130 billions
+```
+
 ## compare
 
 ```scala

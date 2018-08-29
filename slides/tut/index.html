@@ -445,7 +445,7 @@ class: center, middle
 ---
 class: center, middle
 
-# Every unit test divide VIC by |B|
+# Every unit test divides VIC by |B|
 
 ---
 # One Unit Test
@@ -481,6 +481,7 @@ class: center, middle
 
 ```scala
 VIC(increment) = |B| ^ (|A| - n)
+                   = |Int| ^ (|Int| - n)
                        = (2 ^ 32) ^ (2 ^ 32 - n)
 ```
 
@@ -648,6 +649,10 @@ VIC(parseCountry) =  |Option[Country]| ^ (|String| - n)
                   =~ 3 ^ |String|
 ```
 
+--
+
+### Using Country had the same impact on VIC than 130 billion unit tests!
+
 ---
 # Example: Compare
 
@@ -717,57 +722,50 @@ LVIC(compare_v2) =  (|A| - n) * log_2 |B|
 ---
 class: center, middle
 
-# Conclusion
+# Round 1 Conclusion
 
 ---
-# Conclusion
+# Round 1 for types
 
-.large[
-* Combine both types and test in a single metric
-]
+.center.middle[
+<br>
+<br>
+<br>
+# `VIC(f: A => B) = |B| ^ (|A| - n)`
 
---
-
-.large[
-* Generally better to reduce types than write more unit tests
-]
-
-
---
-
-.large[
-* Unit tests have a decreasing impact
-]
-
---
-
-.large[
-* Unit tests are really useful with small input type
+### where `n` is the number of unit tests
 ]
 
 ---
-# Cons
+# Round 1 for types
+
+.center.middle[
+<br>
+<br>
+<br>
+# `VIC(Any => Any) = |Any| ^ (|Any| - n)`
+
+### where `n` is the number of unit tests
+]
+
+---
+# Round 2
+
+--
 
 .large[
-* Can easily reach extremely large number
+* more expressive tests
+   * property based tests
+   * integration tests
 ]
 
 --
 
 .large[
-* Doesn't take into account the complexity of the implementation
-]
-
---
-
-.large[
-* Only support unit tests (no property based or integration tests)
-]
-
---
-
-.large[
-* Only support basic types (no existential, typeclass or dependent types)
+* more expressive types
+   * existential types
+   * typeclasses
+   * dependent types
 ]
 
 ---
@@ -776,7 +774,9 @@ class: center, middle
 # Thanks!
 Code and slides at `julien-truffaut/types-vs-tests` on GitHub
 
-## Questions?
+<br>
+
+Special thanks to Cesar Tron-Lozai and Maxime
 
 
  </textarea>
