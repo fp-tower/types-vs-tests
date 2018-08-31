@@ -44,19 +44,21 @@ So there is nothing to improve.
 ```scala
 getDialCode: String => Int
 
-VIC(getDialCode) =  |B| ^ (|A| - n)
-                 =  |Option[Int]| ^ (|String| - 3)
-                 =  |Int + 1| ^ (|String| - 3)
-                 =~ |Int| ^ |String|
+|Country| = 50
 
-VIC(getDialCode_v2) = |Int| ^ (|Country| - 2)
-                    = |Int| ^ (2 - 2)
-                    = 1
+LVIC(getDialCode) = (|String| - 2) * log_2 |Int|
+                  = (|String| - 2) * log_2 (2 ^ 32)
+                  =~ |String| * 32
 
-VIC(parseCountry) =  |Option[Country]| ^ (|String| - n)
-                  =  (|Country| + 1) ^ (|String| - n)
-                  =  3 ^ (|String| - n)
-                  =~ 3 ^ |String|
+
+LVIC(getDialCode_v2) = (|Country| - 2) * log_2 |Int|
+                     = (50 - 2) * log_2 (2 ^ 32)
+                     = 48 * 32
+                     = 1536
+
+LVIC(parseCountry) =  (|String| - n) * log_2 |Option[Country]| 
+                   =  (|String| - n) * log_2 (|Country| + 1)
+                   =~ |String| * 6
 ```
 
 
@@ -64,13 +66,12 @@ VIC(parseCountry) =  |Option[Country]| ^ (|String| - n)
 
 ```scala
 n = |A| - |A'| * log2 |B'| / log2 |B|
-  = |String| - |String| * log2 3 / log2 2^32
-  = |String| - |String| * log2 3 / 32
-  = (1 - log2 3 / 32) * |String|
-  =~ 0.95 * |String|
-  =~ 0.95 * (2^16)^(2^32)
-  =~ 0.95 * 2^37
-  =~ 130 billions
+  = |String| - |String| * log2 51 / log2 2^32
+  = |String| - |String| * log2 51 / 32
+  = (1 - log2 51 / 32) * |String|
+  =~ 0.82 * |String|
+  =~ 0.82 * (2^16)^(2^32)
+  =~ 0.82 * (2^(2^36)) unit tests
 ```
 
 ## compare
