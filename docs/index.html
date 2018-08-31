@@ -260,12 +260,12 @@ class: center, middle
 ---
 background-image: url(img/A-to-B-set-1.jpg)
 
-# Function type is a set!
+# Type of a function is a set!
 
 ---
 background-image: url(img/int-to-int-type-1.jpg)
 
-# Function type is a set!
+Type of a function is a set!
 
 ---
 background-image: url(img/int-to-int-type-test.jpg)
@@ -527,30 +527,29 @@ class: center, middle
 ```scala
 LVIC(f: A => B) = Log_2 (|B| ^ (|A| - n))
               = (|A| - n) * Log_2 |B|
-                        = |A| * Log_2 |B| - n * Log_2 |B|
 ```
 
 ---
 class: center, middle
 
 ```scala
-LVIC(increment) = |A| * Log_2 |B| - n * Log_2 |B|
-= 2 ^ 37 - 32 * n
-       =~ 137 billions - 32 * n
+LVIC(increment) = (|A| - n) * Log_2 |B|
+          = 2 ^ 37 - 32 * n
+                 =~ 137 billions - 32 * n
 ```
 
 ---
 class: middle
 
-## 1. Functions are sets
+## 1. Function types are sets
 
-## 2. VIC measure how constrained a function is
+## 2. VIC and LVIC measure how constrained a function is
 
 ## 3. `VIC(f: A => B) = |B| ^ (|A| - n)`
 
-## 4. `LVIC(f: A => B) = (|A| - n) * Log_2 |B|`
+## 4. VIC is reduced by using smaller types or more tests
 
-## 5. VIC is reduced by using smaller types or more tests
+## 5. Unit tests have a limited impact when |A| is big
 
 ---
 # Example: dialCode
@@ -570,7 +569,29 @@ assert(getDialCode("foo")            == None)
 --
 
 ```scala
-VIC(getDialCode) =  |B| ^ (|A| - n)
+LVIC(getDialCode) = (|A| - n) * log_2 |B|
+```
+
+---
+
+# Example: dialCode
+
+```scala
+def getDialCode(country: String): Option[Int] = ???
+```
+
+such as
+
+```scala
+assert(getDialCode("United Kingdom") == Some(44))
+assert(getDialCode("France")         == Some(33))
+assert(getDialCode("foo")            == None)
+```
+
+```scala
+LVIC(getDialCode) = (|A| - n) * log_2 |B|
+                  = (|String| - 3) * log_2 |Option[Int]|
+                  = (|String| - 3) * log_2 (|Int| + 1)
 ```
 
 ---
@@ -589,30 +610,11 @@ assert(getDialCode("foo")            == None)
 ```
 
 ```scala
-VIC(getDialCode) =  |B| ^ (|A| - n)
-                 =  |Option[Int]| ^ (|String| - 3)
-```
-
----
-# Example: dialCode
-
-```scala
-def getDialCode(country: String): Option[Int] = ???
-```
-
-such as
-
-```scala
-assert(getDialCode("United Kingdom") == Some(44))
-assert(getDialCode("France")         == Some(33))
-assert(getDialCode("foo")            == None)
-```
-
-```scala
-VIC(getDialCode) =  |B| ^ (|A| - n)
-                 =  |Option[Int]| ^ (|String| - 3)
-                 =  |Int + 1| ^ (|String| - 3)
-                 =~ |Int| ^ |String|
+LVIC(getDialCode) = (|A| - n) * log_2 |B|
+                  = (|String| - 3) * log_2 |Option[Int]|
+                  = (|String| - 3) * log_2 (|Int| + 1)
+                  = (|String| - 3) * log_2 (2 ^ 32 + 1)
+                  =~ |String| * 32
 ```
 
 ---
@@ -622,15 +624,20 @@ VIC(getDialCode) =  |B| ^ (|A| - n)
 sealed trait Country
 
 case object UnitedKingdom extends Country
-case object France extends Country
+case object France        extends Country
+case object Italy         extends Country
+case object Belgium       extends Country
+...
+case object China         extends Country
 ```
+
+
+
 
 --
 
 ```scala
 def getDialCode_v2(country: Country): Int = ???
-
-def parseCountry(x: String): Option[Country] = ???
 ```
 
 ```scala
@@ -638,17 +645,10 @@ assert(getDialCode_v2(UnitedKingdom) == 44)
 assert(getDialCode_v2(France)        == 33)
 ```
 
----
-# Reduce VIC => Reduce Types
+--
 
 ```scala
-def getDialCode_v2(country: Country): Int = ???
-
 def parseCountry(x: String): Option[Country] = ???
-```
-
-```scala
-VIC(getDialCode_v2) = |Int| ^ (|Country| - 2)
 ```
 
 ---
@@ -656,28 +656,44 @@ VIC(getDialCode_v2) = |Int| ^ (|Country| - 2)
 
 ```scala
 def getDialCode_v2(country: Country): Int = ???
+```
 
+```scala
+LVIC(getDialCode_v2) = (|Country| - 2) * log_2 |Int|
+```
+
+---
+# Reduce VIC => Reduce Types
+
+```scala
+def getDialCode_v2(country: Country): Int = ???
+```
+
+```scala
+LVIC(getDialCode_v2) = (|Country| - 2) * log_2 |Int|
+                     = (50 - 2) * log_2 2 ^ 32
+                     = 48 * 32
+                     = 1536
+```
+
+--
+
+```scala
 def parseCountry(x: String): Option[Country] = ???
 ```
 
+--
+
 ```scala
-VIC(getDialCode_v2) = |Int| ^ (|Country| - 2)
-                    = |Int| ^ (2 - 2)
-                    = 1
+LVIC(parseCountry) =  (|String| - n) * log_2 |Option[Country]|
+                   =  (|String| - n) * log_2 (|Country| + 1)
+                   =  (|String| - n) * log_2 51
+                   =~ |String| * 6
 ```
 
 --
 
-```scala
-VIC(parseCountry) =  |Option[Country]| ^ (|String| - n)
-                  =  (|Country| + 1) ^ (|String| - n)
-                  =  3 ^ (|String| - n)
-                  =~ 3 ^ |String|
-```
-
---
-
-### Using Country had the same impact on VIC than 130 billion unit tests!
+### Using Country reduced LVIC by a factor of 5!
 
 ---
 # Example: Compare
@@ -748,22 +764,40 @@ LVIC(compare_v2) =  (|A| - n) * log_2 |B|
 ---
 class: center, middle
 
-# Round 1 Conclusion
+# Conclusion
 
 ---
-# Round 1 for types
+# Advantages of VIC
 
-.center.middle[
-<br>
-<br>
-<br>
-# `VIC(f: A => B) = |B| ^ (|A| - n)`
+## 1. Combine both types and test in a single metric
 
-### where `n` is the number of unit tests
-]
+--
+
+## 2. Can be automatically calculated
+
+--
+
+## 3. Make us realise how many incorrect implementation exist
 
 ---
-# Round 1 for types
+# Disadvantages of VIC
+
+## 1. Can easily reach extremely large number
+
+--
+
+## 2. Doesn't take into account the complexity of the implementation
+
+--
+
+## 3. Only support unit tests (no property based or integration tests)
+
+--
+
+## 4. Only support basic types (no parametric polymorphism, typeclasses or dependent types)
+
+---
+# Types > Unit Tests
 
 .center.middle[
 <br>
@@ -775,26 +809,6 @@ class: center, middle
 ]
 
 ---
-# Round 2
-
---
-
-.large[
-* more expressive tests
-   * property based tests
-   * integration tests
-]
-
---
-
-.large[
-* more expressive types
-   * existential types
-   * typeclasses
-   * dependent types
-]
-
----
 class: center, middle
 
 # Thanks!
@@ -802,7 +816,7 @@ Code and slides at `julien-truffaut/types-vs-tests` on GitHub
 
 <br>
 
-Special thanks to Cesar Tron-Lozai and Maxime
+Special thanks to Cesar Tron-Lozai and Maxim Ivanov
 
 
  </textarea>
@@ -810,7 +824,8 @@ Special thanks to Cesar Tron-Lozai and Maxime
     </script>
     <script>
         var slideshow = remark.create({
-            ratio: "16:9"
+            ratio: "16:9",
+            slideNumberFormat: '%current%',
         });
     </script>
   </body>

@@ -38,14 +38,148 @@
   <body>
     <textarea id="source">
 
-.center.middle[
-<br>
-<br>
-<br>
-# `VIC(Any => Any) = |Any| ^ (|Any| - n)`
+# Example: dialCode
 
-### where `n` is the number of unit tests
-]
+```scala
+def getDialCode(country: String): Option[Int] = ???
+```
+
+such as
+
+```scala
+assert(getDialCode("United Kingdom") == Some(44))
+assert(getDialCode("France")         == Some(33))
+assert(getDialCode("foo")            == None)
+```
+
+--
+
+```scala
+LVIC(getDialCode) = (|A| - n) * log_2 |B|
+```
+
+---
+
+# Example: dialCode
+
+```scala
+def getDialCode(country: String): Option[Int] = ???
+```
+
+such as
+
+```scala
+assert(getDialCode("United Kingdom") == Some(44))
+assert(getDialCode("France")         == Some(33))
+assert(getDialCode("foo")            == None)
+```
+
+```scala
+LVIC(getDialCode) = (|A| - n) * log_2 |B|
+                  = (|String| - 3) * log_2 |Option[Int]|
+                  = (|String| - 3) * log_2 (|Int| + 1)
+```
+
+---
+# Example: dialCode
+
+```scala
+def getDialCode(country: String): Option[Int] = ???
+```
+
+such as
+
+```scala
+assert(getDialCode("United Kingdom") == Some(44))
+assert(getDialCode("France")         == Some(33))
+assert(getDialCode("foo")            == None)
+```
+
+```scala
+LVIC(getDialCode) = (|A| - n) * log_2 |B|
+                  = (|String| - 3) * log_2 |Option[Int]|
+                  = (|String| - 3) * log_2 (|Int| + 1)
+                  = (|String| - 3) * log_2 (2 ^ 32 + 1)
+                  =~ |String| * 32
+```
+
+---
+# Reduce VIC => Reduce Types
+
+```scala
+sealed trait Country
+
+case object UnitedKingdom extends Country
+case object France        extends Country
+case object Italy         extends Country
+case object Belgium       extends Country
+...
+case object China         extends Country
+```
+
+
+
+
+--
+
+```scala
+def getDialCode_v2(country: Country): Int = ???
+```
+
+```scala
+assert(getDialCode_v2(UnitedKingdom) == 44)
+assert(getDialCode_v2(France)        == 33)
+```
+
+--
+
+```scala
+def parseCountry(x: String): Option[Country] = ???
+```
+
+---
+# Reduce VIC => Reduce Types
+
+```scala
+def getDialCode_v2(country: Country): Int = ???
+```
+
+```scala
+LVIC(getDialCode_v2) = (|Country| - 2) * log_2 |Int|
+```
+
+---
+# Reduce VIC => Reduce Types
+
+```scala
+def getDialCode_v2(country: Country): Int = ???
+```
+
+```scala
+LVIC(getDialCode_v2) = (|Country| - 2) * log_2 |Int|
+                     = (50 - 2) * log_2 2 ^ 32
+                     = 48 * 32
+                     = 1536
+```
+
+--
+
+```scala
+def parseCountry(x: String): Option[Country] = ???
+```
+
+--
+
+```scala
+LVIC(parseCountry) =  (|String| - n) * log_2 |Option[Country]|
+                   =  (|String| - n) * log_2 (|Country| + 1)
+                   =  (|String| - n) * log_2 51
+                   =~ |String| * 6
+```
+
+--
+
+### Using Country reduced LVIC by a factor of 5!
 
  </textarea>
     <script src="https://remarkjs.com/downloads/remark-latest.min.js">

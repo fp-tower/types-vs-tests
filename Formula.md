@@ -46,8 +46,8 @@ getDialCode: String => Int
 
 |Country| = 50
 
-LVIC(getDialCode) = (|String| - 2) * log_2 |Int|
-                  = (|String| - 2) * log_2 (2 ^ 32)
+LVIC(getDialCode) = (|String| - 2) * log_2 |Option[Int]|
+                  = (|String| - 2) * log_2 (2 ^ 32 + 1)
                   =~ |String| * 32
 
 
@@ -56,7 +56,7 @@ LVIC(getDialCode_v2) = (|Country| - 2) * log_2 |Int|
                      = 48 * 32
                      = 1536
 
-LVIC(parseCountry) =  (|String| - n) * log_2 |Option[Country]| 
+LVIC(parseCountry) =  (|String| - n) * log_2 |Option[Country]|
                    =  (|String| - n) * log_2 (|Country| + 1)
                    =~ |String| * 6
 ```
