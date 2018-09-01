@@ -680,7 +680,7 @@ LVIC(parseCountry) =  (|String| - n) * log_2 |Option[Country]|
 # Example: Compare
 
 ```tut:silent
-def compare(x: Char, y: Char): Int = {
+def compare(x: Byte, y: Byte): Int = {
   if(x < y)        -1
   else if (x == y)  0
   else              1
@@ -697,7 +697,7 @@ LVIC(compare) =  (|A| - n) * log_2 |B|
 # Example: Compare
 
 ```tut:silent
-def compare(x: Char, y: Char): Int = {
+def compare(x: Byte, y: Byte): Int = {
   if(x < y)        -1
   else if (x == y)  0
   else              1
@@ -706,7 +706,7 @@ def compare(x: Char, y: Char): Int = {
 
 ```scala
 LVIC(compare) =  (|A| - n) * log_2 |B|
-              =  (|(Char, Char)| - n) * log_2 |Int|
+              =  (|(Byte, Byte)| - n) * log_2 |Int|
               =  (2^16 - n) * log_2 2^32
               =  2^21 - 32 * n
               =~ 2 millions - 32 * n
@@ -722,7 +722,7 @@ case object LowerThan   extends Comparison
 case object EqualTo     extends Comparison
 case object GreaterThan extends Comparison
 
-def compare_v2(x: Char, y: Char): Comparison = {
+def compare_v2(x: Byte, y: Byte): Comparison = {
   if(x < y)        LowerThan
   else if (x == y) EqualTo
   else             GreaterThan
@@ -733,7 +733,7 @@ def compare_v2(x: Char, y: Char): Comparison = {
 
 ```scala
 LVIC(compare_v2) =  (|A| - n) * log_2 |B|
-                 =  (|(Char, Char)| - n) * log_2 |Comparison|
+                 =  (|(Byte, Byte)| - n) * log_2 |Comparison|
                  =  (2^16 - n) * log_2 3
                  =~ 100 000 - 1.58 * n
 ```
@@ -775,7 +775,7 @@ class: center, middle
 
 --
 
-## 4. Only support basic types (no parametric polymorphism, typeclasses or dependent types)
+## 4. Only support basic types (no parametric polymorphism, typeclasses, GADTs or dependent types)
 
 ---
 # Types > Unit Tests
