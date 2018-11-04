@@ -54,76 +54,103 @@ import org.scalatest.prop.Checkers
 
 class IncrementTest extends FreeSpec with Checkers {
 
-  "f(x) >= x" in check((x: Int) => increment(x) >= x)
+  "increment property" in check{ (x: Int) =>
+    increment(x)
+    ???
+  }
 
 }
 ```
 
 ---
-background-image: url(img/increment-math-property-test-1.jpg)
+background-image: url(img/increment-mapping-1.jpg)
+
+# Increment Property ?
+
+---
+background-image: url(img/increment-mapping-2.jpg)
+
+# Increment Property ?
+
+---
+background-image: url(img/increment-mapping-3.jpg)
+
+# Increment Property ?
+
+---
+class: center, middle
+
+## `increment(x) != increment(y)`
+
+## implies
+
+## `x != y`
+
+---
 
 # Property Based Tests
 
----
-background-image: url(img/increment-math-property-test-2.jpg)
 
-# Property Based Tests
 
----
-background-image: url(img/increment-math-property-test-3.jpg)
-
-# Property Based Tests
-
----
-background-image: url(img/increment-math-property-test-fail.jpg)
-
-# Property Based Tests
-
----
-# VIC for Property Based Tests
 
 ```scala
-forall x. increment(x) >= x
+import org.scalatest.FreeSpec
+import org.scalatest.prop.Checkers
+
+class IncrementTest extends FreeSpec with Checkers {
+
+  "increment is injective (one-to-one)" in check((x: Int, y: Int) =>
+    increment(x) != increment(y) || x == y
+  )
+
+}
 ```
 
-```scala
-VIC(increment) = 2 ^ 32 * ...
-```
+--
 
----
-# VIC for Property Based Tests
-
-```scala
-forall x. increment(x) >= x
-```
-
-```scala
-VIC(increment) = (2 ^ 32) * (2 ^ 32 - 1) * ...
-```
-
----
-# VIC for Property Based Tests
-
-```scala
-forall x. increment(x) >= x
-```
+## VIC with injective property
 
 ```scala
 VIC(increment) = (2 ^ 32) * (2 ^ 32 - 1) * (2 ^ 32 - 2) * ... * 1
-               = (2 ^ 32)!
+               = (2 ^ 32)! // instead of (2 ^ 32) ^ (2 ^ 32)
 ```
 
 --
 
-## VIC with unit tests
+### it is equivalent to 125 million unit tests
+
+---
+
+# Property Based Tests
 
 ```scala
-VIC(increment) = (2 ^ 32) ^ (2 ^ 32 - n)
+def isEven(x: Int): Boolean = x % 2 == 0
 ```
 
 --
 
-### `increment(x) >= x` is equivalent to 125 million unit tests
+```scala
+class IsEvenTest extends FreeSpec with Checkers {
+
+  "even returns true" in check((x: Int) => isEven(2 * x    ) == true)
+
+  "odd returns false" in check((x: Int) => isEven(2 * x + 1) == false)
+
+}
+```
+
+--
+
+### VIC with even / odd properties
+
+```scala
+VIC(isEven) = 1
+```
+
+---
+class: center, middle
+
+# Property based testing can be very effective but it is difficult to measure impact on VIC generically
 
 ---
 # Parametricty

@@ -23,4 +23,8 @@ class IncrementTest extends FreeSpec with Checkers with Matchers {
     assert(increment(0) == 1)
   }
 
+  "increment is injective (one-to-one)" in check((x: Int, y: Int) =>
+    increment(x) != increment(y) || x == y
+  )
+
 }
