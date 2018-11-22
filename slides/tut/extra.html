@@ -179,29 +179,6 @@ VIC(increment) = (2 ^ 32 - 1) * (2 ^ 32 - 2) * ... * 1 * 2 ^ 32
 
 ---
 
-# Property Based Tests with Refined
-
-```tut:silent
-import org.scalatest.{FreeSpec, Matchers}
-import org.scalatest.prop.Checkers
-import eu.timepit.refined.W
-import eu.timepit.refined.api.Refined
-import eu.timepit.refined.numeric.Less
-import eu.timepit.refined.scalacheck.numeric._
-
-class IncrementTest extends FreeSpec with Checkers {
-
-  final val maxInt = Int.MaxValue
-
-  "∀ x < MaxInt, increment(x) > x" in check((x: Int Refined Less[W.`maxInt`.T]) =>
-    increment(x.value) > x.value
-  )
-
-}
-```
-
----
-
 # Combine Properties
 
 ```scala
@@ -213,8 +190,8 @@ class IncrementTest extends FreeSpec with Checkers {
     increment(x) != increment(y) || x == y
   )
 
-  "∀ x < MaxInt, increment(x) > x" in check((x: Int Refined Less[W.`maxInt`.T]) =>
-    increment(x.value) > x.value
+  "∀ x - MaxInt, f(x) > x" in check((x: Int) =>
+    increment(x) > x || x == Int.MaxValue
   )
 
 }
