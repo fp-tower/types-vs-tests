@@ -39,15 +39,50 @@
     <textarea id="source">
 class: center, middle
 
-# Future Work
+# Advanced tests
 
 ---
 
 # Property Based Tests
 
-```tut:invisible
+```tut:silent
+def isEven(x: Int): Boolean = x % 2 == 0
+```
+
+--
+
+```tut:silent
+import org.scalatest.FreeSpec
+import org.scalatest.prop.Checkers
+
+class IsEvenTest extends FreeSpec with Checkers {
+
+  "odd numbers return false" in check((x: Int) =>
+    isEven(2 * x + 1) == false
+  )
+
+}
+```
+
+--
+
+### VIC with odd property
+
+```scala
+VIC(isEven) = |Boolean| ^ (|Int| / 2)
+            = 2 ^ (2 ^ 32 / 2)
+            = 2 ^ (2 ^ 31) // instead of 2 ^ (2 ^ 32)
+```
+
+---
+
+# Property Based Tests
+
+```tut:silent
 def increment(x: Int): Int = x + 1
 ```
+
+--
 
 ```tut:silent
 import org.scalatest.FreeSpec
@@ -56,17 +91,11 @@ import org.scalatest.prop.Checkers
 class IncrementTest extends FreeSpec with Checkers {
 
   "increment property" in check{ (x: Int) =>
-    increment(x)
     ???
   }
 
 }
 ```
-
----
-background-image: url(img/increment-mapping-1.jpg)
-
-# Increment Property ?
 
 ---
 background-image: url(img/increment-mapping-2.jpg)
@@ -76,16 +105,16 @@ background-image: url(img/increment-mapping-2.jpg)
 ---
 background-image: url(img/increment-mapping-3.jpg)
 
-# Increment Property ?
+# Injective
 
 ---
 class: center, middle
 
-## `increment(x) != increment(y)`
+## `increment(x) == increment(y)`
 
 ## implies
 
-## `x != y`
+## `x == y`
 
 ---
 
@@ -117,37 +146,131 @@ VIC(increment) = (2 ^ 32) * (2 ^ 32 - 1) * (2 ^ 32 - 2) * ... * 1
                = (2 ^ 32)! // instead of (2 ^ 32) ^ (2 ^ 32)
 ```
 
---
+---
+background-image: url(img/increment-mapping-2.jpg)
 
-### it is equivalent to 125 million unit tests
+# Increment Property ?
 
 ---
 
 # Property Based Tests
 
-```tut:silent
-def isEven(x: Int): Boolean = x % 2 == 0
-```
+```scala
+import org.scalatest.FreeSpec
+import org.scalatest.prop.Checkers
 
---
+class IncrementTest extends FreeSpec with Checkers {
 
-```tut:silent
-class IsEvenTest extends FreeSpec with Checkers {
-
-  "even returns true" in check((x: Int) => isEven(2 * x    ) == true)
-
-  "odd returns false" in check((x: Int) => isEven(2 * x + 1) == false)
+  "∀ x - MaxInt, f(x) > x" in check((x: Int) =>
+    increment(x) > x || x == Int.MaxValue
+  )
 
 }
 ```
 
 --
 
-### VIC with even / odd properties
+### VIC with greater than property
 
 ```scala
-VIC(isEven) = 1
+VIC(increment) = (2 ^ 32 - 1) * (2 ^ 32 - 2) * ... * 1 * 2 ^ 32
+               = (2 ^ 32)!
 ```
+
+---
+
+# Property Based Tests with Refined
+
+```tut:silent
+import org.scalatest.{FreeSpec, Matchers}
+import org.scalatest.prop.Checkers
+import eu.timepit.refined.W
+import eu.timepit.refined.api.Refined
+import eu.timepit.refined.numeric.Less
+import eu.timepit.refined.scalacheck.numeric._
+
+class IncrementTest extends FreeSpec with Checkers {
+
+  final val maxInt = Int.MaxValue
+
+  "∀ x < MaxInt, increment(x) > x" in check((x: Int Refined Less[W.`maxInt`.T]) =>
+    increment(x.value) > x.value
+  )
+
+}
+```
+
+---
+
+# Combine Properties
+
+```scala
+class IncrementTest extends FreeSpec with Checkers {
+
+  final val maxInt = Int.MaxValue
+
+  "increment is injective (one-to-one)" in check((x: Int, y: Int) =>
+    increment(x) != increment(y) || x == y
+  )
+
+  "∀ x < MaxInt, increment(x) > x" in check((x: Int Refined Less[W.`maxInt`.T]) =>
+    increment(x.value) > x.value
+  )
+
+}
+```
+
+---
+background-image: url(img/combine-properties-1.jpg)
+
+# Combine Properties
+
+---
+background-image: url(img/combine-properties-2.jpg)
+
+# Combine Properties
+
+---
+background-image: url(img/combine-properties-3.jpg)
+
+# Combine Properties
+
+---
+background-image: url(img/combine-properties-4.jpg)
+
+# Combine Properties
+
+---
+background-image: url(img/combine-properties-5.jpg)
+
+# Combine Properties
+
+---
+background-image: url(img/combine-properties-6.jpg)
+
+# Combine Properties
+
+---
+background-image: url(img/combine-properties-7.jpg)
+
+# Combine Properties
+
+---
+background-image: url(img/combine-properties-8.jpg)
+
+# Combine Properties
+
+---
+background-image: url(img/combine-properties-9.jpg)
+
+# Combine Properties
+
+---
+class: center, middle
+
+# VIC(increment) = 1
+
+### with injective and f(x) > x properties
 
 ---
 class: center, middle
@@ -155,57 +278,152 @@ class: center, middle
 # Property based testing can be very effective but it is difficult to measure impact on VIC generically
 
 ---
+class: center, middle
+
+# Advanced types
+
+---
 # Parametricty
 
 ```tut:silent
-def identity[A](value: A): A = ???
+def identityInt(x: Int): Int = x
+```
 
-def identityInt(value: Int): Int = ???
+```scala
+|identityInt| = (2 ^ 32) ^ (2 ^ 32)
 ```
 
 --
 
-```scala
-VIC(identity) = 1
+```tut:silent
+def identity[A](x: A): A = x
+```
 
-VIC(identityInt) = (2 ^ 32) ^ (2 ^ 32 - n)
+```scala
+|identity| = 1
 ```
 
 ---
 # Parametricty
 
 ```tut:silent
-def map[A, B](fa: Option[A])(f: A => B): Option[B] = ???
-
-def mapInt(fa: Option[Int])(f: Int => Int): Option[Int] = ???
+def mapInt(fa: Option[Int], f: Int => Int): Option[Int] = ???
 ```
 
 --
 
 ```scala
-VIC(map) = 2
+|mapInt| =  |Option[Int]| ^ |(Option[Int], Int => Int)|
+         =~ |Int| ^ |Int => Int|
+         =~ 2 ^ 32 ^ ((2 ^ 32) ^ (2 ^ 32))
+```
 
-VIC(mapInt) =~ 2^32 ^ ((2^32) ^ (2 ^ 32) - n)
+--
+
+```tut:silent
+def map[A, B](fa: Option[A], f: A => B): Option[B] = ???
 ```
 
 ---
-# Parametricty with Typeclass
+# Parametricty
+
+```tut:silent
+def map[A, B](fa: Option[A], f: A => B): Option[B] =
+  fa match {
+    case None    => None
+    case Some(x) => Some(f(x))
+  }
+
+
+def map[A, B](fa: Option[A], f: A => B): Option[B] =
+  fa match {
+    case None    => None
+    case Some(x) => None
+  }
+```
+
+--
+
+```scala
+|map| = 2
+```
+
+---
+# Yoneda Lemma
+
+```scala
+F[A] ~ Yoneda[F, A] if F is a functor
+```
+
+--
+
+```tut:silent
+trait Yoneda[F[_], A]{
+  def runYoneda[B](f: A => B): F[B]
+}
+```
+
+--
+
+```scala
+Option[A] => (A => B) => Option[B]
+~ Option[A] => Yoneda[Option, A]
+~ Option[A] => Option[A]
+~ (1 + a) ^ (1 + a)
+```
+
+---
+# Parametricty
+
+```tut:silent
+def voidList(fa: List[Int]): List[Unit] = ???
+```
+
+```scala
+|voidList| = |List[Unit]| ^ |List[Int]|
+           = ∞
+```
+
+---
+# Parametricty
+
+```tut:silent
+def voidList2[A](fa: List[A]): List[Unit] = ???
+```
+
+--
+
+```tut:silent
+def voidList2[A](fa: List[A]): List[Unit] = Nil
+def voidList2[A](fa: List[A]): List[Unit] = List(())
+def voidList2[A](fa: List[A]): List[Unit] = List((), ())
+def voidList2[A](fa: List[A]): List[Unit] = List((), (), ())
+def voidList2[A](fa: List[A]): List[Unit] = fa.map(_ => ()).take(5)
+```
+
+--
+
+```scala
+|voidList2| > |List[Unit]| = ∞
+```
+
+---
+# Parametricty
+
 
 ```tut:silent
 import cats.Functor
+import cats.syntax.functor._
 
-def void[F[_]: Functor, A](fa: F[A]): F[Unit] = ???
-
-def voidList[A](fa: List[A]): List[Unit] = ???
+def void[F[_]: Functor, A](fa: F[A]): F[Unit] = fa.map(_ => ())
 ```
 
 --
 
 ```scala
-VIC(void) = 1
-
-VIC(voidList) = ∞
+|void| = 1
 ```
+
 
 ---
 class: center, middle
