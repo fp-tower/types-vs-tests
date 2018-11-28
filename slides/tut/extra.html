@@ -146,6 +146,10 @@ VIC(increment) = (2 ^ 32) * (2 ^ 32 - 1) * (2 ^ 32 - 2) * ... * 1
                = (2 ^ 32)! // instead of (2 ^ 32) ^ (2 ^ 32)
 ```
 
+--
+
+### It is equivalent to 125 million unit tests
+
 ---
 background-image: url(img/increment-mapping-2.jpg)
 
@@ -252,7 +256,7 @@ class: center, middle
 ---
 class: center, middle
 
-# Property based testing can be very effective but it is difficult to measure impact on VIC generically
+# Property based testing is very effective but it is difficult to measure impact on VIC
 
 ---
 class: center, middle
@@ -260,7 +264,7 @@ class: center, middle
 # Advanced types
 
 ---
-# Parametricty
+# Parametric Polymorphism
 
 ```tut:silent
 def identityInt(x: Int): Int = x
@@ -272,6 +276,8 @@ def identityInt(x: Int): Int = x
 
 --
 
+<br/>
+
 ```tut:silent
 def identity[A](x: A): A = x
 ```
@@ -281,7 +287,7 @@ def identity[A](x: A): A = x
 ```
 
 ---
-# Parametricty
+# Parametric Polymorphism
 
 ```tut:silent
 def mapInt(fa: Option[Int], f: Int => Int): Option[Int] = ???
@@ -297,12 +303,14 @@ def mapInt(fa: Option[Int], f: Int => Int): Option[Int] = ???
 
 --
 
+<br/>
+
 ```tut:silent
 def map[A, B](fa: Option[A], f: A => B): Option[B] = ???
 ```
 
 ---
-# Parametricty
+# Parametric Polymorphism
 
 ```tut:silent
 def map[A, B](fa: Option[A], f: A => B): Option[B] =
@@ -321,40 +329,24 @@ def map[A, B](fa: Option[A], f: A => B): Option[B] =
 
 --
 
+<br/>
+
 ```scala
 |map| = 2
 ```
 
----
-# Yoneda Lemma
-
-```scala
-F[A] ~ Yoneda[F, A] if F is a functor
-```
-
 --
 
-```tut:silent
-trait Yoneda[F[_], A]{
-  def runYoneda[B](f: A => B): F[B]
-}
-```
-
---
-
-```scala
-Option[A] => (A => B) => Option[B]
-~ Option[A] => Yoneda[Option, A]
-~ Option[A] => Option[A]
-~ (1 + a) ^ (1 + a)
-```
+### Yoneda lemma allow to calculate `|map|` automatically
 
 ---
-# Parametricty
+# Adhoc Polymorphism
 
 ```tut:silent
 def voidList(fa: List[Int]): List[Unit] = ???
 ```
+
+<br/>
 
 ```scala
 |voidList| = |List[Unit]| ^ |List[Int]|
@@ -362,7 +354,7 @@ def voidList(fa: List[Int]): List[Unit] = ???
 ```
 
 ---
-# Parametricty
+# Adhoc Polymorphism
 
 ```tut:silent
 def voidList2[A](fa: List[A]): List[Unit] = ???
@@ -380,12 +372,14 @@ def voidList2[A](fa: List[A]): List[Unit] = fa.map(_ => ()).take(5)
 
 --
 
+<br/>
+
 ```scala
 |voidList2| > |List[Unit]| = ∞
 ```
 
 ---
-# Parametricty
+# Adhoc Polymorphism
 
 
 ```tut:silent
@@ -397,10 +391,22 @@ def void[F[_]: Functor, A](fa: F[A]): F[Unit] = fa.map(_ => ())
 
 --
 
+<br/>
+
 ```scala
 |void| = 1
 ```
 
+---
+class: middle
+
+## Parametric polymorphism
+
+## Typeclasses / Adhoc polymorphism
+
+## GADTS / Type equalities
+
+## Dependent types
 
 ---
 class: center, middle
