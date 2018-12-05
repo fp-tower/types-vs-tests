@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Types vs Tests</title>
-    <meta charset="utf-8">
-    <style>
-      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
-      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
-      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+<head>
+<title>Types vs Tests</title>
+<meta charset="utf-8">
+<style>
+@import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+@import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
 
       body { font-family: 'Droid Serif', 'Helvetica'; }
       h1, h2, h3 {
@@ -56,6 +56,11 @@ background-image: url(img/types-1.jpg)
 # Types
 
 ---
+background-image: url(img/types-1-bis.jpg)
+
+# Types
+
+---
 background-image: url(img/types-2.jpg)
 
 # Types
@@ -66,10 +71,13 @@ background-image: url(img/types-3.jpg)
 # Types
 
 ---
+background-image: url(img/types-4.jpg)
+
 # Types
 
+---
+# Types
 
-.pull-left[
 ```scala
 val x: Int = 5
 ```
@@ -83,11 +91,10 @@ scala> val y: Int = false
        val y: Int = false
                     ^
 ```
-]
 
---
+---
+# Types
 
-.pull-right[
 ```scala
 def increment(x: Int): Int = x + 1
 ```
@@ -96,7 +103,6 @@ def increment(x: Int): Int = x + 1
 scala> increment(2)
 res0: Int = 3
 ```
-
 
 ```scala
 scala> increment("hello")
@@ -115,7 +121,27 @@ scala> def increment(x: Int): Int = x.toString
        def increment(x: Int): Int = x.toString
                                       ^
 ```
-]
+
+---
+# Types "Weak" Constraint
+
+<br>
+
+```scala
+def increment(x: Int): Int = x + 1
+```
+
+<br>
+
+```scala
+def increment(x: Int): Int = x + 2
+```
+
+<br>
+
+```scala
+def increment(x: Int): Int = 0
+```
 
 ---
 # Functional programming subset
@@ -143,25 +169,31 @@ class: center, middle
 ---
 # Unit Tests
 
-.center[
+
+
+
 <br>
 
 ```scala
-assert(increment(0)  ==  1)
+"increment at 0" in {
+    assert(increment(0) == 1)
+}
+```
+<br>
+
+```scala
+"increment at 1" in {
+    assert(increment(1) == 2)
+}
 ```
 
 <br>
 
 ```scala
-assert(increment(1)  ==  2)
+"increment at -3" in {
+    assert(increment(-3) == -2)
+}
 ```
-
-<br>
-
-```scala
-assert(increment(-3) == -2)
-```
-]
 
 ---
 background-image: url(img/increment-math-unit-test-1.jpg)
@@ -176,49 +208,12 @@ background-image: url(img/increment-math-unit-test-fail.jpg)
 ---
 background-image: url(img/increment-math-unit-test-2.jpg)
 
-# Unit Tests
+# Unit Tests "Weak" Constraint
 
 ---
 class: center, middle
 
 # Types and Tests
-
----
-
-.pull-left[
-# Types
-
-```scala
-scala> increment("hello")
-<console>:14: error: type mismatch;
- found   : String("hello")
- required: Int
-       increment("hello")
-                 ^
-```
-
-```scala
-scala> def increment(x: Int): Int = x.toString
-<console>:13: error: type mismatch;
- found   : String
- required: Int
-       def increment(x: Int): Int = x.toString
-                                      ^
-```
-]
-
-.pull-right[
-# Tests
-
-```scala
-assert(increment(0) == 2)
-
-1 did not equal 2
-ScalaTestFailureLocation: presentation.IncrementTest at (IncrementTest.scala:23)
-Expected :2
-Actual   :1
-```
-]
 
 ---
 class: center, middle
@@ -280,7 +275,7 @@ class: center, middle
 ---
 class: center, middle
 
-# VIC(f: A => B) = number of impl - impl invalid from tests
+# VIC(f: A => B) = number of impl - impl invalid by tests
 
 ---
 background-image: url(img/VIC-increment.jpg)
@@ -313,12 +308,7 @@ class: center, middle
 ---
 class: center, middle
 
-# VIC(f: A => B) = <span style="color:blue">**number of impl**</span>  - impl invalid from tests
-
----
-class: center, middle
-
-# |f: A => B|
+# VIC(f: A => B) = <span style="color:blue">**number of impl**</span>  - impl invalid by tests
 
 ---
 class: center, middle
@@ -393,6 +383,8 @@ case object Sunday  extends DayOfWeek
 
 --
 
+<br>
+
 ```scala
 |DayOfWeek => Boolean| = |Boolean| ^ |DayOfWeek|
                        = 2 ^ 7
@@ -402,7 +394,7 @@ case object Sunday  extends DayOfWeek
 ---
 class: center, middle
 
-# VIC(f: A => B) = number of impl - <span style="color:blue">**impl invalid from tests**</span>
+# VIC(f: A => B) = number of impl - <span style="color:blue">**impl invalid by tests**</span>
 
 ---
 background-image: url(img/day-week-to-boolean-1.jpg)
@@ -534,6 +526,7 @@ class: center, middle
 
 ```scala
 LVIC(increment) = (|A| - n) * Log_2 |B|
+            = (2 ^ 32 - n) * 32
           = 2 ^ 37 - 32 * n
                  =~ 137 billions - 32 * n
 ```
@@ -621,7 +614,7 @@ LVIC(getDialCode) = (|A| - n) * log_2 |B|
 # Reduce VIC => Reduce Types
 
 ```scala
-sealed trait Country
+sealed trait Country //  |Country| = 50
 
 case object UnitedKingdom extends Country
 case object France        extends Country
@@ -638,17 +631,19 @@ case object China         extends Country
 
 ```scala
 def getDialCode_v2(country: Country): Int = ???
-```
 
-```scala
-assert(getDialCode_v2(UnitedKingdom) == 44)
-assert(getDialCode_v2(France)        == 33)
+def parseCountry(x: String): Option[Country] = ???
 ```
 
 --
 
 ```scala
-def parseCountry(x: String): Option[Country] = ???
+assert(getDialCode_v2(UnitedKingdom) == 44)
+assert(getDialCode_v2(France)        == 33)
+
+assert(parseCountry("United Kingdom") == Some(UnitedKingdom))
+assert(parseCountry("France")         == Some(France))
+assert(parseCountry("foo")            == None)
 ```
 
 ---
@@ -696,39 +691,23 @@ LVIC(parseCountry) =  (|String| - n) * log_2 |Option[Country]|
 ### Using Country reduced LVIC by a factor of 5!
 
 ---
-class: center, middle
-
-# Conclusion
-
----
-# Advantages of VIC
-
-## 1. Combine both types and test in a single metric
+# Conclusions
 
 --
 
-## 2. Can be automatically calculated
+## 1. VIC combines both types and test in a single metric
 
 --
 
-## 3. Make us realise how many incorrect implementations exist
-
----
-# Disadvantages of VIC
-
-## 1. Can easily reach extremely large number
+## 2. It can be automatically calculated
 
 --
 
-## 2. Doesn't take into account the complexity of the implementation
+## 3. Reach unimaginable numbers except for toy examples
 
 --
 
-## 3. Only support unit tests (no property based or integration tests)
-
---
-
-## 4. Only support basic types (no parametric polymorphism, typeclasses, GADTs or dependent types)
+## 4. If we only have basic types and unit tests, we cannot hope to write correct program
 
 ---
 # Types > Unit Tests
@@ -1043,7 +1022,7 @@ def map[A, B](fa: Option[A], f: A => B): Option[B] =
 
 --
 
-### Yoneda lemma allow to calculate `|map|` automatically
+### Yoneda lemma allows to calculate `|map|` automatically
 
 ---
 # Adhoc Polymorphism
@@ -1104,8 +1083,9 @@ def void[F[_]: Functor, A](fa: F[A]): F[Unit] = fa.map(_ => ())
 ```
 
 ---
-class: middle
+# Even More Types
 
+.middle[
 ## Parametric polymorphism
 
 ## Typeclasses / Adhoc polymorphism
@@ -1113,6 +1093,7 @@ class: middle
 ## GADTS / Type equalities
 
 ## Dependent types
+]
 
 ---
 class: center, middle
