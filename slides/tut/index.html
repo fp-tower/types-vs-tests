@@ -107,7 +107,7 @@ def increment(x: Int): Int = x.toString
 ```
 
 ---
-# Types "Weak" Constraint
+# Basic Types are a limited constraint
 
 <br>
 
@@ -193,7 +193,7 @@ background-image: url(img/increment-math-unit-test-fail.jpg)
 ---
 background-image: url(img/increment-math-unit-test-2.jpg)
 
-# Unit Tests "Weak" Constraint
+# Unit Tests are a limited constraint
 
 ---
 class: center, middle
@@ -235,17 +235,17 @@ class: center, middle
 
 # &&
 
-# Function has type
+# A => B is a type
 
 ---
 background-image: url(img/A-to-B-set-1.jpg)
 
-# Type of a function is a set!
+# A => B is a set!
 
 ---
 background-image: url(img/int-to-int-type-1.jpg)
 
-# Type of a function is a set!
+# Function is a set!
 
 ---
 background-image: url(img/int-to-int-type-test.jpg)
@@ -266,29 +266,16 @@ class: center, middle
 background-image: url(img/VIC-increment.jpg)
 
 ---
+class: center, middle
+
+# The smaller VIC is, the more constrained is f
+
+---
 background-image: url(img/VIC-1.jpg)
 
 .center[
 # VIC(f) = 1
 ]
-
----
-class: center, middle
-
-# Valid Implementation Count (VIC)
-
-# =
-
-# How many impl pass the typechecker and my tests?
-
----
-class: center, middle
-
-# Valid Implementation Count (VIC)
-
-# =
-
-# How constrained is my function?
 
 ---
 class: center, middle
@@ -401,7 +388,7 @@ val f: DayOfWeek => Boolean = ???
 such as
 
 ```scala
-assert(isWeekend(Tuesday) == false)
+assert(f(Tuesday) == false)
 ```
 
 ---
@@ -517,17 +504,17 @@ LVIC(increment) = (|A| - n) * Log_2 |B|
 ```
 
 ---
-class: middle
+# Review
 
-## 1. Function types are sets
+.middle[
+## 1. `A => B` is set of implementations
 
 ## 2. VIC and LVIC measure how constrained a function is
 
 ## 3. `VIC(f: A => B) = |B| ^ (|A| - n)`
 
 ## 4. VIC is reduced by using smaller types or more tests
-
-## 5. Unit tests have a limited impact when |A| is big
+]
 
 ---
 # Example: dialCode
@@ -687,7 +674,7 @@ LVIC(parseCountry) =  (|String| - n) * log_2 |Option[Country]|
 
 --
 
-## 1. VIC combines both types and test in a single metric
+## 1. VIC combines both types and unit tests in a single metric
 
 --
 
@@ -699,19 +686,7 @@ LVIC(parseCountry) =  (|String| - n) * log_2 |Option[Country]|
 
 --
 
-## 4. If we only have basic types and unit tests, we cannot hope to write correct program
-
----
-# Types > Unit Tests
-
-.center.middle[
-<br>
-<br>
-<br>
-# `VIC(Any => Any) = |Any| ^ (|Any| - n)`
-
-### where `n` is the number of unit tests
-]
+## 4. If we only have basic types and unit tests, we cannot hope to write correct programs
 
 ---
 
@@ -866,8 +841,6 @@ VIC(increment) = (2 ^ 32 - 1) * (2 ^ 32 - 2) * ... * 1 * 2 ^ 32
 ```scala
 class IncrementTest extends FreeSpec with Checkers {
 
-  final val maxInt = Int.MaxValue
-
   "increment is injective (one-to-one)" in check((x: Int, y: Int) =>
     increment(x) != increment(y) || x == y
   )
@@ -1015,7 +988,7 @@ def map[A, B](fa: Option[A], f: A => B): Option[B] =
 
 --
 
-### Yoneda lemma allows to calculate `|map|` automatically
+### Yoneda lemma can calculate `|map|` automatically
 
 ---
 # Adhoc Polymorphism
@@ -1076,16 +1049,19 @@ def void[F[_]: Functor, A](fa: F[A]): F[Unit] = fa.map(_ => ())
 ```
 
 ---
-# Even More Types
+class: center, middle
+
+# The more polymoprhic a function is, the more precise it becomes
+
+---
+# More Advanced Types
 
 .middle[
-## Parametric polymorphism
-
-## Typeclasses / Adhoc polymorphism
-
 ## GADTS / Type equalities
 
-## Dependent types
+## Dependent Types
+
+## Linear Types
 ]
 
 ---
@@ -1099,6 +1075,22 @@ Code and slides at `julien-truffaut/types-vs-tests` on GitHub
 <br>
 
 Special thanks to Cesar Tron-Lozai and Maxim Ivanov
+
+---
+
+background-image: url(img/types-4.jpg)
+
+---
+# Basic Types > Unit Tests
+
+.center.middle[
+<br>
+<br>
+<br>
+# `VIC(Any => Any) = |Any| ^ (|Any| - n)`
+
+### where `n` is the number of unit tests
+]
 
 
  </textarea>
