@@ -1,5 +1,6 @@
+
 lazy val baseSettings: Seq[Setting[_]] = Seq(
-  scalaVersion       := "2.12.6",
+  scalaVersion := "2.13.3",
   scalacOptions     ++= Seq(
     "-deprecation",
     "-encoding", "UTF-8",
@@ -7,19 +8,15 @@ lazy val baseSettings: Seq[Setting[_]] = Seq(
     "-language:higherKinds",
     "-language:implicitConversions", "-language:existentials",
     "-unchecked",
-    "-Yno-adapted-args",
     "-Ywarn-numeric-widen",
     "-Ywarn-value-discard",
-    "-Xfuture"
   ),
   libraryDependencies ++= Seq(
-    "org.typelevel"  %% "cats-core"  % "1.2.0",
-    "eu.timepit"     %% "refined"    % "0.9.2",
-    "eu.timepit"     %% "refined-scalacheck" % "0.9.2",
-    "org.scalacheck" %% "scalacheck" % "1.14.0",
-    "org.scalatest"  %% "scalatest"  % "3.0.5"
+    "org.typelevel"     %% "cats-core"          % "2.1.1",
+    "eu.timepit"        %% "refined"            % "0.9.15",
+    "eu.timepit"        %% "refined-scalacheck" % "0.9.15",
+    "org.scalatestplus" %% "scalacheck-1-14"    % "3.1.2.0" % Test,
   ),
-  resolvers += Resolver.sonatypeRepo("releases")
 )
 
 lazy val `types-vs-tests` = project.in(file("."))
@@ -37,8 +34,7 @@ lazy val slides = project
   .settings(moduleName := "types-vs-tests-slides")
   .settings(baseSettings: _*)
   .settings(
-    tutSourceDirectory := baseDirectory.value / "tut",
-    tutTargetDirectory := baseDirectory.value / "../docs",
-    watchSources ++= (tutSourceDirectory.value ** "*.html").get
+    mdocIn := baseDirectory.value / "mdoc",
+    mdocOut := baseDirectory.value / "docs",
   ).dependsOn(core)
-  .enablePlugins(TutPlugin)
+  .enablePlugins(MdocPlugin)

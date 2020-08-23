@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Types vs Tests</title>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
+<body>
+<textarea id="source">
+
+layout: true
+
+<div class="watermark">
+  <a href="https://github.com/fp-tower">
+    <img src="img/fp-tower/grey-4-fp-watermark-image-raster-transparent-file.png" alt="logo" style="width:200px;"/>
+  </a>
+</div>
+
+
+---
+background-image: url(img/fp-tower/website-background.svg)
+
+class: center, middle, white
+
+.title[Types vs Tests]
+
+---
+# Julien Truffaut
+
+<br>
+
+.thirty-seven-left[
+<img src="img/fp-tower/julien-truffaut.jpg" alt="Julien Truffaut" style="width:300px;"/>
+]
+
+.fifty-seven-right[<br>
+## Backend Scala developer
+
+## Author of a Scala FP course: Foundations
+
+## Maintainer of Monocle 🧐
+]
+
+---
+class: center, middle
+
+# Types are set
+
+---
+background-image: url(img/types-vs-tests/cardinality-1.svg)
+
+# Types are set
+
+---
+background-image: url(img/types-vs-tests/cardinality-2.svg)
+
+# Types are set
+
+---
+background-image: url(img/types-vs-tests/cardinality-nothing-unit.svg)
+
+# Types are set
+
+---
+background-image: url(img/types-vs-tests/cardinality-list-unit.svg)
+
+# Types are set
+
+---
+background-image: url(img/types-vs-tests/cardinality-io-unit.svg)
+
+# Types are set
+
+---
+# Types are constraints
+
+<br>
+
+```scala mdoc:silent
+val x: Int = 5
+```
+
+
+```scala mdoc:fail
+val y: Int = false
+```
+
+---
+# Types
+
+```scala mdoc:silent
+def increment(x: Int): Int = x + 1
+```
+
+```tut
+increment(2)
+```
+
+```scala mdoc:fail
+increment("hello")
+```
+
+```scala mdoc:fail
+def increment(x: Int): Int = x.toString
+```
+
+---
+# Types are a limited constraint
+
+<br>
+
+```scala
+def increment(x: Int): Int = x + 1
+```
+
+<br>
+
+```scala
+def increment(x: Int): Int = x + 2
+```
+
+<br>
+
+```scala
+def increment(x: Int): Int = 0
+```
+
+---
+# Functional programming subset
+
+<br>
+
+.large[
+* deterministic
+* total
+* no side effect
+* no mutation
+* no exception
+* no null
+* no reflection
+]
+
+---
+class: center, middle
+
+# Tests
+
+---
+class: center, middle
+
+# Unit Tests
+
+---
+# Unit Tests
+
+<br>
+
+```scala
+"increment at 0" in {
+    assert(increment(0) == 1)
+}
+```
+<br>
+
+```scala
+"increment at 1" in {
+    assert(increment(1) == 2)
+}
+```
+
+<br>
+
+```scala
+"increment at -3" in {
+    assert(increment(-3) == -2)
+}
+```
+
+---
+background-image: url(img/increment-math-unit-test-1.jpg)
+
+# Unit Tests
+
+---
+background-image: url(img/increment-math-unit-test-fail.jpg)
+
+# Unit Tests
+
+---
+background-image: url(img/increment-math-unit-test-2.jpg)
+
+# Unit Tests are a limited constraint
+
+---
+class: center, middle
+
+# Types and Tests
+
+---
+class: center, middle
+
+# Both types and tests constrain the implementation of a function
+
+---
+class: center, middle
+
+# How much?
+
+---
+class: center, middle
+
+# A => B
+
+---
+class: center, middle
+
+```scala mdoc:silent
+val isEven: Int => Boolean =
+  x => x % 2 == 0
+
+val increment: Int => Int =
+  x => x + 1
+```
+
+---
+class: center, middle
+
+# Type is a set
+
+--
+
+# &&
+
+# A => B is a type
+
+---
+background-image: url(img/A-to-B-set-1.jpg)
+
+# A => B is a set!
+
+---
+background-image: url(img/int-to-int-type-1.jpg)
+
+# Function is a set!
+
+---
+background-image: url(img/int-to-int-type-test.jpg)
+
+# Unit Tests
+
+---
+class: center, middle
+
+# Valid Implementation Count (VIC)
+
+---
+class: center, middle
+
+# VIC(f: A => B) = number of impl - impl invalid by tests
+
+---
+background-image: url(img/VIC-increment.jpg)
+
+---
+class: center, middle
+
+# The smaller VIC is, the more constrained is f
+
+---
+background-image: url(img/VIC-1.jpg)
+
+.center[
+# VIC(f) = 1
+]
+
+---
+class: middle
+
+.forty-seven-left[.center[
+<br><br>
+# VIC(f: A => B) =
+]]
+
+.fifty-two-right[.center[
+# .hl[number of impl]<br>-<br>impl invalid by tests
+]]
+
+---
+class: center, middle
+
+# VIC(f) = .hl[number of impl]  - impl invalid because of tests
+
+---
+class: center, middle
+
+# VIC(f: A => B) = .hl[number of impl]  - impl invalid by tests
+
+---
+class: center, middle
+
+# VIC(f: A => B) = .hl[|A => B|]  - impl invalid by tests
+
+---
+background-image: url(img/function.jpg)
+
+# Function is a mapping
+
+---
+background-image: url(img/function-mapping-1.jpg)
+
+# Function is a mapping
+
+---
+background-image: url(img/count-A-to-B-1.jpg)
+
+# |A => B|
+
+---
+background-image: url(img/count-A-to-B-2.jpg)
+
+# |A => B|
+
+---
+background-image: url(img/count-A-to-B-3.jpg)
+
+# |A => B|
+
+---
+background-image: url(img/count-A-to-B-4.jpg)
+
+# |A => B|
+
+---
+class: center, middle
+
+```scala
+|increment: Int => Int| = ?
+```
+
+---
+class: center, middle
+
+```scala
+|Int => Int| = |Int| ^ |Int|
+               = (2^32) ^ (2^32)
+```
+
+---
+class: center, middle
+
+```scala
+|Int => Int| = |Int| ^ |Int|
+               = (2^32) ^ (2^32)
+                             =~ 41 billion digit long number
+```
+
+---
+# Small Types
+
+```scala mdoc:silent
+sealed trait DayOfWeek
+
+case object Monday  extends DayOfWeek
+case object Tuesday extends DayOfWeek
+// ...
+case object Sunday  extends DayOfWeek
+```
+
+--
+
+<br>
+
+```scala
+|DayOfWeek => Boolean| = |Boolean| ^ |DayOfWeek|
+                       = 2 ^ 7
+                       = 128
+```
+
+---
+class: center, middle
+
+# VIC(f: A => B) = number of impl - <span style="color:blue">**impl invalid by tests**</span>
+
+---
+background-image: url(img/day-week-to-boolean-1.jpg)
+
+# How much a single unit test impacts VIC?
+
+---
+background-image: url(img/day-week-to-boolean-2.jpg)
+
+# How much a single unit test impacts VIC?
+
+---
+# Unit Test
+
+```scala
+val f: DayOfWeek => Boolean = ???
+```
+
+such as
+
+```scala
+assert(f(Tuesday) == false)
+```
+
+---
+background-image: url(img/count-day-week-to-boolean-1.jpg)
+
+# Unit Test
+
+---
+background-image: url(img/count-day-week-to-boolean-2.jpg)
+
+# Unit Test
+
+---
+background-image: url(img/count-day-week-to-boolean-3.jpg)
+
+# Unit Test
+
+---
+background-image: url(img/count-day-week-to-boolean-4.jpg)
+
+# Unit Test
+
+---
+# Unit Test
+
+.center[
+| # Unit tests | VIC  |
+| :--------: |:----:|
+| 0          | 128  |
+| 1          | 64   |
+| 2          | 32   |
+| 3          | 16   |
+| 4          |  8   |
+| 5          |  4   |
+| 6          |  2   |
+| 7          |  1   |
+]
+
+---
+class: center, middle
+
+# `|A|` unit tests are required to have `VIC(f) = 1`
+
+---
+class: center, middle
+
+# Every unit test divides VIC by |B|
+
+---
+# One Unit Test
+
+.center[
+```scala
+VIC(f: A => B) = |B| ^ |A| / |B|
+               = |B| ^ (|A| - 1)
+```
+]
+
+--
+
+# Two Unit Tests
+
+.center[
+```scala
+VIC(f: A => B) = |B| ^ |A| / |B| / |B|
+                 = (|B| ^ |A|) / (|B| ^ 2)
+         = |B| ^ (|A| - 2)
+```
+]
+
+---
+class: center, middle
+
+# `VIC(f: A => B) = |B| ^ (|A| - n)`
+
+### where `n` is the number of unit tests
+
+---
+class: center, middle
+
+```scala
+VIC(increment) = |B| ^ (|A| - n)
+                   = |Int| ^ (|Int| - n)
+                       = (2 ^ 32) ^ (2 ^ 32 - n)
+```
+
+---
+class: center, middle
+
+# Logarithmic Valid Implementation Count (LVIC)
+
+---
+class: center, middle
+
+# `LVIC(f) = Log_2 VIC(f)`
+
+---
+class: center, middle
+
+```scala
+LVIC(f: A => B) = Log_2 (|B| ^ (|A| - n))
+              = (|A| - n) * Log_2 |B|
+```
+
+---
+class: center, middle
+
+```scala
+LVIC(increment) = (|A| - n) * Log_2 |B|
+            = (2 ^ 32 - n) * 32
+          = 2 ^ 37 - 32 * n
+                 =~ 137 billions - 32 * n
+```
+
+---
+# Review
+
+.middle[
+## 1. `A => B` is set of implementations
+
+## 2. VIC and LVIC measure how constrained a function is
+
+## 3. `VIC(f: A => B) = |B| ^ (|A| - n)`
+
+## 4. VIC is reduced by using smaller types or more tests
+]
+
+---
+# Example: dialCode
+
+```scala
+def getDialCode(country: String): Option[Int] = ???
+```
+
+such as
+
+```scala
+assert(getDialCode("United Kingdom") == Some(44))
+assert(getDialCode("France")         == Some(33))
+assert(getDialCode("foo")            == None)
+```
+
+--
+
+```scala
+LVIC(getDialCode) = (|A| - n) * log_2 |B|
+```
+
+---
+
+# Example: dialCode
+
+```scala
+def getDialCode(country: String): Option[Int] = ???
+```
+
+such as
+
+```scala
+assert(getDialCode("United Kingdom") == Some(44))
+assert(getDialCode("France")         == Some(33))
+assert(getDialCode("foo")            == None)
+```
+
+```scala
+LVIC(getDialCode) = (|A| - n) * log_2 |B|
+                  = (|String| - 3) * log_2 |Option[Int]|
+                  = (|String| - 3) * log_2 (|Int| + 1)
+```
+
+---
+# Example: dialCode
+
+```scala
+def getDialCode(country: String): Option[Int] = ???
+```
+
+such as
+
+```scala
+assert(getDialCode("United Kingdom") == Some(44))
+assert(getDialCode("France")         == Some(33))
+assert(getDialCode("foo")            == None)
+```
+
+```scala
+LVIC(getDialCode) = (|A| - n) * log_2 |B|
+                  = (|String| - 3) * log_2 |Option[Int]|
+                  = (|String| - 3) * log_2 (|Int| + 1)
+                  = (|String| - 3) * log_2 (2 ^ 32 + 1)
+                  =~ |String| * 32
+```
+
+---
+# Reduce VIC => Reduce Types
+
+```scala mdoc
+sealed trait Country //  |Country| = 50
+
+case object UnitedKingdom extends Country
+case object France        extends Country
+case object Italy         extends Country
+case object Belgium       extends Country
+// ...
+case object China         extends Country
+```
+
+--
+
+```scala mdoc:silent
+def getDialCode_v2(country: Country): Int = ???
+
+def parseCountry(x: String): Option[Country] = ???
+```
+
+--
+
+```scala
+assert(getDialCode_v2(UnitedKingdom) == 44)
+assert(getDialCode_v2(France)        == 33)
+
+assert(parseCountry("United Kingdom") == Some(UnitedKingdom))
+assert(parseCountry("France")         == Some(France))
+assert(parseCountry("foo")            == None)
+```
+
+---
+# Reduce VIC => Reduce Types
+
+```scala
+def getDialCode_v2(country: Country): Int = ???
+```
+
+```scala
+LVIC(getDialCode_v2) = (|Country| - 2) * log_2 |Int|
+```
+
+---
+# Reduce VIC => Reduce Types
+
+```scala
+def getDialCode_v2(country: Country): Int = ???
+```
+
+```scala
+LVIC(getDialCode_v2) = (|Country| - 2) * log_2 |Int|
+                     = (50 - 2) * log_2 2 ^ 32
+                     = 48 * 32
+                     = 1536
+```
+
+--
+
+```scala
+def parseCountry(x: String): Option[Country] = ???
+```
+
+--
+
+```scala
+LVIC(parseCountry) =  (|String| - n) * log_2 |Option[Country]|
+                   =  (|String| - n) * log_2 (|Country| + 1)
+                   =  (|String| - n) * log_2 51
+                   =~ |String| * 6
+```
+
+--
+
+### Using Country reduced LVIC by a factor of 5!
+
+---
+# Conclusions
+
+--
+
+## 1. VIC combines both types and unit tests in a single metric
+
+--
+
+## 2. It can be automatically calculated
+
+--
+
+## 3. Reach unimaginable numbers except for toy examples
+
+--
+
+## 4. If we only have basic types and unit tests, we cannot hope to write correct programs
+
+---
+
+class: center, middle
+
+# Advanced tests
+
+---
+
+# Property Based Tests
+
+```scala mdoc:silent
+def isEven(x: Int): Boolean = x % 2 == 0
+```
+
+--
+
+```scala
+import org.scalatest.FreeSpec
+import org.scalatest.prop.Checkers
+
+class IsEvenTest extends FreeSpec with Checkers {
+
+  "odd numbers return false" in check((x: Int) =>
+    isEven(2 * x + 1) == false
+  )
+
+}
+```
+
+--
+
+### VIC with odd property
+
+```scala
+VIC(isEven) = |Boolean| ^ (|Int| / 2)
+            = 2 ^ (2 ^ 32 / 2)
+            = 2 ^ (2 ^ 31) // instead of 2 ^ (2 ^ 32)
+```
+
+---
+
+# Property Based Tests
+
+```scala
+def increment(x: Int): Int = x + 1
+```
+
+--
+
+```scala
+import org.scalatest.FreeSpec
+import org.scalatest.prop.Checkers
+
+class IncrementTest extends FreeSpec with Checkers {
+
+  "increment property" in check{ (x: Int) =>
+    ???
+  }
+
+}
+```
+
+---
+background-image: url(img/increment-mapping-2.jpg)
+
+# Increment Property ?
+
+---
+background-image: url(img/increment-mapping-3.jpg)
+
+# Injective
+
+---
+class: center, middle
+
+## `increment(x) == increment(y)`
+
+## implies
+
+## `x == y`
+
+---
+
+# Property Based Tests
+
+
+```scala
+import org.scalatest.FreeSpec
+import org.scalatest.prop.Checkers
+
+class IncrementTest extends FreeSpec with Checkers {
+
+  "increment is injective (one-to-one)" in check((x: Int, y: Int) =>
+    increment(x) != increment(y) || x == y
+  )
+
+}
+```
+
+--
+
+## VIC with injective property
+
+```scala
+VIC(increment) = (2 ^ 32) * (2 ^ 32 - 1) * (2 ^ 32 - 2) * ... * 1
+               = (2 ^ 32)! // instead of (2 ^ 32) ^ (2 ^ 32)
+```
+
+--
+
+### It is equivalent to 125 million unit tests
+
+---
+background-image: url(img/increment-mapping-2.jpg)
+
+# Increment Property ?
+
+---
+
+# Property Based Tests
+
+```scala
+import org.scalatest.FreeSpec
+import org.scalatest.prop.Checkers
+
+class IncrementTest extends FreeSpec with Checkers {
+
+  "∀ x - MaxInt, f(x) > x" in check((x: Int) =>
+    increment(x) > x || x == Int.MaxValue
+  )
+
+}
+```
+
+--
+
+### VIC with greater than property
+
+```scala
+VIC(increment) = (2 ^ 32 - 1) * (2 ^ 32 - 2) * ... * 1 * 2 ^ 32
+               = (2 ^ 32)!
+```
+
+---
+
+# Combine Properties
+
+```scala
+class IncrementTest extends FreeSpec with Checkers {
+
+  "increment is injective (one-to-one)" in check((x: Int, y: Int) =>
+    increment(x) != increment(y) || x == y
+  )
+
+  "∀ x - MaxInt, f(x) > x" in check((x: Int) =>
+    increment(x) > x || x == Int.MaxValue
+  )
+
+}
+```
+
+---
+background-image: url(img/combine-properties-1.jpg)
+
+# Combine Properties
+
+---
+background-image: url(img/combine-properties-2.jpg)
+
+# Combine Properties
+
+---
+background-image: url(img/combine-properties-3.jpg)
+
+# Combine Properties
+
+---
+background-image: url(img/combine-properties-4.jpg)
+
+# Combine Properties
+
+---
+background-image: url(img/combine-properties-5.jpg)
+
+# Combine Properties
+
+---
+background-image: url(img/combine-properties-6.jpg)
+
+# Combine Properties
+
+---
+background-image: url(img/combine-properties-7.jpg)
+
+# Combine Properties
+
+---
+background-image: url(img/combine-properties-8.jpg)
+
+# Combine Properties
+
+---
+background-image: url(img/combine-properties-9.jpg)
+
+# Combine Properties
+
+---
+class: center, middle
+
+# VIC(increment) = 1
+
+### with injective and f(x) > x properties
+
+---
+class: center, middle
+
+# Property based testing is very effective but it is difficult to measure impact on VIC
+
+---
+class: center, middle
+
+# Advanced types
+
+---
+# Parametric Polymorphism
+
+```scala mdoc:silent
+def identityInt(x: Int): Int = x
+```
+
+```scala
+|identityInt| = (2 ^ 32) ^ (2 ^ 32)
+```
+
+--
+
+<br/>
+
+```scala mdoc:silent
+def identity[A](x: A): A = x
+```
+
+```scala
+|identity| = 1
+```
+
+---
+# Parametric Polymorphism
+
+```scala mdoc:silent
+def mapInt(fa: Option[Int], f: Int => Int): Option[Int] = ???
+```
+
+--
+
+```scala
+|mapInt| =  |Option[Int]| ^ |(Option[Int], Int => Int)|
+         =~ |Int| ^ |Int => Int|
+         =~ 2 ^ 32 ^ ((2 ^ 32) ^ (2 ^ 32))
+```
+
+--
+
+<br/>
+
+```scala mdoc:silent
+def map[A, B](fa: Option[A], f: A => B): Option[B] = ???
+```
+
+---
+# Parametric Polymorphism
+
+```scala mdoc:reset:silent
+def map[A, B](fa: Option[A], f: A => B): Option[B] =
+  fa match {
+    case None    => None
+    case Some(x) => Some(f(x))
+  }
+```
+
+```scala mdoc:reset:silent
+def map[A, B](fa: Option[A], f: A => B): Option[B] =
+  fa match {
+    case None    => None
+    case Some(x) => None
+  }
+```
+
+--
+
+<br/>
+
+```scala
+|map| = 2
+```
+
+--
+
+### Yoneda lemma can calculate `|map|` automatically
+
+---
+# Adhoc Polymorphism
+
+```scala mdoc:silent
+def voidList(fa: List[Int]): List[Unit] = ???
+```
+
+<br/>
+
+```scala
+|voidList| = |List[Unit]| ^ |List[Int]|
+           = ∞
+```
+
+---
+# Adhoc Polymorphism
+
+```scala mdoc:silent
+def voidList2[A](fa: List[A]): List[Unit] = ???
+```
+
+--
+
+```scala
+def voidList2[A](fa: List[A]): List[Unit] = Nil
+def voidList2[A](fa: List[A]): List[Unit] = List(())
+def voidList2[A](fa: List[A]): List[Unit] = List((), ())
+def voidList2[A](fa: List[A]): List[Unit] = List((), (), ())
+def voidList2[A](fa: List[A]): List[Unit] = fa.map(_ => ()).take(5)
+```
+
+--
+
+<br/>
+
+```scala
+|voidList2| > |List[Unit]| = ∞
+```
+
+---
+# Adhoc Polymorphism
+
+
+```scala mdoc:silent
+import cats.Functor
+import cats.syntax.functor._
+
+def void[F[_]: Functor, A](fa: F[A]): F[Unit] = fa.map(_ => ())
+```
+
+--
+
+<br/>
+
+```scala
+|void| = 1
+```
+
+---
+class: center, middle
+
+# The more polymoprhic a function is, the more precise it becomes
+
+---
+# More Advanced Types
+
+.middle[
+## GADTS / Type equalities
+
+## Dependent Types
+
+## Linear Types
+]
+
+---
+class: center, middle
+
+# Thanks!
+Code and slides at `julien-truffaut/types-vs-tests` on GitHub
+
+## Questions?
+
+<br>
+
+Special thanks to Cesar Tron-Lozai and Maxim Ivanov
+
+---
+
+background-image: url(img/types-4.jpg)
+
+---
+# Basic Types > Unit Tests
+
+.center.middle[
+<br>
+<br>
+<br>
+# `VIC(Any => Any) = |Any| ^ (|Any| - n)`
+
+### where `n` is the number of unit tests
+]
+
+
+ </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+        var slideshow = remark.create({
+            ratio: "16:9",
+            slideNumberFormat: '%current%',
+        });
+    </script>
+  </body>
+</html>

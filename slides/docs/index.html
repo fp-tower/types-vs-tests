@@ -3,89 +3,95 @@
 <head>
 <title>Types vs Tests</title>
 <meta charset="utf-8">
-<style>
-@import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
-@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
-@import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+<link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
+<body>
+<textarea id="source">
 
-      body { font-family: 'Droid Serif', 'Helvetica'; }
-      h1, h2, h3 {
-        font-family: 'Yanone Kaffeesatz', 'Gill Sans';
-        font-weight: normal;
-      }
-      .pull-left {
-      float: left;
-      width: 47%;
-      }
-      .pull-right {
-      float: right;
-      width: 47%;
-      }
-      table {
-      border-collapse: collapse;
-      display: inline-block;
-      }
-      th, td {
-      padding: 10px;
-      border: 1px solid black;
-      }
-      tr:nth-child(even) {background-color: #f2f2f2;}
-      .large { font-size: 36px; }
+layout: true
 
-      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono', 'Consolas', 'Courier New'; }
-    </style>
-  </head>
-  <body>
-    <textarea id="source">
+<div class="watermark">
+  <a href="https://github.com/fp-tower">
+    <img src="img/fp-tower/grey-4-fp-watermark-image-raster-transparent-file.png" alt="logo" style="width:200px;"/>
+  </a>
+</div>
 
-class: center, middle
 
-# Types vs Tests
-`@JulienTruffaut`
+---
+background-image: url(img/fp-tower/website-background.svg)
 
-Code and slides at `julien-truffaut/types-vs-tests` on GitHub
+class: center, middle, white
+
+.title[Types vs Tests]
+
+---
+# Julien Truffaut
+
+<br>
+
+.thirty-seven-left[
+<img src="img/fp-tower/julien-truffaut.jpg" alt="Julien Truffaut" style="width:300px;"/>
+]
+
+.fifty-seven-right[<br>
+## Backend Scala developer
+
+## Author of a Scala FP course: Foundations
+
+## Maintainer of Monocle 🧐
+]
 
 ---
 class: center, middle
 
-# Types
+# Types are set
 
 ---
-background-image: url(img/types-1.jpg)
+background-image: url(img/types-vs-tests/cardinality-1.svg)
 
-# Types
-
----
-background-image: url(img/types-1-bis.jpg)
-
-# Types
+# Types are set
 
 ---
-background-image: url(img/types-2.jpg)
+background-image: url(img/types-vs-tests/cardinality-2.svg)
 
-# Types
-
----
-background-image: url(img/types-3.jpg)
-
-# Types
+# Types are set
 
 ---
-# Types
+background-image: url(img/types-vs-tests/cardinality-nothing-unit.svg)
 
-```tut:silent
+# Types are set
+
+---
+background-image: url(img/types-vs-tests/cardinality-list-unit.svg)
+
+# Types are set
+
+---
+background-image: url(img/types-vs-tests/cardinality-io-unit.svg)
+
+# Types are set
+
+---
+# Types are constraints
+
+<br>
+
+```scala
 val x: Int = 5
 ```
 
 
-```tut:fail
+```scala
 val y: Int = false
+// error: type mismatch;
+//  found   : Boolean(false)
+//  required: Int
 ```
 
 ---
 # Types
 
-```tut:silent
+```scala
 def increment(x: Int): Int = x + 1
 ```
 
@@ -93,12 +99,20 @@ def increment(x: Int): Int = x + 1
 increment(2)
 ```
 
-```tut:fail
+```scala
 increment("hello")
+// error: type mismatch;
+//  found   : String("hello")
+//  required: Int
 ```
 
-```tut:fail
+```scala
 def increment(x: Int): Int = x.toString
+// error: type mismatch;
+//  found   : String
+//  required: Int
+// error: method increment is defined twice;
+//   the conflicting method increment was defined at line 5:5
 ```
 
 ---
@@ -106,24 +120,26 @@ def increment(x: Int): Int = x.toString
 
 <br>
 
-```tut:silent
+```scala
 def increment(x: Int): Int = x + 1
 ```
 
 <br>
 
-```tut:silent
+```scala
 def increment(x: Int): Int = x + 2
 ```
 
 <br>
 
-```tut:silent
+```scala
 def increment(x: Int): Int = 0
 ```
 
 ---
 # Functional programming subset
+
+<br>
 
 .large[
 * deterministic
@@ -147,10 +163,6 @@ class: center, middle
 
 ---
 # Unit Tests
-
-```tut:invisible
-def increment(x: Int): Int = x + 1
-```
 
 <br>
 
@@ -213,7 +225,7 @@ class: center, middle
 ---
 class: center, middle
 
-```tut:silent
+```scala
 val isEven: Int => Boolean =
   x => x % 2 == 0
 
@@ -273,14 +285,31 @@ background-image: url(img/VIC-1.jpg)
 ]
 
 ---
-class: center, middle
+class: middle
 
-# VIC(f: A => B) = <span style="color:blue">**number of impl**</span>  - impl invalid by tests
+.forty-seven-left[.center[
+<br><br>
+# VIC(f: A => B) =
+]]
+
+.fifty-two-right[.center[
+# .hl[number of impl]<br>-<br>impl invalid by tests
+]]
 
 ---
 class: center, middle
 
-# |A => B|
+# VIC(f) = .hl[number of impl]  - impl invalid because of tests
+
+---
+class: center, middle
+
+# VIC(f: A => B) = .hl[number of impl]  - impl invalid by tests
+
+---
+class: center, middle
+
+# VIC(f: A => B) = .hl[|A => B|]  - impl invalid by tests
 
 ---
 background-image: url(img/function.jpg)
@@ -339,7 +368,7 @@ class: center, middle
 ---
 # Small Types
 
-```tut:silent
+```scala
 sealed trait DayOfWeek
 
 case object Monday  extends DayOfWeek
@@ -514,7 +543,7 @@ LVIC(increment) = (|A| - n) * Log_2 |B|
 ---
 # Example: dialCode
 
-```tut:silent
+```scala
 def getDialCode(country: String): Option[Int] = ???
 ```
 
@@ -536,7 +565,7 @@ LVIC(getDialCode) = (|A| - n) * log_2 |B|
 
 # Example: dialCode
 
-```tut:silent
+```scala
 def getDialCode(country: String): Option[Int] = ???
 ```
 
@@ -557,7 +586,7 @@ LVIC(getDialCode) = (|A| - n) * log_2 |B|
 ---
 # Example: dialCode
 
-```tut:silent
+```scala
 def getDialCode(country: String): Option[Int] = ???
 ```
 
@@ -581,29 +610,19 @@ LVIC(getDialCode) = (|A| - n) * log_2 |B|
 # Reduce VIC => Reduce Types
 
 ```scala
-sealed trait Country //  |Country| = 50
+sealed trait Country //  |Country| = 50 //  |Country| = 50
 
 case object UnitedKingdom extends Country
 case object France        extends Country
 case object Italy         extends Country
 case object Belgium       extends Country
-...
+// ...
 case object China         extends Country
-```
-
-```tut:invisible
-sealed trait Country
-
-case object UnitedKingdom extends Country
-case object France extends Country
-case object Italy extends Country
-case object Belgium extends Country
-case object China extends Country
 ```
 
 --
 
-```tut:silent
+```scala
 def getDialCode_v2(country: Country): Int = ???
 
 def parseCountry(x: String): Option[Country] = ???
@@ -623,7 +642,7 @@ assert(parseCountry("foo")            == None)
 ---
 # Reduce VIC => Reduce Types
 
-```tut:silent
+```scala
 def getDialCode_v2(country: Country): Int = ???
 ```
 
@@ -634,7 +653,7 @@ LVIC(getDialCode_v2) = (|Country| - 2) * log_2 |Int|
 ---
 # Reduce VIC => Reduce Types
 
-```tut:silent
+```scala
 def getDialCode_v2(country: Country): Int = ???
 ```
 
@@ -647,7 +666,7 @@ LVIC(getDialCode_v2) = (|Country| - 2) * log_2 |Int|
 
 --
 
-```tut:silent
+```scala
 def parseCountry(x: String): Option[Country] = ???
 ```
 
@@ -693,13 +712,13 @@ class: center, middle
 
 # Property Based Tests
 
-```tut:silent
+```scala
 def isEven(x: Int): Boolean = x % 2 == 0
 ```
 
 --
 
-```tut:silent
+```scala
 import org.scalatest.FreeSpec
 import org.scalatest.prop.Checkers
 
@@ -726,13 +745,13 @@ VIC(isEven) = |Boolean| ^ (|Int| / 2)
 
 # Property Based Tests
 
-```tut:silent
+```scala
 def increment(x: Int): Int = x + 1
 ```
 
 --
 
-```tut:silent
+```scala
 import org.scalatest.FreeSpec
 import org.scalatest.prop.Checkers
 
@@ -768,11 +787,8 @@ class: center, middle
 
 # Property Based Tests
 
-```tut:invisible
-def increment(x: Int): Int = x + 1
-```
 
-```tut:silent
+```scala
 import org.scalatest.FreeSpec
 import org.scalatest.prop.Checkers
 
@@ -912,7 +928,7 @@ class: center, middle
 ---
 # Parametric Polymorphism
 
-```tut:silent
+```scala
 def identityInt(x: Int): Int = x
 ```
 
@@ -924,7 +940,7 @@ def identityInt(x: Int): Int = x
 
 <br/>
 
-```tut:silent
+```scala
 def identity[A](x: A): A = x
 ```
 
@@ -935,7 +951,7 @@ def identity[A](x: A): A = x
 ---
 # Parametric Polymorphism
 
-```tut:silent
+```scala
 def mapInt(fa: Option[Int], f: Int => Int): Option[Int] = ???
 ```
 
@@ -951,21 +967,22 @@ def mapInt(fa: Option[Int], f: Int => Int): Option[Int] = ???
 
 <br/>
 
-```tut:silent
+```scala
 def map[A, B](fa: Option[A], f: A => B): Option[B] = ???
 ```
 
 ---
 # Parametric Polymorphism
 
-```tut:silent
+```scala
 def map[A, B](fa: Option[A], f: A => B): Option[B] =
   fa match {
     case None    => None
     case Some(x) => Some(f(x))
   }
+```
 
-
+```scala
 def map[A, B](fa: Option[A], f: A => B): Option[B] =
   fa match {
     case None    => None
@@ -988,7 +1005,7 @@ def map[A, B](fa: Option[A], f: A => B): Option[B] =
 ---
 # Adhoc Polymorphism
 
-```tut:silent
+```scala
 def voidList(fa: List[Int]): List[Unit] = ???
 ```
 
@@ -1002,13 +1019,13 @@ def voidList(fa: List[Int]): List[Unit] = ???
 ---
 # Adhoc Polymorphism
 
-```tut:silent
+```scala
 def voidList2[A](fa: List[A]): List[Unit] = ???
 ```
 
 --
 
-```tut:silent
+```scala
 def voidList2[A](fa: List[A]): List[Unit] = Nil
 def voidList2[A](fa: List[A]): List[Unit] = List(())
 def voidList2[A](fa: List[A]): List[Unit] = List((), ())
@@ -1028,7 +1045,7 @@ def voidList2[A](fa: List[A]): List[Unit] = fa.map(_ => ()).take(5)
 # Adhoc Polymorphism
 
 
-```tut:silent
+```scala
 import cats.Functor
 import cats.syntax.functor._
 
