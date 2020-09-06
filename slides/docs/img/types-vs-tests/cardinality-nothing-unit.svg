@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 523 217" width="523" height="217">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns:xl="http://www.w3.org/1999/xlink" viewBox="0 0 523 217" width="523" height="217">
   <defs>
     <font-face font-family="Helvetica Neue" font-size="24" panose-1="2 0 8 3 0 0 0 9 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="975.0061" descent="-216.99524" font-weight="700">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue-Bold"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Helvetica Neue" font-size="12" panose-1="2 0 8 3 0 0 0 9 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="975.0061" descent="-216.99524" font-weight="700">
       <font-face-src>
         <font-face-name name="HelveticaNeue-Bold"/>
       </font-face-src>
@@ -13,18 +18,22 @@
       </font-face-src>
     </font-face>
   </defs>
-  <metadata> Produced by OmniGraffle 7.17.3\n2020-08-23 19:50:13 +0000</metadata>
-  <g id="cardinality-nothing-unit" fill="none" stroke="none" stroke-opacity="1" stroke-dasharray="none" fill-opacity="1">
+  <metadata> Produced by OmniGraffle 7.17.4\n2020-09-06 19:55:27 +0000</metadata>
+  <g id="cardinality-nothing-unit" stroke="none" fill="none" fill-opacity="1" stroke-opacity="1" stroke-dasharray="none">
     <title>cardinality-nothing-unit</title>
     <g id="cardinality-nothing-unit_Layer_1">
       <title>Layer 1</title>
       <g id="Graphic_126">
-        <ellipse cx="99" cy="135" rx="90.0001438111706" ry="81.0001294300536" fill="#589b9d"/>
-        <ellipse cx="99" cy="135" rx="90.0001438111706" ry="81.0001294300536" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <circle cx="94.5" cy="139.5" r="22.5000359527927" fill="#589b9d"/>
+        <circle cx="94.5" cy="139.5" r="22.5000359527927" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Graphic_125">
-        <text transform="translate(50 14)" fill="#589b9d">
-          <tspan font-family="Helvetica Neue" font-size="24" font-weight="700" fill="#589b9d" x="8242296e-19" y="23">|Nothing| = 0</tspan>
+        <text transform="translate(46.663996 68)" fill="#589b9d">
+          <tspan font-family="Helvetica Neue" font-size="24" font-weight="700" fill="#589b9d" x="14210855e-20" y="23">|</tspan>
+          <tspan font-family="Helvetica Neue" font-size="12" font-weight="700" fill="#589b9d" y="23"> </tspan>
+          <tspan font-family="Helvetica Neue" font-size="24" font-weight="700" fill="#589b9d" y="23">Nothing</tspan>
+          <tspan font-family="Helvetica Neue" font-size="12" font-weight="700" fill="#589b9d" y="23"> </tspan>
+          <tspan font-family="Helvetica Neue" font-size="24" font-weight="700" fill="#589b9d" y="23">| = 0</tspan>
         </text>
       </g>
       <g id="Graphic_129">
@@ -32,8 +41,12 @@
         <ellipse cx="432" cy="135" rx="90.0001438111707" ry="81.0001294300536" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Graphic_128">
-        <text transform="translate(404.78 14)" fill="#589b9d">
-          <tspan font-family="Helvetica Neue" font-size="24" font-weight="700" fill="#589b9d" x="17053026e-20" y="23">|Unit| = 1</tspan>
+        <text transform="translate(401.444 14)" fill="#589b9d">
+          <tspan font-family="Helvetica Neue" font-size="24" font-weight="700" fill="#589b9d" x="0" y="23">|</tspan>
+          <tspan font-family="Helvetica Neue" font-size="12" font-weight="700" fill="#589b9d" y="23"> </tspan>
+          <tspan font-family="Helvetica Neue" font-size="24" font-weight="700" fill="#589b9d" y="23">Unit</tspan>
+          <tspan font-family="Helvetica Neue" font-size="12" font-weight="700" fill="#589b9d" y="23"> </tspan>
+          <tspan font-family="Helvetica Neue" font-size="24" font-weight="700" fill="#589b9d" y="23">| = 1</tspan>
         </text>
       </g>
       <g id="Graphic_127">

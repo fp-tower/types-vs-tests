@@ -7,11 +7,16 @@
         <font-face-name name="HelveticaNeue-Bold"/>
       </font-face-src>
     </font-face>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -3 7 6" markerWidth="7" markerHeight="6" color="#424242">
+      <g>
+        <path d="M 4.8 0 L 0 -1.8 L 0 1.8 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
   </defs>
   <metadata> Produced by OmniGraffle 7.17.4\n2020-09-06 19:55:27 +0000</metadata>
-  <g id="vic" stroke="none" fill="none" fill-opacity="1" stroke-opacity="1" stroke-dasharray="none">
-    <title>vic</title>
-    <g id="vic_Layer_1">
+  <g id="vic-2" stroke="none" fill="none" fill-opacity="1" stroke-opacity="1" stroke-dasharray="none">
+    <title>vic-2</title>
+    <g id="vic-2_Layer_1">
       <title>Layer 1</title>
       <g id="Graphic_99">
         <path d="M 354.68896 197.6033 C 433.7705 275.93127 433.7705 402.92588 354.68896 481.25383 C 275.60785 559.5822 147.39215 559.5822 68.311035 481.25383 C -10.77048 402.92588 -10.77048 275.93127 68.311035 197.6033 C 147.39215 119.27495 275.60785 119.27495 354.68896 197.6033" fill="#589b9d"/>
@@ -159,8 +164,16 @@
           <tspan font-family="Helvetica Neue" font-size="32" font-weight="700" fill="#589b9d" x="6252776e-19" y="31">-</tspan>
         </text>
       </g>
-      <g id="Graphic_185"/>
-      <g id="Graphic_187">
+      <g id="Graphic_186">
+        <text transform="translate(162 5)" fill="#70a3d8">
+          <tspan font-family="Helvetica Neue" font-size="32" font-weight="700" fill="#70a3d8" x="1278977e-19" y="31">|A =&gt; B|</tspan>
+        </text>
+      </g>
+      <g id="Line_184">
+        <line x1="219.50668" y1="48.92822" x2="219.56373" y2="76.467585" marker-end="url(#FilledArrow_Marker)" stroke="#424242" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      </g>
+      <g id="Graphic_187"/>
+      <g id="Graphic_188">
         <path d="M 298.35954 95.17869 L 310 107.08935 L 298.35954 119 L 286.71907 107.08935 Z" fill="#9dc1e3"/>
         <path d="M 298.35954 95.17869 L 310 107.08935 L 298.35954 119 L 286.71907 107.08935 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 685 388" width="685" height="388">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns:xl="http://www.w3.org/1999/xlink" viewBox="0 0 685 396" width="685" height="396">
   <defs>
     <font-face font-family="Helvetica Neue" font-size="24" panose-1="2 0 8 3 0 0 0 9 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="975.0061" descent="-216.99524" font-weight="700">
       <font-face-src>
@@ -18,18 +18,19 @@
       </g>
     </marker>
   </defs>
-  <metadata> Produced by OmniGraffle 7.17.3\n2020-08-23 19:50:13 +0000</metadata>
-  <g id="unit-test" fill="none" stroke="none" stroke-opacity="1" stroke-dasharray="none" fill-opacity="1">
-    <title>unit-test</title>
-    <g id="unit-test_Layer_1">
+  <metadata> Produced by OmniGraffle 7.17.4\n2020-09-06 19:55:27 +0000</metadata>
+  <g id="function-set-3" stroke="none" fill="none" fill-opacity="1" stroke-opacity="1" stroke-dasharray="none">
+    <title>function-set-3</title>
+    <g id="function-set-3_Layer_1">
       <title>Layer 1</title>
+      <g id="Graphic_179"/>
       <g id="Graphic_99">
         <circle cx="324" cy="225" r="162.000258860107" fill="#589b9d"/>
         <circle cx="324" cy="225" r="162.000258860107" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Graphic_174">
-        <ellipse cx="279" cy="333" rx="45.0000719055854" ry="36.0000575244682" fill="#ff8080"/>
-        <ellipse cx="279" cy="333" rx="45.0000719055854" ry="36.0000575244682" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <ellipse cx="274.5" cy="324" rx="40.5000647150268" ry="27.0000431433512" fill="#ff8080"/>
+        <ellipse cx="274.5" cy="324" rx="40.5000647150268" ry="27.0000431433512" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Graphic_173">
         <ellipse cx="427" cy="171" rx="45.0000719055854" ry="36.0000575244683" fill="#ff8080"/>
@@ -157,21 +158,21 @@
         <path d="M 355.5 279 L 369 292.5 L 355.5 306 L 342 292.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Graphic_166">
-        <text transform="translate(36.0225 51.2825)" fill="black">
-          <tspan font-family="Helvetica Neue" font-size="20" font-weight="400" fill="black" x="8668621e-19" y="19">x =&gt; x + 2</tspan>
+        <text transform="translate(36.0225 51.2825)" fill="#404040">
+          <tspan font-family="Helvetica Neue" font-size="20" font-weight="400" fill="#404040" x="8668621e-19" y="19">x =&gt; x + 2</tspan>
         </text>
       </g>
       <g id="Line_168">
         <line x1="113.90263" y1="79.8425" x2="263.07797" y2="156.06516" marker-end="url(#FilledArrow_Marker)" stroke="#424242" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
       </g>
       <g id="Graphic_169">
-        <text transform="translate(4.999999 176)" fill="black">
-          <tspan font-family="Helvetica Neue" font-size="20" font-weight="400" fill="black" x="0" y="19">x =&gt; 1</tspan>
+        <text transform="translate(4.999999 176)" fill="#404040">
+          <tspan font-family="Helvetica Neue" font-size="20" font-weight="400" fill="#404040" x="0" y="19">x =&gt; 1</tspan>
         </text>
       </g>
       <g id="Graphic_170">
-        <text transform="translate(500 320)" fill="black">
-          <tspan font-family="Helvetica Neue" font-size="20" font-weight="400" fill="black" x="7247536e-19" y="19">x =&gt; factorial(x) % 7</tspan>
+        <text transform="translate(500 320)" fill="#404040">
+          <tspan font-family="Helvetica Neue" font-size="20" font-weight="400" fill="#404040" x="7247536e-19" y="19">x =&gt; factorial(x) % 7</tspan>
         </text>
       </g>
       <g id="Line_171">
@@ -184,17 +185,17 @@
         <line x1="535.0507" y1="87.56" x2="469.5869" y2="138.11313" marker-end="url(#FilledArrow_Marker)" stroke="#424242" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
       </g>
       <g id="Graphic_176">
-        <text transform="translate(482 59)" fill="black">
-          <tspan font-family="Helvetica Neue" font-size="20" font-weight="400" fill="black" x="6394885e-19" y="19">assert( f(0) == 0 )</tspan>
+        <text transform="translate(482 59)" fill="#404040">
+          <tspan font-family="Helvetica Neue" font-size="20" font-weight="400" fill="#404040" x="6394885e-19" y="19">assert( f(0) == 0 )</tspan>
         </text>
       </g>
       <g id="Graphic_177">
-        <text transform="translate(4.999999 358.44)" fill="black">
-          <tspan font-family="Helvetica Neue" font-size="20" font-weight="400" fill="black" x="6394885e-19" y="19">assert( f(2) == 6 )</tspan>
+        <text transform="translate(4.999999 358.44)" fill="#404040">
+          <tspan font-family="Helvetica Neue" font-size="20" font-weight="400" fill="#404040" x="6394885e-19" y="19">assert( f(2) == 6 )</tspan>
         </text>
       </g>
       <g id="Line_178">
-        <line x1="159.56" y1="355.3148" x2="222.49255" y2="343.5572" marker-end="url(#FilledArrow_Marker)" stroke="#424242" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <line x1="150.47237" y1="353.44" x2="223.78608" y2="336.0378" marker-end="url(#FilledArrow_Marker)" stroke="#424242" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
       </g>
     </g>
   </g>

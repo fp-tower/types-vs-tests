@@ -42,11 +42,6 @@ class: center, middle, white
 ]
 
 ---
-class: center, middle
-
-# Types are set
-
----
 background-image: url(img/types-vs-tests/cardinality-1.svg)
 
 # Types are set
@@ -89,8 +84,10 @@ val y: Int = false
 ```
 
 ---
-# Types
+# Types are constraints
 
+<br>
+.forty-two-left[
 ```scala
 def increment(x: Int): Int = x + 1
 ```
@@ -105,21 +102,26 @@ increment("hello")
 //  found   : String("hello")
 //  required: Int
 ```
+]
 
+--
+
+.fifty-two-right[
 ```scala
-def increment(x: Int): Int = x.toString
+def increment(x: Int): Int =
+  x.toString
 // error: type mismatch;
 //  found   : String
 //  required: Int
-// error: method increment is defined twice;
-//   the conflicting method increment was defined at line 5:5
 ```
+]
 
 ---
-# Types are a limited constraint
+# But there are limited
 
-<br>
+<br><br>
 
+.forty-seven-left[
 ```scala
 def increment(x: Int): Int = x + 1
 ```
@@ -135,21 +137,12 @@ def increment(x: Int): Int = x + 2
 ```scala
 def increment(x: Int): Int = 0
 ```
-
----
-# Functional programming subset
-
-<br>
-
-.large[
-* deterministic
-* total
-* no side effect
-* no mutation
-* no exception
-* no null
-* no reflection
 ]
+
+.forty-seven-right[.center[
+<br><br><br>
+## Which one ise correct?
+]]
 
 ---
 class: center, middle
@@ -162,50 +155,76 @@ class: center, middle
 # Unit Tests
 
 ---
-# Unit Tests
+# Unit tests are constraints
 
-<br>
-
-```scala
-"increment at 0" in {
-    assert(increment(0) == 1)
-}
-```
-<br>
-
-```scala
-"increment at 1" in {
-    assert(increment(1) == 2)
-}
-```
-
-<br>
-
+.forty-two-left[
+<br><br><br>
 ```scala
 "increment at -3" in {
     assert(increment(-3) == -2)
 }
+
+"increment at 0" in {
+    assert(increment(0) == 1)
+}
+
+"increment at 1" in {
+    assert(increment(1) == 2)
+}
 ```
+]
+
+.fifty-two-right[.center[
+<img src="img/types-vs-tests/increment-unit-test-1.svg" alt="Unit test increment" style="width:480px;"/>
+]]
 
 ---
-background-image: url(img/increment-math-unit-test-1.jpg)
+# Unit tests are constraints
 
-# Unit Tests
+.forty-two-left[
+<br><br><br>
+```scala
+"increment at -3" in {
+    assert(increment(-3) == -2)
+}
+
+"increment at 0" in {
+    assert(increment(0) == 1)
+}
+
+"increment at 1" in {
+    assert(increment(1) == 2)
+}
+```
+]
+
+.fifty-two-right[.center[
+<img src="img/types-vs-tests/increment-unit-test-2.svg" alt="Unit test increment" style="width:480px;"/>
+]]
 
 ---
-background-image: url(img/increment-math-unit-test-fail.jpg)
+# But they are limited
 
-# Unit Tests
+.forty-two-left[
+<br><br><br>
+```scala
+"increment at -3" in {
+    assert(increment(-3) == -2)
+}
 
----
-background-image: url(img/increment-math-unit-test-2.jpg)
+"increment at 0" in {
+    assert(increment(0) == 1)
+}
 
-# Unit Tests are a limited constraint
+"increment at 1" in {
+    assert(increment(1) == 2)
+}
+```
+]
 
----
-class: center, middle
-
-# Types and Tests
+.fifty-two-right[.center[
+<img src="img/types-vs-tests/increment-unit-test-3.svg" alt="Unit test increment" style="width:480px;"/>
+]]
 
 ---
 class: center, middle
@@ -218,13 +237,11 @@ class: center, middle
 # How much?
 
 ---
-class: center, middle
+# A => B is a type
 
-# A => B
+<br><br><br><br>
 
----
-class: center, middle
-
+.forty-seven-left[
 ```scala
 val isEven: Int => Boolean =
   x => x % 2 == 0
@@ -232,32 +249,31 @@ val isEven: Int => Boolean =
 val increment: Int => Int =
   x => x + 1
 ```
+]
 
 ---
 class: center, middle
 
 # Type is a set
 
---
-
 # &&
 
 # A => B is a type
 
 ---
-background-image: url(img/A-to-B-set-1.jpg)
+background-image: url(img/types-vs-tests/function-set-1.svg)
 
-# A => B is a set!
-
----
-background-image: url(img/int-to-int-type-1.jpg)
-
-# Function is a set!
+# A function is a set
 
 ---
-background-image: url(img/int-to-int-type-test.jpg)
+background-image: url(img/types-vs-tests/function-set-2.svg)
 
-# Unit Tests
+# A function is a set
+
+---
+background-image: url(img/types-vs-tests/function-set-3.svg)
+
+# Unit tests
 
 ---
 class: center, middle
@@ -265,12 +281,19 @@ class: center, middle
 # Valid Implementation Count (VIC)
 
 ---
-class: center, middle
+class: middle
 
-# VIC(f: A => B) = number of impl - impl invalid by tests
+.forty-two-left[.center[
+<br><br><br><br>
+# VIC(f: A => B) =
+]]
+
+.fifty-seven-left[.center[
+# number of possible implementations<br>-<br>implementations made invalid because of tests
+]]
 
 ---
-background-image: url(img/VIC-increment.jpg)
+background-image: url(img/types-vs-tests/vic.svg)
 
 ---
 class: center, middle
@@ -278,68 +301,173 @@ class: center, middle
 # The smaller VIC is, the more constrained is f
 
 ---
-background-image: url(img/VIC-1.jpg)
+background-image: url(img/types-vs-tests/vic-of-1.svg)
 
-.center[
 # VIC(f) = 1
+
+---
+background-image: url(img/types-vs-tests/vic-1.svg)
+
+---
+background-image: url(img/types-vs-tests/vic-2.svg)
+
+---
+background-image: url(img/types-vs-tests/function-cardinality-1.svg)
+
+# Function is a mapping
+
+---
+# |A => B|
+
+.thirty-seven-left[
+<br><br><br><br><br>
+```scala
+|{x} => B| = 5
+```
 ]
 
----
-class: middle
-
-.forty-seven-left[.center[
-<br><br>
-# VIC(f: A => B) =
-]]
-
-.fifty-two-right[.center[
-# .hl[number of impl]<br>-<br>impl invalid by tests
+.sixty-two-right[.center[
+<img src="img/types-vs-tests/function-cardinality-2.svg" alt="Function cardinality" style="width:600px;"/>
 ]]
 
 ---
-class: center, middle
-
-# VIC(f) = .hl[number of impl]  - impl invalid because of tests
-
----
-class: center, middle
-
-# VIC(f: A => B) = .hl[number of impl]  - impl invalid by tests
-
----
-class: center, middle
-
-# VIC(f: A => B) = .hl[|A => B|]  - impl invalid by tests
-
----
-background-image: url(img/function.jpg)
-
-# Function is a mapping
-
----
-background-image: url(img/function-mapping-1.jpg)
-
-# Function is a mapping
-
----
-background-image: url(img/count-A-to-B-1.jpg)
-
 # |A => B|
 
----
-background-image: url(img/count-A-to-B-2.jpg)
+.thirty-seven-left[
+<br><br><br><br><br>
+```scala
+|{x} => B| = |B|
+```
+]
 
+.sixty-two-right[.center[
+<img src="img/types-vs-tests/function-cardinality-2.svg" alt="Function cardinality" style="width:600px;"/>
+]]
+
+---
 # |A => B|
 
----
-background-image: url(img/count-A-to-B-3.jpg)
+.thirty-seven-left[
+<br><br><br><br><br>
+```scala
+|{x, y} => B| = ???
+```
+]
 
+.sixty-two-right[.center[
+<img src="img/types-vs-tests/function-cardinality-3.svg" alt="Function cardinality" style="width:600px;"/>
+]]
+
+---
 # |A => B|
 
----
-background-image: url(img/count-A-to-B-4.jpg)
+.thirty-seven-left[
+<br><br><br><br><br>
+```scala
+|{x, y} => B| =
+  |{x} => B| + // y -> a
+  |{x} => B| + // y -> b
+  |{x} => B| + // y -> c
+  |{x} => B| + // y -> d
+  |{x} => B| + // y -> e
+```
+]
 
+.sixty-two-right[.center[
+<img src="img/types-vs-tests/function-cardinality-4.svg" alt="Function cardinality" style="width:600px;"/>
+]]
+
+---
 # |A => B|
+
+.thirty-seven-left[
+<br><br><br><br><br>
+```scala
+|{x, y} => B| =
+  |B| + // y -> a
+  |B| + // y -> b
+  |B| + // y -> c
+  |B| + // y -> d
+  |B| + // y -> e
+```
+]
+
+.sixty-two-right[.center[
+<img src="img/types-vs-tests/function-cardinality-4.svg" alt="Function cardinality" style="width:600px;"/>
+]]
+
+---
+# |A => B|
+
+.thirty-seven-left[
+<br><br><br><br><br>
+```scala
+|{x, y} => B| = 5 * |B|
+```
+]
+
+.sixty-two-right[.center[
+<img src="img/types-vs-tests/function-cardinality-4.svg" alt="Function cardinality" style="width:600px;"/>
+]]
+
+---
+# |A => B|
+
+.thirty-seven-left[
+<br><br><br><br><br>
+```scala
+|{x, y} => B| = |B| * |B|
+```
+]
+
+.sixty-two-right[.center[
+<img src="img/types-vs-tests/function-cardinality-4.svg" alt="Function cardinality" style="width:600px;"/>
+]]
+
+---
+# |A => B|
+
+.thirty-seven-left[
+<br><br><br><br><br>
+```scala
+|{x, y} => B| = |B| ^ 2
+```
+]
+
+.sixty-two-right[.center[
+<img src="img/types-vs-tests/function-cardinality-4.svg" alt="Function cardinality" style="width:600px;"/>
+]]
+
+---
+# |A => B|
+
+.thirty-seven-left[
+<br><br><br><br><br>
+```scala
+|A => B| = |B| ^ |A|
+```
+]
+
+.sixty-two-right[.center[
+<img src="img/types-vs-tests/function-cardinality-5.svg" alt="Function cardinality" style="width:600px;"/>
+]]
+
+---
+# Curry–Howard correspondence
+
+<br>
+<br>
+
+.center[
+| Type        | Algebra   | Logic |
+|:-----------:| :--------:|:-----:|
+|Nothing      | 0         | ⊥     |
+|Unit         | 1         | ⊤     |
+|Either[A, B] | A + B     | A ∨ B |
+|(A, B)       | A * B     | A ∧ B |
+| A => B      | B ^ A     | A → B |
+| Isomorphism | A == B    | A ⇔ B |
+]
 
 ---
 class: center, middle
@@ -368,19 +496,16 @@ class: center, middle
 ---
 # Small Types
 
-```scala
-sealed trait DayOfWeek
+<br><br>
 
-case object Monday  extends DayOfWeek
-case object Tuesday extends DayOfWeek
-// ...
-case object Sunday  extends DayOfWeek
+
+```scala
+enum DayOfWeek {
+  case Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday
+}
 ```
 
---
-
 <br>
-
 ```scala
 |DayOfWeek => Boolean| = |Boolean| ^ |DayOfWeek|
                        = 2 ^ 7
@@ -388,52 +513,120 @@ case object Sunday  extends DayOfWeek
 ```
 
 ---
-class: center, middle
+class: middle
 
-# VIC(f: A => B) = number of impl - <span style="color:blue">**impl invalid by tests**</span>
+.forty-two-left[.center[
+<br><br><br><br>
+# VIC(f: A => B) =
+]]
+
+.fifty-seven-left[.center[
+# number of possible implementations<br>-<br>.hl[implementations made invalid because of tests]
+]]
 
 ---
-background-image: url(img/day-week-to-boolean-1.jpg)
+background-image: url(img/types-vs-tests/unit-test-impact-1.svg)
 
 # How much a single unit test impacts VIC?
 
 ---
-background-image: url(img/day-week-to-boolean-2.jpg)
+# Unit test impact on VIC
 
-# How much a single unit test impacts VIC?
-
----
-# Unit Test
+<br><br>
 
 ```scala
-val f: DayOfWeek => Boolean = ???
+def someFunction(day: DayOfWeek): Boolean =
+  ???
 ```
 
-such as
+## such as
 
 ```scala
-assert(f(Tuesday) == false)
+assert(someFunction(Wednesday) == false)
 ```
 
 ---
-background-image: url(img/count-day-week-to-boolean-1.jpg)
+# Unit test impact on VIC
 
-# Unit Test
+.forty-two-left[
+<br><br><br><br>
+```scala
+VIC(someFunction and 1 unit test) =
+  ...
+```
+]
+
+.fifty-seven-right[.center[
+<img src="img/types-vs-tests/day-of-week-to-boolean-1.svg" alt="Unit test impact" style="width:500px;"/>
+]]
 
 ---
-background-image: url(img/count-day-week-to-boolean-2.jpg)
+# Unit test impact on VIC
 
-# Unit Test
+.forty-two-left[
+<br><br><br><br>
+```scala
+VIC(someFunction and 1 unit test) =
+  2 * ...
+```
+]
+
+.fifty-seven-right[.center[
+<img src="img/types-vs-tests/day-of-week-to-boolean-2.svg" alt="Unit test impact" style="width:500px;"/>
+]]
 
 ---
-background-image: url(img/count-day-week-to-boolean-3.jpg)
+# Unit test impact on VIC
 
-# Unit Test
+.forty-two-left[
+<br><br><br><br>
+```scala
+VIC(someFunction and 1 unit test) =
+  2 * 2 * ...
+```
+]
+
+.fifty-seven-right[.center[
+<img src="img/types-vs-tests/day-of-week-to-boolean-3.svg" alt="Unit test impact" style="width:500px;"/>
+]]
 
 ---
-background-image: url(img/count-day-week-to-boolean-4.jpg)
+# Unit test impact on VIC
 
-# Unit Test
+.forty-two-left[
+<br><br><br><br>
+```scala
+VIC(someFunction and 1 unit test) =
+  2 * 2 * 1 * ...
+```
+
+<br>
+
+```scala
+assert(
+  someFunction(Wednesday) == false
+)
+```
+]
+
+.fifty-seven-right[.center[
+<img src="img/types-vs-tests/day-of-week-to-boolean-4.svg" alt="Unit test impact" style="width:500px;"/>
+]]
+
+---
+# Unit test impact on VIC
+
+.forty-two-left[
+<br><br><br><br>
+```scala
+VIC(someFunction and 1 unit test) =
+  2 * 2 * 1 * 2 * ...
+```
+]
+
+.fifty-seven-right[.center[
+<img src="img/types-vs-tests/day-of-week-to-boolean-5.svg" alt="Unit test impact" style="width:500px;"/>
+]]
 
 ---
 # Unit Test
@@ -454,15 +647,16 @@ background-image: url(img/count-day-week-to-boolean-4.jpg)
 ---
 class: center, middle
 
-# `|A|` unit tests are required to have `VIC(f) = 1`
+# |Input| unit tests are required to have VIC = 1
 
 ---
 class: center, middle
 
-# Every unit test divides VIC by |B|
+# Every unit test divides VIC by |Output|
 
 ---
-# One Unit Test
+<br><br>
+# One unit test
 
 .center[
 ```scala
@@ -473,7 +667,7 @@ VIC(f: A => B) = |B| ^ |A| / |B|
 
 --
 
-# Two Unit Tests
+# Two unit tests
 
 .center[
 ```scala
@@ -500,22 +694,17 @@ VIC(increment) = |B| ^ (|A| - n)
 ```
 
 ---
+# Exponential sucks
+
+.center[
+<img src="img/screenshot/complexity.png" alt="Function complexity" style="width:500px;"/>
+]
+
+---
 class: center, middle
 
 # Logarithmic Valid Implementation Count (LVIC)
 
----
-class: center, middle
-
-# `LVIC(f) = Log_2 VIC(f)`
-
----
-class: center, middle
-
-```scala
-LVIC(f: A => B) = Log_2 (|B| ^ (|A| - n))
-              = (|A| - n) * Log_2 |B|
-```
 
 ---
 class: center, middle
@@ -528,26 +717,31 @@ LVIC(increment) = (|A| - n) * Log_2 |B|
 ```
 
 ---
-# Review
+# Example
 
-.middle[
-## 1. `A => B` is set of implementations
+<br><br>
 
-## 2. VIC and LVIC measure how constrained a function is
+```scala
+def getDialCode(country: String): Int = ???
+```
 
-## 3. `VIC(f: A => B) = |B| ^ (|A| - n)`
+## such as
 
-## 4. VIC is reduced by using smaller types or more tests
-]
+```scala
+assert(getDialCode("United Kingdom") == 44)
+assert(getDialCode("France")         == 33)
+```
 
 ---
-# Example: dialCode
+# Example
+
+<br><br>
 
 ```scala
 def getDialCode(country: String): Option[Int] = ???
 ```
 
-such as
+## such as
 
 ```scala
 assert(getDialCode("United Kingdom") == Some(44))
@@ -555,47 +749,27 @@ assert(getDialCode("France")         == Some(33))
 assert(getDialCode("foo")            == None)
 ```
 
---
-
-```scala
-LVIC(getDialCode) = (|A| - n) * log_2 |B|
-```
-
 ---
+# Example
 
-# Example: dialCode
+<br><br>
 
 ```scala
 def getDialCode(country: String): Option[Int] = ???
-```
-
-such as
-
-```scala
-assert(getDialCode("United Kingdom") == Some(44))
-assert(getDialCode("France")         == Some(33))
-assert(getDialCode("foo")            == None)
 ```
 
 ```scala
 LVIC(getDialCode) = (|A| - n) * log_2 |B|
                   = (|String| - 3) * log_2 |Option[Int]|
-                  = (|String| - 3) * log_2 (|Int| + 1)
 ```
 
 ---
-# Example: dialCode
+# Example
+
+<br><br>
 
 ```scala
 def getDialCode(country: String): Option[Int] = ???
-```
-
-such as
-
-```scala
-assert(getDialCode("United Kingdom") == Some(44))
-assert(getDialCode("France")         == Some(33))
-assert(getDialCode("foo")            == None)
 ```
 
 ```scala
@@ -606,62 +780,75 @@ LVIC(getDialCode) = (|A| - n) * log_2 |B|
                   =~ |String| * 32
 ```
 
+--
+
+.center[
+## Unit tests have a negligible impact on VIC
+]
+
 ---
-# Reduce VIC => Reduce Types
+# More precise types
+
+<br><br>
 
 ```scala
-sealed trait Country //  |Country| = 50 //  |Country| = 50
-
-case object UnitedKingdom extends Country
-case object France        extends Country
-case object Italy         extends Country
-case object Belgium       extends Country
-// ...
-case object China         extends Country
+enum Country { //  |Country| = 50
+  case UnitedKingdom, France, Italy, Belgium, ... China
+}
 ```
 
 --
 
+.forty-seven-left[
 ```scala
-def getDialCode_v2(country: Country): Int = ???
+def getDialCode(country: Country): Int =
+  ???
 
-def parseCountry(x: String): Option[Country] = ???
-```
 
---
-
-```scala
 assert(getDialCode_v2(UnitedKingdom) == 44)
 assert(getDialCode_v2(France)        == 33)
+```
+]
 
-assert(parseCountry("United Kingdom") == Some(UnitedKingdom))
-assert(parseCountry("France")         == Some(France))
-assert(parseCountry("foo")            == None)
+--
+
+.forty-seven-right[
+```scala
+def parseCountry(x: String): Option[Country] =
+  ???
+
+assert(
+  parseCountry("France") == Some(France)
+)
+assert(
+  parseCountry("foo") == None
+)
+```
+]
+
+---
+# More precise types
+
+```scala
+def getDialCode(country: Country): Int = ???
+```
+
+```scala
+LVIC(getDialCode) = (|Country| - 2) * log_2 |Int|
 ```
 
 ---
-# Reduce VIC => Reduce Types
+# More precise types
 
 ```scala
-def getDialCode_v2(country: Country): Int = ???
+def getDialCode(country: Country): Int = ???
 ```
 
 ```scala
-LVIC(getDialCode_v2) = (|Country| - 2) * log_2 |Int|
-```
-
----
-# Reduce VIC => Reduce Types
-
-```scala
-def getDialCode_v2(country: Country): Int = ???
-```
-
-```scala
-LVIC(getDialCode_v2) = (|Country| - 2) * log_2 |Int|
-                     = (50 - 2) * log_2 2 ^ 32
-                     = 48 * 32
-                     = 1536
+LVIC(getDialCode) = (|Country| - 2) * log_2 |Int|
+                  = (50 - 2) * log_2 2 ^ 32
+                  = 48 * 32
+                  = 1536
 ```
 
 --
@@ -684,9 +871,19 @@ LVIC(parseCountry) =  (|String| - n) * log_2 |Option[Country]|
 ### Using Country reduced LVIC by a factor of 5!
 
 ---
+background-image: url(img/types-vs-tests/getDialCode-1.svg)
+
+
+---
+background-image: url(img/types-vs-tests/getDialCode-2.svg)
+
+---
+background-image: url(img/types-vs-tests/json-json.svg)
+
+---
 # Conclusions
 
---
+<br>
 
 ## 1. VIC combines both types and unit tests in a single metric
 
@@ -700,7 +897,11 @@ LVIC(parseCountry) =  (|String| - n) * log_2 |Option[Country]|
 
 --
 
-## 4. If we only have basic types and unit tests, we cannot hope to write correct programs
+## 4. Use small enum instead of Int or String when possible
+
+--
+
+## 5. If we only have basic types and unit tests, we cannot hope to write correct programs
 
 ---
 
@@ -1077,16 +1278,13 @@ class: center, middle
 ]
 
 ---
-class: center, middle
+class: middle, center
 
-# Thanks!
-Code and slides at `julien-truffaut/types-vs-tests` on GitHub
+background-image: url(img/fp-tower/website-background.svg)
 
-## Questions?
 
-<br>
-
-Special thanks to Cesar Tron-Lozai and Maxim Ivanov
+# .white[Thanks!]
+.white[Slides available on GitHub at `fp-tower/types-vs-tests`]
 
 ---
 
@@ -1112,6 +1310,8 @@ background-image: url(img/types-4.jpg)
         var slideshow = remark.create({
             ratio: "16:9",
             slideNumberFormat: '%current%',
+            highlightLines: true,
+            highlightSpans: true,
         });
     </script>
   </body>

@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 670 433" width="670" height="433">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns:xl="http://www.w3.org/1999/xlink" viewBox="0 0 670 433" width="670" height="433">
   <defs>
     <font-face font-family="Helvetica Neue" font-size="24" panose-1="2 0 8 3 0 0 0 9 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="975.0061" descent="-216.99524" font-weight="700">
       <font-face-src>
         <font-face-name name="HelveticaNeue-Bold"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Helvetica Neue" font-size="12" panose-1="2 0 8 3 0 0 0 9 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="975.0061" descent="-216.99524" font-weight="700">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue-Bold"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Helvetica Neue" font-size="24" panose-1="2 11 6 4 2 2 2 2 2 4" units-per-em="1000" underline-position="-75" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="975.0061" descent="-216.99524" font-weight="500">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue-Medium"/>
       </font-face-src>
     </font-face>
     <font-face font-family="Times" font-size="24" panose-1="0 0 8 0 0 0 0 2 0 0" units-per-em="1000" underline-position="-66.40625" underline-thickness="67.87109" slope="0" x-height="460.4492" cap-height="675.78125" ascent="750" descent="-250" font-weight="700">
@@ -28,8 +38,8 @@
       </font-face-src>
     </font-face>
   </defs>
-  <metadata> Produced by OmniGraffle 7.17.3\n2020-08-23 19:50:13 +0000</metadata>
-  <g id="cardinality-io-unit" fill="none" stroke="none" stroke-opacity="1" stroke-dasharray="none" fill-opacity="1">
+  <metadata> Produced by OmniGraffle 7.17.4\n2020-09-06 19:55:27 +0000</metadata>
+  <g id="cardinality-io-unit" stroke="none" fill="none" fill-opacity="1" stroke-opacity="1" stroke-dasharray="none">
     <title>cardinality-io-unit</title>
     <g id="cardinality-io-unit_Layer_1">
       <title>Layer 1</title>
@@ -38,8 +48,17 @@
         <path d="M 461.37094 109.35697 C 542.2098 183.166 542.2098 302.834 461.37094 376.64303 C 380.53247 450.45245 249.46753 450.45245 168.62906 376.64303 C 87.79018 302.834 87.79018 183.166 168.62906 109.35697 C 249.46753 35.54755 380.53247 35.54755 461.37094 109.35697" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Graphic_113">
-        <text transform="translate(266 14)" fill="#589b9d">
-          <tspan font-family="Helvetica Neue" font-size="24" font-weight="700" fill="#589b9d" x="7105427e-20" y="23">|IO[Unit]| = </tspan>
+        <text transform="translate(260.216 14)" fill="#589b9d">
+          <tspan font-family="Helvetica Neue" font-size="24" font-weight="700" fill="#589b9d" x="0" y="23">|</tspan>
+          <tspan font-family="Helvetica Neue" font-size="12" font-weight="700" fill="#589b9d" y="23"> </tspan>
+          <tspan font-family="Helvetica Neue" font-size="24" font-weight="700" fill="#589b9d" y="23">IO</tspan>
+          <tspan font-family="Helvetica Neue" font-size="24" font-weight="500" fill="#589b9d" y="23">[</tspan>
+          <tspan font-family="Helvetica Neue" font-size="12" font-weight="700" fill="#589b9d" y="23"> </tspan>
+          <tspan font-family="Helvetica Neue" font-size="24" font-weight="700" fill="#589b9d" y="23">Unit</tspan>
+          <tspan font-family="Helvetica Neue" font-size="12" font-weight="700" fill="#589b9d" y="23"> </tspan>
+          <tspan font-family="Helvetica Neue" font-size="24" font-weight="500" fill="#589b9d" y="23">]</tspan>
+          <tspan font-family="Helvetica Neue" font-size="12" font-weight="700" fill="#589b9d" y="23"> </tspan>
+          <tspan font-family="Helvetica Neue" font-size="24" font-weight="700" fill="#589b9d" y="23">| = </tspan>
           <tspan font-family="Times" font-size="24" font-weight="700" fill="#589b9d" y="23">∞</tspan>
         </text>
       </g>

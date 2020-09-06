@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 667 379" width="667" height="379">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns:xl="http://www.w3.org/1999/xlink" viewBox="0 0 667 379" width="667" height="379">
   <defs>
     <font-face font-family="Helvetica Neue" font-size="16" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.9958" descent="-212.99744" font-weight="400">
       <font-face-src>
@@ -8,6 +8,11 @@
       </font-face-src>
     </font-face>
     <font-face font-family="Helvetica Neue" font-size="24" panose-1="2 0 8 3 0 0 0 9 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="975.0061" descent="-216.99524" font-weight="700">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue-Bold"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Helvetica Neue" font-size="12" panose-1="2 0 8 3 0 0 0 9 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="975.0061" descent="-216.99524" font-weight="700">
       <font-face-src>
         <font-face-name name="HelveticaNeue-Bold"/>
       </font-face-src>
@@ -28,8 +33,8 @@
       </g>
     </marker>
   </defs>
-  <metadata> Produced by OmniGraffle 7.17.3\n2020-08-23 19:50:13 +0000</metadata>
-  <g id="cardinality-2" fill="none" stroke="none" stroke-opacity="1" stroke-dasharray="none" fill-opacity="1">
+  <metadata> Produced by OmniGraffle 7.17.4\n2020-09-06 19:55:27 +0000</metadata>
+  <g id="cardinality-2" stroke="none" fill="none" fill-opacity="1" stroke-opacity="1" stroke-dasharray="none">
     <title>cardinality-2</title>
     <g id="cardinality-2_Layer_1">
       <title>Layer 1</title>
@@ -77,13 +82,21 @@
         </text>
       </g>
       <g id="Graphic_112">
-        <text transform="translate(69.104 86)" fill="#589b9d">
-          <tspan font-family="Helvetica Neue" font-size="24" font-weight="700" fill="#589b9d" x="0" y="23">|Boolean| = 2</tspan>
+        <text transform="translate(65.768 86)" fill="#589b9d">
+          <tspan font-family="Helvetica Neue" font-size="24" font-weight="700" fill="#589b9d" x="32684966e-20" y="23">|</tspan>
+          <tspan font-family="Helvetica Neue" font-size="12" font-weight="700" fill="#589b9d" y="23"> </tspan>
+          <tspan font-family="Helvetica Neue" font-size="24" font-weight="700" fill="#589b9d" y="23">Boolean</tspan>
+          <tspan font-family="Helvetica Neue" font-size="12" font-weight="700" fill="#589b9d" y="23"> </tspan>
+          <tspan font-family="Helvetica Neue" font-size="24" font-weight="700" fill="#589b9d" y="23">| = 2</tspan>
         </text>
       </g>
       <g id="Graphic_113">
-        <text transform="translate(485.008 13.5)" fill="#599a9e">
-          <tspan font-family="Helvetica Neue" font-size="24" font-weight="700" fill="#599a9e" x="0" y="24">|Int| = 2^</tspan>
+        <text transform="translate(481.672 13.5)" fill="#599a9e">
+          <tspan font-family="Helvetica Neue" font-size="24" font-weight="700" fill="#599a9e" x="5400125e-19" y="24">|</tspan>
+          <tspan font-family="Helvetica Neue" font-size="12" font-weight="700" fill="#589b9d" y="24"> </tspan>
+          <tspan font-family="Helvetica Neue" font-size="24" font-weight="700" fill="#599a9e" y="24">Int</tspan>
+          <tspan font-family="Helvetica Neue" font-size="12" font-weight="700" fill="#589b9d" y="24"> </tspan>
+          <tspan font-family="Helvetica Neue" font-size="24" font-weight="700" fill="#599a9e" y="24">| = 2^</tspan>
           <tspan font-family="Helvetica Neue" font-size="16" font-weight="700" fill="#599a9e" y="16">32</tspan>
         </text>
       </g>
@@ -141,12 +154,12 @@
         <path d="M 580.5 234 L 603 256.5 L 580.5 279 L 558 256.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Graphic_126">
-        <text transform="translate(115.441 14)" fill="#424242">
+        <text transform="translate(118.59091 16.84091)" fill="#424242">
           <tspan font-family="Helvetica Neue" font-size="22" font-weight="700" fill="#424242" x="5186962e-19" y="21">Cardinality</tspan>
         </text>
       </g>
       <g id="Line_125">
-        <line x1="171.45295" y1="45.638153" x2="171.10108" y2="80.10052" marker-end="url(#FilledArrow_Marker)" stroke="#424242" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4.0,4.0" stroke-width="1"/>
+        <line x1="174.81442" y1="48.47906" x2="174.84848" y2="73.94092" marker-end="url(#FilledArrow_Marker)" stroke="#424242" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4.0,4.0" stroke-width="1"/>
       </g>
     </g>
   </g>
