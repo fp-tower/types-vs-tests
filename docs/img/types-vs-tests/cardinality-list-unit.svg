@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns:xl="http://www.w3.org/1999/xlink" viewBox="0 0 343 379" width="343" height="379">
+  <defs>
+    <font-face font-family="Helvetica Neue" font-size="16" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.9958" descent="-212.99744" font-weight="400">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Helvetica Neue" font-size="24" panose-1="2 0 8 3 0 0 0 9 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="975.0061" descent="-216.99524" font-weight="700">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue-Bold"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Helvetica Neue" font-size="12" panose-1="2 0 8 3 0 0 0 9 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="975.0061" descent="-216.99524" font-weight="700">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue-Bold"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Helvetica Neue" font-size="24" panose-1="2 11 6 4 2 2 2 2 2 4" units-per-em="1000" underline-position="-75" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="975.0061" descent="-216.99524" font-weight="500">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue-Medium"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Times" font-size="24" panose-1="0 0 8 0 0 0 0 2 0 0" units-per-em="1000" underline-position="-66.40625" underline-thickness="67.87109" slope="0" x-height="460.4492" cap-height="675.78125" ascent="750" descent="-250" font-weight="700">
+      <font-face-src>
+        <font-face-name name="Times-Bold"/>
+      </font-face-src>
+    </font-face>
+  </defs>
+  <metadata> Produced by OmniGraffle 7.17.4\n2020-09-06 19:55:27 +0000</metadata>
+  <g id="cardinality-list-unit" stroke="none" fill="none" fill-opacity="1" stroke-opacity="1" stroke-dasharray="none">
+    <title>cardinality-list-unit</title>
+    <g id="cardinality-list-unit_Layer_1">
+      <title>Layer 1</title>
+      <g id="Graphic_99">
+        <circle cx="180" cy="216" r="162.000258860107" fill="#599a9e"/>
+        <circle cx="180" cy="216" r="162.000258860107" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_102">
+        <path d="M 189 99 L 225 135 L 189 171 L 153 135 Z" fill="#70a3d8"/>
+        <path d="M 189 99 L 225 135 L 189 171 L 153 135 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(167.72 125.056)" fill="white">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="white" x="12.672" y="15">Nil</tspan>
+        </text>
+      </g>
+      <g id="Graphic_114">
+        <path d="M 94.5 126 L 135 162 L 94.5 198 L 54 162 Z" fill="#70a3d8"/>
+        <path d="M 94.5 126 L 135 162 L 94.5 198 L 54 162 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(69.935 152.056)" fill="white">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="white" x="3.007" y="15">() :: Nil</tspan>
+        </text>
+      </g>
+      <g id="Graphic_115">
+        <path d="M 94.5 225 L 153 261 L 94.5 297 L 36 261 Z" fill="#70a3d8"/>
+        <path d="M 94.5 225 L 153 261 L 94.5 297 L 36 261 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(56.795 251.056)" fill="white">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="white" x="3.467" y="15">() :: () :: Nil</tspan>
+        </text>
+      </g>
+      <g id="Graphic_116">
+        <path d="M 252 252 L 324 288 L 252 324 L 180 288 Z" fill="#70a3d8"/>
+        <path d="M 252 252 L 324 288 L 252 324 L 180 288 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(204.44 278.056)" fill="white">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="white" x=".552" y="15">() :: () :: () :: Nil</tspan>
+        </text>
+      </g>
+      <g id="Graphic_117">
+        <path d="M 157.5 279 L 180 301.5 L 157.5 324 L 135 301.5 Z" fill="#70a3d8"/>
+        <path d="M 157.5 279 L 180 301.5 L 157.5 324 L 135 301.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_118">
+        <path d="M 238.5 72 L 261 94.5 L 238.5 117 L 216 94.5 Z" fill="#70a3d8"/>
+        <path d="M 238.5 72 L 261 94.5 L 238.5 117 L 216 94.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_119">
+        <path d="M 139.5 90 L 162 112.5 L 139.5 135 L 117 112.5 Z" fill="#70a3d8"/>
+        <path d="M 139.5 90 L 162 112.5 L 139.5 135 L 117 112.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_120">
+        <path d="M 148.5 171 L 171 193.5 L 148.5 216 L 126 193.5 Z" fill="#70a3d8"/>
+        <path d="M 148.5 171 L 171 193.5 L 148.5 216 L 126 193.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_121">
+        <path d="M 220.5 171 L 243 193.5 L 220.5 216 L 198 193.5 Z" fill="#70a3d8"/>
+        <path d="M 220.5 171 L 243 193.5 L 220.5 216 L 198 193.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_122">
+        <path d="M 193.5 315 L 216 337.5 L 193.5 360 L 171 337.5 Z" fill="#70a3d8"/>
+        <path d="M 193.5 315 L 216 337.5 L 193.5 360 L 171 337.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_123">
+        <path d="M 103.5 297 L 126 319.5 L 103.5 342 L 81 319.5 Z" fill="#70a3d8"/>
+        <path d="M 103.5 297 L 126 319.5 L 103.5 342 L 81 319.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_125">
+        <text transform="translate(99.212 14)" fill="#589b9d">
+          <tspan font-family="Helvetica Neue" font-size="24" font-weight="700" fill="#589b9d" x="5400125e-19" y="23">|</tspan>
+          <tspan font-family="Helvetica Neue" font-size="12" font-weight="700" fill="#589b9d" y="23"> </tspan>
+          <tspan font-family="Helvetica Neue" font-size="24" font-weight="700" fill="#589b9d" y="23">List</tspan>
+          <tspan font-family="Helvetica Neue" font-size="24" font-weight="500" fill="#589b9d" y="23">[</tspan>
+          <tspan font-family="Helvetica Neue" font-size="12" font-weight="700" fill="#589b9d" y="23"> </tspan>
+          <tspan font-family="Helvetica Neue" font-size="24" font-weight="700" fill="#589b9d" y="23">Unit</tspan>
+          <tspan font-family="Helvetica Neue" font-size="12" font-weight="700" fill="#589b9d" y="23"> </tspan>
+          <tspan font-family="Helvetica Neue" font-size="24" font-weight="500" fill="#589b9d" y="23">]</tspan>
+          <tspan font-family="Helvetica Neue" font-size="12" font-weight="700" fill="#589b9d" y="23"> </tspan>
+          <tspan font-family="Helvetica Neue" font-size="24" font-weight="700" fill="#589b9d" y="23">| = </tspan>
+          <tspan font-family="Times" font-size="24" font-weight="700" fill="#589b9d" y="23">∞</tspan>
+        </text>
+      </g>
+      <g id="Graphic_126">
+        <path d="M 184.5 216 L 207 238.5 L 184.5 261 L 162 238.5 Z" fill="#70a3d8"/>
+        <path d="M 184.5 216 L 207 238.5 L 184.5 261 L 162 238.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_127">
+        <path d="M 283.5 135 L 306 157.5 L 283.5 180 L 261 157.5 Z" fill="#70a3d8"/>
+        <path d="M 283.5 135 L 306 157.5 L 283.5 180 L 261 157.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_128">
+        <path d="M 301.5 198 L 324 220.5 L 301.5 243 L 279 220.5 Z" fill="#70a3d8"/>
+        <path d="M 301.5 198 L 324 220.5 L 301.5 243 L 279 220.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_129">
+        <path d="M 49.5 180 L 72 202.5 L 49.5 225 L 27 202.5 Z" fill="#70a3d8"/>
+        <path d="M 49.5 180 L 72 202.5 L 49.5 225 L 27 202.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>

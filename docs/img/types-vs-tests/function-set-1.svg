@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns:xl="http://www.w3.org/1999/xlink" viewBox="0 0 684 396" width="684" height="396">
+  <defs>
+    <font-face font-family="Helvetica Neue" font-size="24" panose-1="2 0 8 3 0 0 0 9 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="975.0061" descent="-216.99524" font-weight="700">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue-Bold"/>
+      </font-face-src>
+    </font-face>
+  </defs>
+  <metadata> Produced by OmniGraffle 7.17.4\n2020-09-06 19:55:27 +0000</metadata>
+  <g id="function-set-1" stroke="none" fill="none" fill-opacity="1" stroke-opacity="1" stroke-dasharray="none">
+    <title>function-set-1</title>
+    <g id="function-set-1_Layer_1">
+      <title>Layer 1</title>
+      <g id="Graphic_165"/>
+      <g id="Graphic_99">
+        <circle cx="333" cy="225" r="162.000258860107" fill="#589b9d"/>
+        <circle cx="333" cy="225" r="162.000258860107" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_113">
+        <text transform="translate(302 23)" fill="#599a9e">
+          <tspan font-family="Helvetica Neue" font-size="24" font-weight="700" fill="#599a9e" x="0" y="23">A =&gt; B</tspan>
+        </text>
+      </g>
+      <g id="Graphic_119">
+        <path d="M 283.5 99 L 297 112.5 L 283.5 126 L 270 112.5 Z" fill="#8db2dc"/>
+        <path d="M 283.5 99 L 297 112.5 L 283.5 126 L 270 112.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_137">
+        <path d="M 229.5 144 L 243 157.5 L 229.5 171 L 216 157.5 Z" fill="#8db2dc"/>
+        <path d="M 229.5 144 L 243 157.5 L 229.5 171 L 216 157.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_138">
+        <path d="M 346.5 90 L 360 103.5 L 346.5 117 L 333 103.5 Z" fill="#8db2dc"/>
+        <path d="M 346.5 90 L 360 103.5 L 346.5 117 L 333 103.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_139">
+        <path d="M 301.5 189 L 315 202.5 L 301.5 216 L 288 202.5 Z" fill="#8db2dc"/>
+        <path d="M 301.5 189 L 315 202.5 L 301.5 216 L 288 202.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_140">
+        <path d="M 238.5 207 L 252 220.5 L 238.5 234 L 225 220.5 Z" fill="#8db2dc"/>
+        <path d="M 238.5 207 L 252 220.5 L 238.5 234 L 225 220.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_141">
+        <path d="M 328.5 144 L 342 157.5 L 328.5 171 L 315 157.5 Z" fill="#8db2dc"/>
+        <path d="M 328.5 144 L 342 157.5 L 328.5 171 L 315 157.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_142">
+        <path d="M 292.5 153 L 306 166.5 L 292.5 180 L 279 166.5 Z" fill="#8db2dc"/>
+        <path d="M 292.5 153 L 306 166.5 L 292.5 180 L 279 166.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_143">
+        <path d="M 301.5 270 L 315 283.5 L 301.5 297 L 288 283.5 Z" fill="#8db2dc"/>
+        <path d="M 301.5 270 L 315 283.5 L 301.5 297 L 288 283.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_144">
+        <path d="M 355.5 171 L 369 184.5 L 355.5 198 L 342 184.5 Z" fill="#8db2dc"/>
+        <path d="M 355.5 171 L 369 184.5 L 355.5 198 L 342 184.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_145">
+        <path d="M 211.5 279 L 225 292.5 L 211.5 306 L 198 292.5 Z" fill="#8db2dc"/>
+        <path d="M 211.5 279 L 225 292.5 L 211.5 306 L 198 292.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_146">
+        <path d="M 373.5 189 L 387 202.5 L 373.5 216 L 360 202.5 Z" fill="#8db2dc"/>
+        <path d="M 373.5 189 L 387 202.5 L 373.5 216 L 360 202.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_147">
+        <path d="M 409.5 153 L 423 166.5 L 409.5 180 L 396 166.5 Z" fill="#8db2dc"/>
+        <path d="M 409.5 153 L 423 166.5 L 409.5 180 L 396 166.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_148">
+        <path d="M 373.5 126 L 387 139.5 L 373.5 153 L 360 139.5 Z" fill="#8db2dc"/>
+        <path d="M 373.5 126 L 387 139.5 L 373.5 153 L 360 139.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_149">
+        <path d="M 400.5 261 L 414 274.5 L 400.5 288 L 387 274.5 Z" fill="#8db2dc"/>
+        <path d="M 400.5 261 L 414 274.5 L 400.5 288 L 387 274.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_150">
+        <path d="M 355.5 324 L 369 337.5 L 355.5 351 L 342 337.5 Z" fill="#8db2dc"/>
+        <path d="M 355.5 324 L 369 337.5 L 355.5 351 L 342 337.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_151">
+        <path d="M 418.5 234 L 432 247.5 L 418.5 261 L 405 247.5 Z" fill="#8db2dc"/>
+        <path d="M 418.5 234 L 432 247.5 L 418.5 261 L 405 247.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_152">
+        <path d="M 418.5 108 L 432 121.5 L 418.5 135 L 405 121.5 Z" fill="#8db2dc"/>
+        <path d="M 418.5 108 L 432 121.5 L 418.5 135 L 405 121.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_153">
+        <path d="M 445.5 207 L 459 220.5 L 445.5 234 L 432 220.5 Z" fill="#8db2dc"/>
+        <path d="M 445.5 207 L 459 220.5 L 445.5 234 L 432 220.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_154">
+        <path d="M 436.5 288 L 450 301.5 L 436.5 315 L 423 301.5 Z" fill="#8db2dc"/>
+        <path d="M 436.5 288 L 450 301.5 L 436.5 315 L 423 301.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_155">
+        <path d="M 202.5 234 L 216 247.5 L 202.5 261 L 189 247.5 Z" fill="#8db2dc"/>
+        <path d="M 202.5 234 L 216 247.5 L 202.5 261 L 189 247.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_156">
+        <path d="M 472.5 234 L 486 247.5 L 472.5 261 L 459 247.5 Z" fill="#8db2dc"/>
+        <path d="M 472.5 234 L 486 247.5 L 472.5 261 L 459 247.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_157">
+        <path d="M 463.5 162 L 477 175.5 L 463.5 189 L 450 175.5 Z" fill="#8db2dc"/>
+        <path d="M 463.5 162 L 477 175.5 L 463.5 189 L 450 175.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_158">
+        <path d="M 346.5 243 L 360 256.5 L 346.5 270 L 333 256.5 Z" fill="#8db2dc"/>
+        <path d="M 346.5 243 L 360 256.5 L 346.5 270 L 333 256.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_159">
+        <path d="M 265.5 315 L 279 328.5 L 265.5 342 L 252 328.5 Z" fill="#8db2dc"/>
+        <path d="M 265.5 315 L 279 328.5 L 265.5 342 L 252 328.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_160">
+        <path d="M 274.5 234 L 288 247.5 L 274.5 261 L 261 247.5 Z" fill="#8db2dc"/>
+        <path d="M 274.5 234 L 288 247.5 L 274.5 261 L 261 247.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_161">
+        <path d="M 310.5 225 L 324 238.5 L 310.5 252 L 297 238.5 Z" fill="#8db2dc"/>
+        <path d="M 310.5 225 L 324 238.5 L 310.5 252 L 297 238.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_162">
+        <path d="M 400.5 315 L 414 328.5 L 400.5 342 L 387 328.5 Z" fill="#8db2dc"/>
+        <path d="M 400.5 315 L 414 328.5 L 400.5 342 L 387 328.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_163">
+        <path d="M 301.5 306 L 315 319.5 L 301.5 333 L 288 319.5 Z" fill="#8db2dc"/>
+        <path d="M 301.5 306 L 315 319.5 L 301.5 333 L 288 319.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_164">
+        <path d="M 364.5 279 L 378 292.5 L 364.5 306 L 351 292.5 Z" fill="#8db2dc"/>
+        <path d="M 364.5 279 L 378 292.5 L 364.5 306 L 351 292.5 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>
