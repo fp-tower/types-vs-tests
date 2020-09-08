@@ -374,12 +374,7 @@ background-image: url(img/types-vs-tests/function-cardinality-1.svg)
 .thirty-seven-left[
 <br><br><br><br><br>
 ```scala
-|{x, y} => B| =
-  |B| + // y -> a
-  |B| + // y -> b
-  |B| + // y -> c
-  |B| + // y -> d
-  |B| + // y -> e
+|{x, y} => B| = 5 * |{x} => B|
 ```
 ]
 
@@ -422,6 +417,20 @@ background-image: url(img/types-vs-tests/function-cardinality-1.svg)
 <br><br><br><br><br>
 ```scala
 |{x, y} => B| = |B| ^ 2
+```
+]
+
+.sixty-two-right[.center[
+<img src="img/types-vs-tests/function-cardinality-4.svg" alt="Function cardinality" style="width:600px;"/>
+]]
+
+---
+# |A => B|
+
+.thirty-seven-left[
+<br><br><br><br><br>
+```scala
+|{x, y} => B| = |B| ^ |{x, y}|
 ```
 ]
 
@@ -701,10 +710,11 @@ class: center, middle
 class: center, middle
 
 ```scala
-LVIC(increment) = (|A| - n) * Log_2 |B|
-            = (2 ^ 32 - n) * 32
-          = 2 ^ 37 - 32 * n
-                 =~ 137 billions - 32 * n
+LVIC(increment) = Log_2 (|B| ^ |A|)
+                    = (|A| - n) * Log_2 |B|
+                = (2 ^ 32 - n) * 32
+              = 2 ^ 37 - 32 * n
+                     =~ 137 billions - 32 * n
 ```
 
 ---
@@ -796,8 +806,8 @@ def getDialCode(country: Country): Int =
   ???
 
 
-assert(getDialCode_v2(UnitedKingdom) == 44)
-assert(getDialCode_v2(France)        == 33)
+assert(getDialCode(UnitedKingdom) == 44)
+assert(getDialCode(France)        == 33)
 ```
 ]
 
@@ -901,8 +911,9 @@ class: center, middle
 # Advanced tests
 
 ---
-
 # Property Based Tests
+
+<br>
 
 ```scala mdoc:silent
 def isEven(x: Int): Boolean = x % 2 == 0
@@ -911,21 +922,18 @@ def isEven(x: Int): Boolean = x % 2 == 0
 --
 
 ```scala
-import org.scalatest.FreeSpec
-import org.scalatest.prop.Checkers
+class IsEvenTest extends  extends AnyFunSuite with ScalaCheckDrivenPropertyChecks {
 
-class IsEvenTest extends FreeSpec with Checkers {
-
-  "odd numbers return false" in check((x: Int) =>
-    isEven(2 * x + 1) == false
-  )
+  test("2 * x")( forAll((x: Int) =>
+    assert(isEven(2 * x) == true)
+  ))
 
 }
 ```
 
 --
 
-### VIC with odd property
+### VIC with this property
 
 ```scala
 VIC(isEven) = |Boolean| ^ (|Int| / 2)
@@ -937,21 +945,20 @@ VIC(isEven) = |Boolean| ^ (|Int| / 2)
 
 # Property Based Tests
 
+<br>
+
 ```scala
 def increment(x: Int): Int = x + 1
 ```
 
---
+<br>
 
 ```scala
-import org.scalatest.FreeSpec
-import org.scalatest.prop.Checkers
+class IncrementTest extends extends AnyFunSuite with ScalaCheckDrivenPropertyChecks {
 
-class IncrementTest extends FreeSpec with Checkers {
-
-  "increment property" in check{ (x: Int) =>
-    ???
-  }
+  test("increment property") (
+    forAll{ (x: Int) => ??? }
+  )
 
 }
 ```
@@ -976,26 +983,23 @@ class: center, middle
 ## `x == y`
 
 ---
-
 # Property Based Tests
 
+<br>
 
 ```scala
-import org.scalatest.FreeSpec
-import org.scalatest.prop.Checkers
-
-class IncrementTest extends FreeSpec with Checkers {
-
-  "increment is injective (one-to-one)" in check((x: Int, y: Int) =>
-    increment(x) != increment(y) || x == y
-  )
-
+class IncrementTest extends AnyFunSuite with ScalaCheckDrivenPropertyChecks {
+  test("increment is injective (one-to-one)") {
+    forAll((x: Int, y: Int) =>
+      assert(increment(x) != increment(y) || x == y)
+    )
+  }
 }
 ```
 
 --
 
-## VIC with injective property
+### VIC with injective property
 
 ```scala
 VIC(increment) = (2 ^ 32) * (2 ^ 32 - 1) * (2 ^ 32 - 2) * ... * 1
@@ -1012,18 +1016,18 @@ background-image: url(img/increment-mapping-2.jpg)
 # Increment Property ?
 
 ---
-
 # Property Based Tests
 
+<br>
+
 ```scala
-import org.scalatest.FreeSpec
-import org.scalatest.prop.Checkers
+class IncrementTest extends AnyFunSuite with ScalaCheckDrivenPropertyChecks {
 
-class IncrementTest extends FreeSpec with Checkers {
-
-  "∀ x - MaxInt, f(x) > x" in check((x: Int) =>
-    increment(x) > x || x == Int.MaxValue
-  )
+  test("∀ x - MaxInt, f(x) > x") {
+    forAll((x: Int) =>
+      assert(increment(x) > x || x == Int.MaxValue)
+    )
+  }
 
 }
 ```
@@ -1042,15 +1046,19 @@ VIC(increment) = (2 ^ 32 - 1) * (2 ^ 32 - 2) * ... * 1 * 2 ^ 32
 # Combine Properties
 
 ```scala
-class IncrementTest extends FreeSpec with Checkers {
+class IncrementTest extends extends AnyFunSuite with ScalaCheckDrivenPropertyChecks {
 
-  "increment is injective (one-to-one)" in check((x: Int, y: Int) =>
-    increment(x) != increment(y) || x == y
-  )
+  test("increment is injective (one-to-one)") {
+    forAll((x: Int, y: Int) =>
+      assert(increment(x) != increment(y) || x == y)
+    )
+  }
 
-  "∀ x - MaxInt, f(x) > x" in check((x: Int) =>
-    increment(x) > x || x == Int.MaxValue
-  )
+  test("∀ x - MaxInt, f(x) > x") {
+    forAll((x: Int) =>
+      assert(increment(x) > x || x == Int.MaxValue)
+    )
+  }
 
 }
 ```
@@ -1120,6 +1128,8 @@ class: center, middle
 ---
 # Parametric Polymorphism
 
+<br>
+
 ```scala mdoc:silent
 def identityInt(x: Int): Int = x
 ```
@@ -1142,6 +1152,8 @@ def identity[A](x: A): A = x
 
 ---
 # Parametric Polymorphism
+
+<br>
 
 ```scala mdoc:silent
 def mapInt(fa: Option[Int], f: Int => Int): Option[Int] = ???
@@ -1166,6 +1178,8 @@ def map[A, B](fa: Option[A], f: A => B): Option[B] = ???
 ---
 # Parametric Polymorphism
 
+<br>
+
 ```scala mdoc:reset:silent
 def map[A, B](fa: Option[A], f: A => B): Option[B] =
   fa match {
@@ -1184,18 +1198,20 @@ def map[A, B](fa: Option[A], f: A => B): Option[B] =
 
 --
 
-<br/>
-
+.forty-two-left[
 ```scala
 |map| = 2
 ```
+]
 
---
-
+.fifty-two-right[
 ### Yoneda lemma can calculate `|map|` automatically
+]
 
 ---
 # Adhoc Polymorphism
+
+<br>
 
 ```scala mdoc:silent
 def voidList(fa: List[Int]): List[Unit] = ???
@@ -1210,6 +1226,8 @@ def voidList(fa: List[Int]): List[Unit] = ???
 
 ---
 # Adhoc Polymorphism
+
+<br>
 
 ```scala mdoc:silent
 def voidList2[A](fa: List[A]): List[Unit] = ???
@@ -1236,6 +1254,7 @@ def voidList2[A](fa: List[A]): List[Unit] = fa.map(_ => ()).take(5)
 ---
 # Adhoc Polymorphism
 
+<br>
 
 ```scala mdoc:silent
 import cats.Functor
@@ -1259,6 +1278,8 @@ class: center, middle
 
 ---
 # More Advanced Types
+
+<br>
 
 .middle[
 ## GADTS / Type equalities
