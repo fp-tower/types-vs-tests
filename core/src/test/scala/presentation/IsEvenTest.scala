@@ -1,18 +1,18 @@
 package presentation
 
-import org.scalatest.prop.Checkers
-import org.scalatest.{FreeSpec, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 
-class IsEvenTest extends FreeSpec with Checkers with Matchers {
+class IsEvenTest extends AnyFunSuite with ScalaCheckDrivenPropertyChecks {
 
   def isEven(x: Int): Boolean = x % 2 == 0
 
-  "even returns true" in check((x: Int) =>
-    isEven(2 * x) == true
+  test("even returns true")(
+     forAll((x: Int) => assert(isEven(2 * x) == true))
   )
 
-  "odd returns false" in check((x: Int) =>
-    isEven(2 * x + 1) == false
+  test("odd returns false")(
+    forAll((x: Int) => assert(isEven(2 * x + 1) == false))
   )
 
 }

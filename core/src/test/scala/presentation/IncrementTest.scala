@@ -4,31 +4,33 @@ import eu.timepit.refined.W
 import eu.timepit.refined.api.Refined
 import eu.timepit.refined.numeric.Less
 import eu.timepit.refined.scalacheck.numeric._
-import org.scalatest.{FreeSpec, Matchers}
-import org.scalatest.prop.Checkers
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 
-class IncrementTest extends FreeSpec with Checkers with Matchers {
+class IncrementTest extends AnyFunSuite with ScalaCheckDrivenPropertyChecks {
 
   def increment(x: Int): Int = x + 1
 
-  "increment(x) > x" in check((x: Int) => increment(x) > x)
+  test("∀ x - MaxInt, f(x) > x") {
+    forAll((x: Int) =>
+      assert(increment(x) > x || x == Int.MaxValue)
+    )
+  }
 
   final val maxInt = Int.MaxValue
 
-  "∀ x < MaxInt, f(x) > x" in check((x: Int Refined Less[W.`maxInt`.T]) =>
-    increment(x.value) > x.value
-  )
+  test("∀ x - MaxInt, f(x) > x with refined") {
+    forAll((x: Int Refined Less[W.`maxInt`.T]) =>
+      assert(increment(x.value) > x.value)
+    )
+  }
 
-  "∀ x - MaxInt, f(x) > x" in check((x: Int) =>
-    x == Int.MaxValue || increment(x) > x
-  )
-
-  "increment(0) == 1" in {
+  test("increment(0) == 1") {
     assert(increment(0) == 1)
   }
 
-  "increment is injective (one-to-one)" in check((x: Int, y: Int) =>
-    increment(x) != increment(y) || x == y
+  test("increment is injective (one-to-one)") (
+    forAll((x: Int, y: Int) =>  increment(x) != increment(y) || x == y)
   )
 
 }

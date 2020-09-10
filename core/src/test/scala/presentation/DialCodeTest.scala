@@ -1,14 +1,14 @@
 package presentation
 
-import org.scalatest.FreeSpec
-import org.scalatest.prop.Checkers
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 
-class DialCodeTest extends FreeSpec with Checkers {
+class DialCodeTest extends AnyFunSuite with ScalaCheckDrivenPropertyChecks {
 
   import DialCode._
 
-  "round trip" ignore check((x: Country) =>
-    getCountry(getDialCode(x)) == x
+  ignore("round trip")(
+      forAll((x: Country) =>  getCountry(getDialCode(x)) == x)
   )
 
 }

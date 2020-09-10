@@ -12,7 +12,7 @@ lazy val baseSettings: Seq[Setting[_]] = Seq(
     "-Ywarn-value-discard",
   ),
   libraryDependencies ++= Seq(
-    "org.typelevel"     %% "cats-core"          % "2.1.1",
+    "org.typelevel"     %% "cats-core"          % "2.2.0",
     "eu.timepit"        %% "refined"            % "0.9.15",
     "eu.timepit"        %% "refined-scalacheck" % "0.9.15",
     "org.scalatestplus" %% "scalacheck-1-14"    % "3.1.2.0" % Test,
@@ -35,6 +35,6 @@ lazy val slides = project
   .settings(baseSettings: _*)
   .settings(
     mdocIn := baseDirectory.value / "mdoc",
-    mdocOut := baseDirectory.value / "docs",
+    mdocOut := baseDirectory.value / "../docs"
   ).dependsOn(core)
   .enablePlugins(MdocPlugin)

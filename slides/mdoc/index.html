@@ -922,7 +922,7 @@ def isEven(x: Int): Boolean = x % 2 == 0
 --
 
 ```scala
-class IsEvenTest extends  extends AnyFunSuite with ScalaCheckDrivenPropertyChecks {
+class IsEvenTest extends AnyFunSuite with ScalaCheckDrivenPropertyChecks {
 
   test("2 * x")( forAll((x: Int) =>
     assert(isEven(2 * x) == true)
@@ -954,7 +954,7 @@ def increment(x: Int): Int = x + 1
 <br>
 
 ```scala
-class IncrementTest extends extends AnyFunSuite with ScalaCheckDrivenPropertyChecks {
+class IncrementTest extends AnyFunSuite with ScalaCheckDrivenPropertyChecks {
 
   test("increment property") (
     forAll{ (x: Int) => ??? }
@@ -1046,7 +1046,7 @@ VIC(increment) = (2 ^ 32 - 1) * (2 ^ 32 - 2) * ... * 1 * 2 ^ 32
 # Combine Properties
 
 ```scala
-class IncrementTest extends extends AnyFunSuite with ScalaCheckDrivenPropertyChecks {
+class IncrementTest extends AnyFunSuite with ScalaCheckDrivenPropertyChecks {
 
   test("increment is injective (one-to-one)") {
     forAll((x: Int, y: Int) =>
